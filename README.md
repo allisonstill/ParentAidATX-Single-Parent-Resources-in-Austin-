@@ -1,6 +1,7 @@
 # cs373-spring-2025-group-17
 # Project Name: ParentAidATX
-**Support for Single Parents in Austin, Simplified.** ParentAidATX is a website that helps single parents in Austin, Texas get information on family-related government assistance, affordable nearby housing, and childcare centers.
+**Support for Single Parents in Austin, Simplified.**  
+ParentAidATX is a website that helps single parents in Austin, Texas get information on family-related government assistance, affordable nearby housing, and childcare centers.
 
 
 ## Team Members

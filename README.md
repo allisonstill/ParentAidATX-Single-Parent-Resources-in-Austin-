@@ -33,9 +33,9 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 
 #### **Attributes:**  
 - Program ID  
-- Name  
+- Program Name
+- Government Administration/Department  
 - Description  
-- Location 
 - Application Link  
 
 #### **Media:**  
@@ -59,7 +59,7 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - Reviews  
 - Style of Housing (Apartment, Condo, House)  
 #### **Media:**  
-  - Google Maps 
+  - Google Maps for location
   - Location Image
   - Text description of location, cost, and type of housing
   - User Reviews  
@@ -79,8 +79,8 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - Quality Rating  
 - Age Range of Children  
 #### **Media:**
-  - Google Maps/Location 
-  - Picture of Childcare Location  
+  - Google Maps for location 
+  - Image of Childcare Location  
   - Link to Childcare Website  
 
 #### **Connections to Other Models:**  

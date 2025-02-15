@@ -25,6 +25,71 @@
 
 - [Apartment Finder API](https://api.apartments.com/v1) - For affordable housing
 
-## Models
-1. Government Programs  
-Instances: ~50
+## Models  
+
+### 1. Government Programs  
+- **Instances:** ~50  
+
+#### **Attributes:**  
+- Program ID  
+- Name  
+- Description  
+- Location 
+- Application Link  
+
+#### **Media:**  
+  - Links
+  - Text descriptions of programs  
+  - Government department image  
+
+#### **Connections to Other Models:**  
+- **Housing:** Displays local programs based on location  
+- **Affordable Childcare:** Government programs realted to childcare  
+
+
+
+### 2. Housing  
+- **Instances:** ~1000  
+
+#### **Attributes:**  
+- Location  
+- Cost/Rate  
+- Rating  
+- Reviews  
+- Style of Housing (Apartment, Condo, House)  
+#### **Media:**  
+  - Google Maps 
+  - Location Image
+  - Text description of location, cost, and type of housing
+  - User Reviews  
+
+#### **Connections to Other Models:**  
+- **Government Programs:** Government programs pertaining to housing  
+- **Affordable Childcare:** Displays affordable housing near the location of schools/daycares  
+
+
+### 3. Affordable Childcare  
+- **Instances:** ~8000  
+
+#### **Attributes:**  
+- Name  
+- Type of Childcare (Daycare, Afterschool, etc.)  
+- Cost  
+- Quality Rating  
+- Age Range of Children  
+#### **Media:**
+  - Google Maps/Location 
+  - Picture of Childcare Location  
+  - Link to Childcare Website  
+
+#### **Connections to Other Models:**  
+- **Government Programs:** Childcare provided by government programs  
+- **Housing:** Affordable housing near the location of schools/daycare  
+
+
+## Questions Our Website Will Answer  
+
+- What single-parent government programs am I eligible to apply for?  
+- Where can I find affordable housing near my child's daycare or school?  
+- What are the best-rated childcare centers that fit my budget?  
+- What government assistance is available for housing and childcare in Austin?  

@@ -18,7 +18,7 @@ nav h1 a {
 }
 
 nav h1 a:hover {
-    color: #7db3e8; /* Golden color on hover */
+    color: #7db3e8; /* color on hover of h1 */
 }
 
 ul {
@@ -44,7 +44,7 @@ ul li a {
 }
 
 ul li a:hover {
-    background-color: #7db3e8; /* Slight golden background */
+    background-color: #7db3e8; /* color for hover */
     color: #2C3E50; /* Dark text on hover */
 }
 

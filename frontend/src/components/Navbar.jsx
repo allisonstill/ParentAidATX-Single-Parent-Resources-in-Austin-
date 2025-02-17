@@ -1,28 +1,56 @@
-import React from 'react'
-// allows us to link to different pages with the nav bar
-import {Link} from "react-router-dom"
- 
-// Contains the HTML for the nav bar component.
-function Navbar(){
-    return(
-        <nav>
-            <h1><Link to="/">ParentAidATX</Link></h1>
+import React from "react";
+import { Link } from "react-router-dom";
 
-            <ul>
-                <li>
-                    <Link to="/programs">Government Programs</Link>
-                </li>
-                <li>
-                    <Link to="/housing">Housing</Link>
-                </li>
-                <li>
-                    <Link to="/childcare">Childcare</Link>
-                </li>
-                <li>
-                    <Link to="/about">About</Link>
-                </li>
-            </ul>
-        </nav>
-    );
+function Navbar() {
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+      <div className="container-fluid">
+        {/* Brand */}
+        <Link className="navbar-brand" to="/">
+          ParentAidATX
+        </Link>
+
+        {/* Toggle Button for Mobile View */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        {/* Navigation Links */}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav me-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to="/programs"> {/* "Link to" reaplces the tradional "href" attribute. When clicked, changes url to ../programs */}
+                Government Programs
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/housing">
+                Housing
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/childcare">
+                Childcare
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/about">
+                About
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
 }
+
 export default Navbar;

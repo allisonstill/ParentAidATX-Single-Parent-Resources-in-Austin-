@@ -1,0 +1,40 @@
+.drop-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.no-border {
+  border: none;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.right-text {
+  text-align: right;
+}
+
+.card-title {
+  font-family: "Inter";
+  font-size: 25px;
+}
+
+.card-subtitle {
+  font-family: "Inter";
+  font-size: 18px;
+  color: gray !important;
+}
+
+.card-text {
+  font-family: "Albert Sans";
+}
+
+/* Used to style the bigger number next to each gitlab API value*/
+.gitlab-number {
+  font-size: 24px; /* Make the number larger */
+  font-family: "Albert Sans"; /* Different font */
+  margin-right: 5px; /* Small space between the number and text */
+  vertical-align: middle; /* Keep it vertically aligned with the text */
+  position: relative;
+  top: -2px;
+}

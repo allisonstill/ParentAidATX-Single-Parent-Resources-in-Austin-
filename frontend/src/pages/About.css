@@ -1,0 +1,20 @@
+.about-title {
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 50px;
+  text-align: center;
+}
+
+/* Used for contributors */
+.about-subtitle {
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 35px;
+  text-align: center;
+}
+
+.about-description {
+  font-family: "Inter";
+  font-size: 20px;
+  text-align: center;
+}

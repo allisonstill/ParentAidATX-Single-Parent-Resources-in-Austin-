@@ -3,6 +3,10 @@
 **Support for Single Parents in Austin, Simplified.**  
 ParentAidATX is a website that helps single parents in Austin, Texas get information on family-related government assistance, affordable nearby housing, and childcare centers.
 
+**Website Link: ** ""
+
+**API Documentation Link: ** ""
+
 
 ## Team Members
 - Andrew Harvey / @aharvey502
@@ -25,6 +29,25 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - [Zillow API](https://www.zillowgroup.com/developers/) - For affordable housing
 
 - [Apartment Finder API](https://api.apartments.com/v1) - For affordable housing
+
+## Team Information: 
+
+### Phase 1: 
+
+- Git SHA: 
+
+- Phase Leader(s): 
+
+- Phase Leader Responsibilities:
+
+| Team Member | Estimate Time | Actual Time |
+| ----- | --- | --- | 
+| Andrew Harvey     |    hours |    hours |
+| Rubi Rojas        |    hours |    hours |
+| Allison Still     |    hours |    hours |
+| Amna Ali          |    hours |    hours |
+| Ethan Yu          |    hours |    hours |
+
 
 ## Models  
 

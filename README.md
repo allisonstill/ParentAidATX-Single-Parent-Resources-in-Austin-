@@ -3,9 +3,9 @@
 **Support for Single Parents in Austin, Simplified.**  
 ParentAidATX is a website that helps single parents in Austin, Texas get information on family-related government assistance, affordable nearby housing, and childcare centers.
 
-**Website Link: ** ""
+**Website Link:** https://main.d1jk4wo7k18cne.amplifyapp.com/
 
-**API Documentation Link: ** ""
+**API Documentation Link:** ""
 
 
 ## Team Members

@@ -11,7 +11,7 @@ function handleGitLabFetch(
   setIssueCount,
   setUnitCount
 ) {
-  const PROJECT_ID = 67023250;
+  const PROJECT_ID = 67142605;
 
   // Grab every issue
   const fetchIssues = async () => {

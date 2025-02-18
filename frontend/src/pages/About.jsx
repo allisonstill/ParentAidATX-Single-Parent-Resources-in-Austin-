@@ -26,7 +26,7 @@ const team = [
     "rubirojas",
     "/rubiHeadshot.png",
     "I’m a senior majoring in Computer Science with a minor in Business. Outside of class, I love to run, explore new coffee shops, and spend time with my friends.",
-    ["rubirojas@utexas.edu"]
+    ["rubirojas@utexas.edu", "rubirojas@Rubis-Laptop.local"]
   ),
   new Developer(
     "Allison Still",

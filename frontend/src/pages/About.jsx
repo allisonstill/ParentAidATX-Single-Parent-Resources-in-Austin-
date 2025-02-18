@@ -39,8 +39,8 @@ const team = [
   new Developer(
     "Ethan Yu",
     "Backend Developer",
-    "vintaing",
-    "https://media.discordapp.net/attachments/684252855506567174/1340527248364666940/image.png?ex=67b2aec9&is=67b15d49&hm=98474bff4727f2f060622096e7eb8c708ef2bb0abd8b035b6132057843ad05c8&=&format=webp&quality=lossless&width=890&height=888",
+    "ethany04",
+    "/ethan_headshot.JPG",
     "This is ethans description",
     ["ethan.yu@utexas.edu"]
   ),
@@ -52,14 +52,13 @@ function About() {
       <h1 className="about-title">About Us</h1>
       <hr />
       <p className="about-description">
-      Support for Single Parents in Austin, Simplified.
-      ParentAidATX helps single parents in Austin, Texas get 
-      information on family-related government assistance, affordable nearby housing, 
-      and childcare centers.
+        Support for Single Parents in Austin, Simplified. ParentAidATX helps
+        single parents in Austin, Texas get information on family-related
+        government assistance, affordable nearby housing, and childcare centers.
       </p>
       <p className="about-description">
-        <span className="fw-bold">Tools used: </span> NodeJS, React, Bootstrap, AWS, GitLab
-        Pipelines
+        <span className="fw-bold">Tools used: </span> NodeJS, React, Bootstrap,
+        AWS, GitLab Pipelines
       </p>
       <p className="about-description">
         <span className="fw-bold">Data sources: </span> GitLab API (not using
@@ -74,9 +73,7 @@ function About() {
         <AboutCard developer={team[3]} />
         <AboutCard developer={team[4]} />
       </div>
-      <p className="about-description mt-5 mb-5">
-        More About description here
-      </p>
+      <p className="about-description mt-5 mb-5">More About description here</p>
     </div>
   );
 }

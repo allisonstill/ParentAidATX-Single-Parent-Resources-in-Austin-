@@ -5,20 +5,20 @@ import "./About.css";
 
 const team = [
   new Developer(
-    "Amna Ali",
-    "Frontend Developer",
-    "arikadou",
+    "Amna Ali", // Name
+    "Frontend Developer", // Role
+    "arikadou", // GitLab name
     "https://media.discordapp.net/attachments/684252855506567174/1340535280318283827/image.png?ex=67b2b644&is=67b164c4&hm=c0a6b2b917ae4949e9f8639636d98e9ba70430535b942e0e8dd0c342bc41c2b9&=&format=webp&quality=lossless&width=890&height=888",
-    "This is amnas description",
-    ["zeeshanahmad@outlook.com"]
+    "This is amnas description", // Bio
+    ["zeeshanahmad@outlook.com"] // Email
   ),
   new Developer(
     "Andrew Harvey",
-    "Backend Developer",
-    "obl2t",
-    "https://media.discordapp.net/attachments/684252855506567174/1340527021197103136/image.png?ex=67b2ae93&is=67b15d13&hm=636b0359e4b62cfe5baa7bc6f7a4e0980361fea57959e23527f28a9360cf1030&=&format=webp&quality=lossless&width=886&height=888",
+    "Full Stack Developer",
+    "aharvey502",
+    "/andrew-headshot.jpg",
     "This is andrews description",
-    ["akka.viv@gmail.com", "vivekabraham@Viveks-MacBook-Pro.local"]
+    ["andrewharvey504@gmail.com", "andrew@Andrews-MacBook-Pro.local"]
   ),
   new Developer(
     "Rubi Rojas",
@@ -49,23 +49,23 @@ const team = [
 function About() {
   return (
     <div className="container mt-5">
-      <h1 className="about-title">ABOUT</h1>
+      <h1 className="about-title">About Us</h1>
       <hr />
       <p className="about-description">
-        Welcome to UTherapy, the hub to help UT students find resources to
-        assist them in surviving the semester. This project was made possible by
-        the following people below, in addition to UT Student Government for
-        helping inspire the idea in the first place.
+      Support for Single Parents in Austin, Simplified.
+      ParentAidATX helps single parents in Austin, Texas get 
+      information on family-related government assistance, affordable nearby housing, 
+      and childcare centers.
       </p>
       <p className="about-description">
-        <span className="fw-bold">Tools used: </span> React, Bootstrap, Gitlab
-        Pipelines, AWS Amplify, AWS Route 53
+        <span className="fw-bold">Tools used: </span> NodeJS, React, Bootstrap, AWS, GitLab
+        Pipelines
       </p>
       <p className="about-description">
-        <span className="fw-bold">Data sources: </span> Gitlab API (not using
+        <span className="fw-bold">Data sources: </span> GitLab API (not using
         other data sources for phase 1)
       </p>
-      <h3 className="about-subtitle mt-5 mb-3">CONTRIBUTORS</h3>
+      <h3 className="about-subtitle mt-5 mb-3">Meet The Team</h3>
 
       <div className="d-flex flex-wrap justify-content-center gap-5">
         <AboutCard developer={team[0]} />
@@ -75,14 +75,7 @@ function About() {
         <AboutCard developer={team[4]} />
       </div>
       <p className="about-description mt-5 mb-5">
-        Integrating disparate data proved to be an interesting task for us. We
-        learned how important it is to select the right therapist for one's
-        needs, as not every therapist is trained in every therapy. Furthermore,
-        certain disorders benefit from different types therapy and may not be
-        mitigated otherwise. Lastly, finding nearby clinics with a variety of
-        therapists helps make mental healthcare accessible to everyone. Having
-        to integrate all pieces together shows how important it is for an
-        individual to find the right clinic that suits them.
+        More About description here
       </p>
     </div>
   );

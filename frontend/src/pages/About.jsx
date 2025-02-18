@@ -25,8 +25,8 @@ const team = [
     "Frontend Developer",
     "rubirojas",
     "/rubiHeadshot.png",
-    "This is rubis description",
-    ["jperezopt@gmail.com"]
+    "I’m a senior majoring in Computer Science with a minor in Business. Outside of class, I love to run, explore new coffee shops, and spend time with my friends.",
+    ["rubirojas@utexas.edu"]
   ),
   new Developer(
     "Allison Still",

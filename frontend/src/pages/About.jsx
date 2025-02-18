@@ -23,8 +23,8 @@ const team = [
   new Developer(
     "Rubi Rojas",
     "Frontend Developer",
-    "jperezopt",
-    "https://media.discordapp.net/attachments/684252855506567174/1340733418497118298/j_cropped.jpg?ex=67b36ecc&is=67b21d4c&hm=fe050e52fc54b1e3595cabbc78aadfcf4f53b14cd74c05057cac0565b8841a62&=&format=webp&width=476&height=476",
+    "rubirojas",
+    "/rubiHeadshot.png",
     "This is rubis description",
     ["jperezopt@gmail.com"]
   ),

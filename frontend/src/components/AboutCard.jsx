@@ -28,12 +28,13 @@ function handleGitLabFetch(
         break;
       }
       for (let i = 0; i < data.length; i++) {
-        if (data[i].assignee === null) {
+        if (data[i].closed_by === null) {
           continue;
         }
-        let issueUsername = data[i].assignee.username;
+        let issueClosedBy = data[i].closed_by.username;
+        //let issueUsername = data[i].assignee.username;
         let issueState = data[i].state;
-        if (issueUsername === developer.username && issueState === "closed") {
+        if (issueClosedBy === developer.username && issueState === "closed") {
           numIssues++;
         }
       }
@@ -115,7 +116,7 @@ function AboutCard({ developer }) {
   useEffect(
     () =>
       handleGitLabFetch(developer, setCommitCount, setIssueCount, setUnitCount),
-    [developer.username, developer.emails, developer]
+    [developer.username, developer]
   );
   return (
     <div className="card drop-shadow border-0" style={{ width: "18rem" }}>

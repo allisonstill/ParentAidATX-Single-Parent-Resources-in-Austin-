@@ -32,7 +32,7 @@ const team = [
     "Allison Still",
     "Frontend Developer",
     "allisonstill",
-    "/allison-headshot.JPG",
+    "/allison-2-headshot.jpeg",
     "My name is Allison Still, and I am a junior studying Computer Science. In my free time, I like watching movies, trying new restaurants, and hanging out with my friends.",
     ["allisonstill@utexas.edu"]
   ),

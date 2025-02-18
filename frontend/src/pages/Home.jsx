@@ -1,5 +1,5 @@
 import CustomCard from "../components/Card";
-
+//import "./Home.css"
 const cardData = [
   { id: 1, title: "andrew harvey", description: "hello world" },
   { id: 2, title: "card2", description: "this is the second card" },
@@ -9,11 +9,15 @@ const cardData = [
 function Home() {
   return (
     <>
-      <h1>Home page</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-      {cardData.map((currCard) => (
-        <CustomCard title={currCard.title} description={currCard.description} />
-      ))}
+        <home className = "home-container">
+          <h1 className= "home-page-title">Home page</h1>
+        
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          {cardData.map((currCard) => (
+            <CustomCard title={currCard.title} description={currCard.description} />
+          ))}
+        </home>
+     
     </>
   );
 }

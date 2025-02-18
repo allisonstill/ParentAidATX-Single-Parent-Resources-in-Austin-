@@ -5,7 +5,7 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 
 **Website Link:** https://www.parentaidatx.me	or https://parentaidatx.me
 
-**API Documentation Link:** ""
+**API Documentation Link:** "https://documenter.getpostman.com/view/42442568/2sAYdZstBv" (Still updating)
 
 
 ## Team Members

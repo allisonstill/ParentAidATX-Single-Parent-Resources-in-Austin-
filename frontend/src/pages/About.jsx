@@ -33,8 +33,8 @@ const team = [
     "Frontend Developer",
     "allisonstill",
     "/allison-headshot.JPG",
-    "This is allisons description",
-    ["allisonstil@utexas.edu"]
+    "My name is Allison Still, and I am a junior studying Computer Science. In my free time, I like watching movies, trying new restaurants, and hanging out with my friends.",
+    ["allisonstill@utexas.edu"]
   ),
   new Developer(
     "Ethan Yu",

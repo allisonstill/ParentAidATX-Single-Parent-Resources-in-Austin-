@@ -7,10 +7,10 @@ const team = [
   new Developer(
     "Amna Ali", // Name
     "Frontend Developer", // Role
-    "arikadou", // GitLab name
-    "https://media.discordapp.net/attachments/684252855506567174/1340535280318283827/image.png?ex=67b2b644&is=67b164c4&hm=c0a6b2b917ae4949e9f8639636d98e9ba70430535b942e0e8dd0c342bc41c2b9&=&format=webp&quality=lossless&width=890&height=888",
-    "This is amnas description", // Bio
-    ["zeeshanahmad@outlook.com"] // Email
+    "a-amna-a", // GitLab name
+    "/amna-headshot.jpg",
+    "I'm a junior studying Computer Science at UT Austin. My expertise is in Java and web development. I like playing video games and reading in my free time!", // Bio
+    ["httpamna@gmail.com"] // Email
   ),
   new Developer(
     "Andrew Harvey",

@@ -31,10 +31,10 @@ const team = [
   new Developer(
     "Allison Still",
     "Frontend Developer",
-    "NathanChase22",
-    "https://media.discordapp.net/attachments/684252855506567174/1340529118374137917/image.png?ex=67b2b087&is=67b15f07&hm=2ac5071542e7829cc036e04c724c323809c2b879792aab43b6e6da897380ed7b&=&format=webp&quality=lossless&width=888&height=888",
+    "allisonstill",
+    "/allison-headshot.JPG",
     "This is allisons description",
-    ["ntc477@utexas.edu"]
+    ["allisonstil@utexas.edu"]
   ),
   new Developer(
     "Ethan Yu",

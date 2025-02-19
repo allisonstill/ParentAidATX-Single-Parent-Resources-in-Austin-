@@ -1,0 +1,51 @@
+[
+	{
+	  "name": "Kensington Apartments",
+	  "Cost/Range": "900-1300",
+	  "Rating": "3.9",
+	  "Reviews": "He really listened to me and I was quickly approved and in my new home!",
+      "Style of housing": "Apartments",
+      "Address": "2202 W N Loop Blvd, Austin, TX 78756",
+      "Zip Code": "78756",
+      "Crime Level": "High",
+      "Nearby Park": "Ramsey Neighborhood Park",
+      "Public Transportation": {
+        "Distance": "10",
+        "Type": "public"
+      },
+      "Government Subsidized": "True"
+	},
+	{
+      "name": "Salvation Army Social Services Center",
+	  "Cost/Range": "0",
+	  "Rating": "3.8",
+	  "Reviews": "Positive and encouraging staff make staying here enjoyable and pleasant. The center itself is generally clean, calm, and feels safe for the family.",
+      "Style of housing": "Shelter",
+      "Address": "4613 Tannehill Ln Bldg 1, Austin, TX 78721",
+      "Zip Code": "78721",
+      "Crime Level": "Moderate",
+      "Nearby Park": "Springdale Neighborhood Park",
+      "Public Transportation": {
+        "Distance": "10",
+        "Type": "public"
+      },
+      "Government Subsidized": "False"
+	},
+	{
+	  "name": "Pathways at North Loop Apartments",
+	  "Cost/Range": "1000-1100",
+	  "Rating": "3.3",
+	  "Reviews": "Positive and encouraging staff make staying here enjoyable and pleasant. The center itself is generally clean, calm, and feels safe for the family.",
+      "Style of housing": "Apartments",
+      "Address": "2300 W N Loop Blvd #101, Austin, TX 78756",
+      "Zip Code": "78756",
+      "Crime Level": "High",
+      "Nearby Park": "Crestmont Park",
+      "Public Transportation": {
+        "Distance": "10",
+        "Type": "public"
+      },
+      "Government Subsidized": "True"
+	}
+  ]
+  

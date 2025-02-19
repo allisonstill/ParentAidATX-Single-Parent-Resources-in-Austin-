@@ -1,0 +1,33 @@
+[
+	{
+	  "name": "Child Craft Schools",
+	  "Childcare Type": "Daycare",
+	  "Cost": "850-1050",
+	  "Website": "https://www.childcraftschooltx.com/index.html",
+      "Quality-Rating": "5.0",
+      "Ages": "5 months - 5 years old",
+      "Zip Code": "78705",
+      "Address": "800 W 30th St, Austin, TX 78705"
+	},
+	{
+	  "name": "First English Lutheran Child Development Center",
+	  "Childcare Type": "Daycare",
+	  "Cost": "NA",
+	  "Website": "https://www.firstenglishcdc.org/",
+      "Quality-Rating": "5.0",
+      "Ages": "6 weeks - 5 years old",
+      "Zip Code": "78705",
+      "Address": "3001 Whitis Ave, Austin, TX 78705"
+	},
+	{
+	  "name": "Lil' Angels Daycare Center",
+	  "Childcare Type": "Daycare",
+	  "Cost": "NA",
+      "Website": "http://lilangelsaustin.com/",
+	  "Quality-Rating": "4.9",
+      "Ages": "2 months - 11 years",
+      "Zip Code": "78723",
+      "Address": "6006 Cameron Rd, Austin, TX 78723"
+	}
+  ]
+  

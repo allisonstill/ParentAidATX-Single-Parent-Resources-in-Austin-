@@ -9,7 +9,7 @@
 
 /* Childcare Card */
 .childcare-card {
-    background: white;
+    background: #f4ebd0;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -102,7 +102,7 @@
 .childcare-title {
     font-size: 1.875rem;
     font-weight: 700;
-    color: #1e293b;
+    color: #fca46c;
     margin-bottom: 0.5rem;
 }
 

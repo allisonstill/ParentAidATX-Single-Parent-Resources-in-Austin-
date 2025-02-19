@@ -1,0 +1,19 @@
+stages:
+  - build
+  - deploy
+
+install_and_build:
+  stage: build
+  image: node:latest
+  script:
+    - cd ./frontend && npm install
+    - npm run build
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      when: always
+
+deploy_to_amplify:
+  stage: deploy
+  image: node:latest
+  script:
+    - echo "Deploying to Amplify"

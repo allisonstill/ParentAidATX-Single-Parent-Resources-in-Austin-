@@ -9,6 +9,7 @@ import Housing from "./pages/Housing.jsx"
 //import "./components/Navbar.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import InstanceCard from "./components/Card";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 function App() {
   return(

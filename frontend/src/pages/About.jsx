@@ -41,7 +41,7 @@ const team = [
     "Backend Developer",
     "ethany04",
     "/ethan_headshot.JPG",
-    "This is ethans description",
+    "I am currently a junior double majoring in Computer Science and Exercise Science. Outside of class, I enjoy playing basketball, cooking, and spending time with my friends.",
     ["ethan.yu@utexas.edu"]
   ),
 ];

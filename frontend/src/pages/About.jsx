@@ -75,7 +75,10 @@ function About() {
         <AboutCard developer={team[3]} />
         <AboutCard developer={team[4]} />
       </div>
-      <p className="about-description mt-5 mb-5">More About description here</p>
+      <p className="about-description mt-5 mb-5">This project was born out of the need to integrate disparate data sources, 
+        making it easier for single parents to access support resources. With so much to juggle, navigating hundreds of
+        government programs, housing options, and childcare services can be overwhelming and time-consuming for single parents.
+        We aim to simplify this process by consolidating the most useful information into a single, accessible website.</p>
     </div>
   );
 }

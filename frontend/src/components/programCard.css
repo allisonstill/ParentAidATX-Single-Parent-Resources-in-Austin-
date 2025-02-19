@@ -27,9 +27,31 @@
     font-size: 15px;
     margin-top: 40px;
 }
+.ProgramCard-attribute {
+    display: flex; /* Aligns label and value in a row */
+    margin-bottom: 10px; /* Adds space between each line */
+    align-items: center; /* Vertically aligns the items */
+    font-family: 'Times New Roman';
+}
+
+.attribute-label {
+    font-family: 'Times New Roman';
+    font-weight: bold;
+    margin-right: 8px; /* Adds space between label and value */
+    color: #e87747; /* Customize label color */
+    font-size: 18px;
+    overflow: wrap;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
 .ProgramCard-attributes {
-    font-family: 'Times New Roman' !important;
-    font-size: 15px;
+     /* Removes margin around the value */
+    font-size: 14px;
+    color: #34495E; /* Customize value color */
+    font-family: 'Times New Roman';
+    text-align: left !important;
+    margin-bottom: 10px;
 }
 
 .custom-btn {

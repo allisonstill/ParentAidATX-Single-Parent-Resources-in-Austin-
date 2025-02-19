@@ -36,13 +36,13 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 
 - Git SHA: 
 
-- Phase Leader(s): 
+- Phase Leader(s): Andrew Harvey
 
-- Phase Leader Responsibilities:
+- Phase Leader Responsibilities: Team Coordination, set meeting times, lead React app frontend, deploy on AWS
 
 | Team Member | Estimate Time | Actual Time |
 | ----- | --- | --- | 
-| Andrew Harvey     |    hours |    hours |
+| Andrew Harvey     |    8 hours |    10 hours |
 | Rubi Rojas        |    hours |    hours |
 | Allison Still     |    hours |    hours |
 | Amna Ali          |    hours |    hours |

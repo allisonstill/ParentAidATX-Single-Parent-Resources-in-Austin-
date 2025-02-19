@@ -1,0 +1,212 @@
+/* Base styles */
+.childcare-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f8fafc;
+}
+
+/* Childcare Card */
+.childcare-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.image-gallery {
+    position: relative;
+    height: 400px;
+    background-color: #f1f5f9;
+    overflow: hidden;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.pagination-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: white;
+}
+
+/* Map Section Styles */
+.map-section {
+    height: 400px;
+    background-color: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.map-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f5f9;
+    color: #64748b;
+    gap: 1rem;
+}
+
+.map-placeholder svg {
+    color: #2563eb;
+}
+
+
+.map-frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Content Sections */
+.content-section {
+    padding: 2rem;
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.childcare-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #64748b;
+}
+
+.price-section {
+    text-align: right;
+}
+
+.price-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+}
+
+.price-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.feature-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.feature-card:hover {
+    background: #f1f5f9;
+}
+
+.feature-icon {
+    color: #2563eb;
+}
+
+.feature-content p:first-child {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.feature-content p:last-child {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* Quality Rating */
+.quality-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.star {
+    color: #cbd5e1;
+}
+
+.star.filled {
+    color: #f59e0b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .childcare-container {
+        padding: 1rem;
+    }
+
+    .content-section {
+        padding: 1rem;
+    }
+
+    .header-section {
+        flex-direction: column;
+    }
+
+    .price-section {
+        text-align: left;
+    }
+
+    .image-gallery,
+    .map-section {
+        height: 300px;
+    }
+}

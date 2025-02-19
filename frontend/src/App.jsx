@@ -7,6 +7,7 @@ import Childcare from "./pages/Childcare.jsx";
 import Programs from "./pages/Programs.jsx";
 import Housing from "./pages/Housing.jsx";
 import Government from "./pages/Government.jsx";
+import ChildcareService from './pages/Childcare_Service.jsx'
 //import "./components/Navbar.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 //import InstanceCard from "./components/Card";
@@ -27,6 +28,7 @@ function App() {
           <Route path="/childcare" element={<Childcare />} />
           <Route path="/about" element={<About />} />
           <Route path="/programs/:id" element={<Government />} />
+          <Route path="/childcare/:id" element={<ChildcareService />} />
         </Routes>
       </div>
     </>

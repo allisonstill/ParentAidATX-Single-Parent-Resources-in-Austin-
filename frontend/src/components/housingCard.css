@@ -1,0 +1,71 @@
+.HousingCard-title {
+    font-family: 'Times New Roman'; /* Playful and bubbly */
+    font-size: 22px;
+    text-align: left;
+    letter-spacing: 1px;
+    color: #d65323 !important;
+    background: #fce7a7; /* Soft gradient */
+    padding: 12px 20px; /* More horizontal padding to make it bigger */
+    border-radius: 10px;
+    display: block; /* Ensures it takes up space */
+    width:90%; /* Expands to fill the container */
+    max-width: 600px; /* Prevents it from getting too wide */
+    margin-left: -31px; /* Moves the box to the right */
+    margin-right: auto; /* Keeps width flexible */
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.HousingCard-img-top {
+    width: 100%; /* Makes the image as wide as the card */
+    height: 200px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensures the image maintains proportions and covers the area */
+    border-radius: 10px; /* Optional: adds rounded corners */
+    object-fit: contain;
+}
+.HousingCard-text {
+    font-family: 'Times New Roman';
+    font-size: 15px;
+    margin-top: 40px;
+}
+.HousingCard-attribute {
+    display: flex; /* Aligns label and value in a row */
+    margin-bottom: 10px; /* Adds space between each line */
+    align-items: center; /* Vertically aligns the items */
+    font-family: 'Times New Roman';
+}
+
+.attribute-label {
+    font-family: 'Times New Roman';
+    font-weight: bold;
+    margin-right: 8px; /* Adds space between label and value */
+    color: #e87747; /* Customize label color */
+    font-size: 18px;
+    overflow: wrap;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.HousingCard-attributes {
+     /* Removes margin around the value */
+    font-size: 14px;
+    color: #34495E; /* Customize value color */
+    font-family: 'Times New Roman';
+    text-align: left !important;
+    margin-bottom: 10px;
+}
+
+.custom-btn {
+    background-color: #fc9c54;
+    border: none; /* Removes default border */
+    color: white; /* Text color */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none; /* Removes underline */
+    display: inline-block;
+    transition: 0.3s ease-in-out;
+}
+.custom-btn:hover {
+    background-color: #e67e22;
+}

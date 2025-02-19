@@ -52,7 +52,9 @@ function About() {
       <h1 className="about-title">About Us</h1>
       <hr />
       <p className="about-description">
-        Support for Single Parents in Austin, Simplified. ParentAidATX helps
+        <strong style={{ color: "#2E8B57", fontSize: "1.2em"}}>
+        Support for Single Parents in Austin, Simplified.
+        </strong> ParentAidATX helps
         single parents in Austin, Texas get information on family-related
         government assistance, affordable nearby housing, and childcare centers.
       </p>

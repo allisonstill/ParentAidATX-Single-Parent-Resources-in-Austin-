@@ -5,7 +5,7 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 
 **Website Link:** https://www.parentaidatx.me	or https://parentaidatx.me
 
-**API Documentation Link:** "https://documenter.getpostman.com/view/42442568/2sAYdZstBv" (Still updating)
+**API Documentation Link:** https://documenter.getpostman.com/view/42442568/2sAYdZstBv
 
 
 ## Team Members
@@ -42,11 +42,11 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 
 | Team Member | Estimate Time | Actual Time |
 | ----- | --- | --- | 
-| Andrew Harvey     |    8 hours |    10 hours |
-| Rubi Rojas        |    hours |    hours |
-| Allison Still     |    hours |    hours |
-| Amna Ali          |    hours |    hours |
-| Ethan Yu          |    hours |    hours |
+| Andrew Harvey     |    8 hours  |    10 hours |
+| Rubi Rojas        |    hours    |    hours |
+| Allison Still     |    12 hours |    10 hours |
+| Amna Ali          |    hours    |    hours |
+| Ethan Yu          |    hours    |    hours |
 
 
 ## Models  
@@ -57,8 +57,10 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 #### **Attributes:**  
 - Program ID  
 - Program Name
-- Government Administration/Department  
-- Description  
+- Government Administration/Department 
+- Government Scope (City, State, Federal) 
+- Category (Food, Housing, etc.)
+- Description
 - Application Link  
 
 #### **Media:**  
@@ -76,11 +78,18 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - **Instances:** ~1000  
 
 #### **Attributes:**  
-- Location  
+- Name
 - Cost/Rate  
 - Rating  
 - Reviews  
+- Address
+- Zip Code
 - Style of Housing (Apartment, Condo, House)  
+- Crime Level
+- Nearby Park
+- Transportation
+- Government Subsidized (Or Not)
+
 #### **Media:**  
   - Google Maps for location
   - Location Image
@@ -100,7 +109,10 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - Type of Childcare (Daycare, Afterschool, etc.)  
 - Cost  
 - Quality Rating  
-- Age Range of Children  
+- Age Range of Children
+- Zipcode
+- Address
+
 #### **Media:**
   - Google Maps for location 
   - Image of Childcare Location  

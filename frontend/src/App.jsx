@@ -8,7 +8,7 @@ import Programs from "./pages/Programs.jsx"
 import Housing from "./pages/Housing.jsx"
 //import "./components/Navbar.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import CustomCard from "./components/Card";
+//import InstanceCard from "./components/Card";
 
 function App() {
   return(

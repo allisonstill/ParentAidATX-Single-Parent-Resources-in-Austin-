@@ -17,7 +17,7 @@ const team = [
     "Full Stack Developer",
     "aharvey502",
     "/andrew-headshot.jpg",
-    "This is andrews description",
+    "I’m a junior computer science major at UT Austin. I've always been passionate about using technology for meaningful real-world applications. In my free time, I like to play video games, do astrophotography, and watch movies!",
     ["andrewharvey504@gmail.com", "andrew@Andrews-MacBook-Pro.local"]
   ),
   new Developer(

@@ -1,10 +1,10 @@
-function CustomCard({ title, description }) {
+function InstanceCard({ image, title, description }) {
   return (
     <div className="card" style={{ width: "18rem" }}>
       <img
-        src="/house-pic.jpg"
+        src={image}
         className="card-img-top"
-        alt="picture of a house"
+        alt=""
       />
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
@@ -17,4 +17,4 @@ function CustomCard({ title, description }) {
   );
 }
 
-export default CustomCard;
+export default InstanceCard;

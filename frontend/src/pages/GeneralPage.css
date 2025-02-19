@@ -1,0 +1,14 @@
+.general-page-container {
+  text-align: center; /* Centers text */
+  display: flex;
+  flex-direction: column; /* Ensures items are stacked vertically */
+  align-items: center; /* Centers content */
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center; /* Centers cards horizontally */
+  gap: 20px; /* Adds spacing between cards */
+  flex-wrap: wrap; /* Ensures responsiveness */
+  margin-top: 20px; /* Adds space between text and cards */
+}

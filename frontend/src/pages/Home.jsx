@@ -1,4 +1,4 @@
-import CustomCard from "../components/Card";
+import InstanceCard from "../components/Card";
 //import "./Home.css"
 const cardData = [
   { id: 1, title: "andrew harvey", description: "hello world" },
@@ -14,7 +14,7 @@ function Home() {
         
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           {cardData.map((currCard) => (
-            <CustomCard title={currCard.title} description={currCard.description} />
+            <InstanceCard title={currCard.title} description={currCard.description} />
           ))}
         </home>
      

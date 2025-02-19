@@ -1,5 +1,5 @@
 .programs-page-container {
-    text-align: center; /* Centers text */
+    text-align: left; /* Centers text */
     display: flex;
     flex-direction: column; /* Ensures items are stacked vertically */
     align-items: center; /* Centers content */
@@ -27,7 +27,7 @@
     line-height: 1.5;
 }
   
-  .cards-container {
+  .ProgramCards-container {
     display: flex;
     justify-content: center; /* Centers cards horizontally */
     gap: 40px; /* Adds spacing between cards */
@@ -35,18 +35,18 @@
     margin-top: 40px; /* Adds space between text and cards */
     margin-bottom: 100px;
   }
-  .card { 
+  .ProgramCard { 
     width: 200px; /* Adjust this to make the cards wider */
     max-width: 100%; /* Prevents overflow on smaller screens */
     background-color: white; /* Ensures border is visible */
-    border: 100px solid #a76912; /* Thicker border */
+    border: 7px solid #fce7a7; /* Thicker border */
     border-radius: 20px;
     padding: 15px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
-.card:hover {
-    border-color: #e67e22; /* Changes color on hover */
-    transform: scale(1.05); /* Slight zoom effect */
+.ProgramCard:hover {
+  border-color: #e67e22; /* Changes color on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
 

@@ -1,4 +1,4 @@
-.card-title {
+.ProgramCard-title {
     font-family: 'Times New Roman'; /* Playful and bubbly */
     font-size: 22px;
     text-align: left;
@@ -15,21 +15,25 @@
     margin-top: 10px;
     margin-bottom: 30px;
 }
-.card-img-top {
+.ProgramCard-img-top {
     width: 100%; /* Makes the image as wide as the card */
     height: 200px; /* Adjust the height as needed */
     object-fit: cover; /* Ensures the image maintains proportions and covers the area */
     border-radius: 10px; /* Optional: adds rounded corners */
     object-fit: contain;
 }
-.card-text {
-    font-family: "Albert Sans";
+.ProgramCard-text {
+    font-family: 'Times New Roman';
     font-size: 15px;
     margin-top: 40px;
 }
+.ProgramCard-attributes {
+    font-family: 'Times New Roman' !important;
+    font-size: 15px;
+}
 
 .custom-btn {
-    background-color: #ffc559;
+    background-color: #fc9c54;
     border: none; /* Removes default border */
     color: white; /* Text color */
     padding: 10px 20px;
@@ -41,5 +45,5 @@
     transition: 0.3s ease-in-out;
 }
 .custom-btn:hover {
-    background-color: #e9b047;
+    background-color: #e67e22;
 }

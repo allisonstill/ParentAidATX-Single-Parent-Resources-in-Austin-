@@ -1,0 +1,24 @@
+[
+	{
+	  "name": "Temporary Assistance for Needy Families (TANF)",
+	  "ID": "78750",
+	  "Description": "The Temporary Assistance for Needy Families (TANF) program is designed to help families with children experiencing low-income achieve economic security and stability. ",
+	  "Website": "https://yourtexasbenefits.com/Learn/Home/",
+      "location": "Texas"
+	},
+	{
+	  "name": "Child Care Assistance Program (CCAP)",
+	  "ID": "78700",
+	  "Description": "Child care assistance programs help families pay for child care so they can work, study, or train for jobs. These programs are funded by the federal government and may also be called vouchers, subsidies, or fee assistance.  ",
+	  "Website": "https://www.austintexas.gov/department/child-care/",
+      "location": "Texas"
+	},
+	{
+	  "name": "Supplemental Nutrition Assistance Program (SNAP)",
+	  "ID": "78700",
+	  "Description": "SNAP provides food benefits to low-income families to supplement their grocery budget so they can afford the nutritious food essential to health and well-being.",
+	  "Website": "https://www.fns.usda.gov/snap/supplemental-nutrition-assistance-program/",
+      "location": "Texas"
+	}
+  ]
+  

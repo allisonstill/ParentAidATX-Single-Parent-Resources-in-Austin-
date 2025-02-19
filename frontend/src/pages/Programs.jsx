@@ -6,12 +6,12 @@ import "./Programs.css";
 const governmentProgramCardData = [
     {   id: 1, 
         name: "Temporary Assistance for Needy Families (TANF)", 
-        IDnum: "12345",
-        description: "this is the first card", 
-        website: " ",
-        govtScope: " ", 
-        govtAdmin: " ",
-        cat: " ",
+        IDnum: "1",
+        description: "The Temporary Assistance for Needy Families program is designed to help families with children experiencing low-income achieve economic security and stability.", 
+        website: "https://yourtexasbenefits.com/Learn/Home/",
+        govtScope: "Texas", 
+        govtAdmin: "US Department of Health and Human Services",
+        cat: "Food",
         image: "/TANF.png" 
     },
     {   id: 2, 

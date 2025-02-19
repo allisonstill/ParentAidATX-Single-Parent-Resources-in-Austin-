@@ -1,8 +1,45 @@
 .card-title {
-    font-family: "Inter";
-    font-size: 25px;
-  }
-
-  .card-text {
+    font-family: 'Times New Roman'; /* Playful and bubbly */
+    font-size: 22px;
+    text-align: left;
+    letter-spacing: 1px;
+    color: #d65323 !important;
+    background: #fce7a7; /* Soft gradient */
+    padding: 12px 20px; /* More horizontal padding to make it bigger */
+    border-radius: 10px;
+    display: block; /* Ensures it takes up space */
+    width:90%; /* Expands to fill the container */
+    max-width: 600px; /* Prevents it from getting too wide */
+    margin-left: -31px; /* Moves the box to the right */
+    margin-right: auto; /* Keeps width flexible */
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.card-img-top {
+    width: 100%; /* Makes the image as wide as the card */
+    height: 200px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensures the image maintains proportions and covers the area */
+    border-radius: 10px; /* Optional: adds rounded corners */
+    object-fit: contain;
+}
+.card-text {
     font-family: "Albert Sans";
-  }
+    font-size: 15px;
+    margin-top: 40px;
+}
+
+.custom-btn {
+    background-color: #ffc559;
+    border: none; /* Removes default border */
+    color: white; /* Text color */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none; /* Removes underline */
+    display: inline-block;
+    transition: 0.3s ease-in-out;
+}
+.custom-btn:hover {
+    background-color: #e9b047;
+}

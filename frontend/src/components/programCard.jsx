@@ -10,15 +10,13 @@ function ProgramCard({ image, name, IDnum, description, website, govtScope, govt
       />
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
-        <p className="card-text">{IDnum}</p>
         <p className="card-text">{description}</p>
+        <p className="card-text">{IDnum}</p>
         <p className="card-text">{website}</p>
         <p className="card-text">{govtScope}</p>
         <p className="card-text">{govtAdmin}</p>
         <p className="card-text">{cat}</p>
-        <a href="/housing" className="btn btn-primary">
-          Go somewhere
-        </a>
+        <a href="/housing" className="custom-btn">Go somewhere</a>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const Government_Program = () => {
             "category": "Food",
             "description": "The Temporary Assistance for Needy Families (TANF) program is designed to help families with children experiencing low-income achieve economic security and stability. ",
             "app-link": "https://yourtexasbenefits.com/Learn/Home/",
-            "logo": "../TANF.png",
+            "logo": "/TANF.png",
             "video": "-NGi5crTYPs",
         },
         2: {
@@ -26,7 +26,7 @@ const Government_Program = () => {
             "category": "Child care",
             "description": "Child care assistance programs help families pay for child care so they can work, study, or train for jobs. These programs are funded by the federal government and may also be called vouchers, subsidies, or fee assistance. ",
             "app-link": "https://www.austintexas.gov/department/child-care/",
-            "logo": "../cityofAustin.jpg",
+            "logo": "/cityofAustin.jpg",
             "video": "W8j0TZbnXL0",
         },
         3: {
@@ -37,7 +37,7 @@ const Government_Program = () => {
             "category": "Food",
             "description": "SNAP provides food benefits to low-income families to supplement their grocery budget so they can afford the nutritious food essential to health and well-being.",
             "app-link": "https://www.fns.usda.gov/snap/supplemental-nutrition-assistance-program/",
-            "logo": "../snap.jpg",
+            "logo": "/snap.jpg",
             "video": "ogvnpefvvbE",
         }
     };

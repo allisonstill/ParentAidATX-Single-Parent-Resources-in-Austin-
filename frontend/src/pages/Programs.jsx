@@ -57,6 +57,7 @@ function Programs(){
                     govtScope={currCard.govtScope}
                     govtAdmin={currCard.govtAdmin}
                     cat={currCard.cat}
+                    id={currCard.id}
                 />
                 </div>
             ))}

@@ -1,15 +1,19 @@
 .navbar-nav .nav-link {
     transition: color 0.2s ease-in-out;
+    font-size: 18px;
+    font-weight: bold
   }
   
   .navbar-nav .nav-link:hover {
-    color: #4b93ff; /* Bootstrap Primary Blue */
+    color: #f7faff; /* Bootstrap Primary Blue */
+    
   }
   .navbar-custom {
     background-color: #f68751; /* Custom color (green) */
   }
   .navbar-textColor {
     background-color: #f5ded3; /* Custom color (green) */
+    
   }
 
   

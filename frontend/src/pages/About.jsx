@@ -10,7 +10,7 @@ const team = [
     "a-amna-a", // GitLab name
     "/amna-headshot.jpg",
     "I'm a junior studying Computer Science at UT Austin. My expertise is in Java and web development. I like playing video games and reading in my free time!", // Bio
-    ["httpamna@gmail.com"] // Email
+    ["httpamna@gmail.com", "64616392+a-amna-a@users.noreply.github.com"] // Email
   ),
   new Developer(
     "Andrew Harvey",
@@ -34,7 +34,7 @@ const team = [
     "allisonstill",
     "/allison-2-headshot.jpeg",
     "My name is Allison Still, and I am a junior studying Computer Science. In my free time, I like watching movies, trying new restaurants, and hanging out with my friends.",
-    ["allisonstill@utexas.edu"]
+    ["allisonstill@utexas.edu", "allistill12@gmail.com"]
   ),
   new Developer(
     "Ethan Yu",

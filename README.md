@@ -13,7 +13,7 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - Rubi Rojas / @rubirojas
 - Allison Still / @allisonstill
 - Amna Ali / @a-amna-a
-- Ethan Yu
+- Ethan Yu / @ethany04
 
 ## Data Sources
 - [Google Maps API](https://developers.google.com/maps) (RESTful) - For affordable  housing and Childcare Centers

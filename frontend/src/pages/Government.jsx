@@ -1,5 +1,5 @@
 import React from 'react';
-import {Building, Navigation, Shield, Users, Link } from 'lucide-react';
+import {Building, Navigation, Shield, Users, Link, Play } from 'lucide-react';
 import './Government.css';
 import {useParams} from 'react-router-dom';
 
@@ -16,6 +16,7 @@ const Government_Program = () => {
             "description": "The Temporary Assistance for Needy Families (TANF) program is designed to help families with children experiencing low-income achieve economic security and stability. ",
             "app-link": "https://yourtexasbenefits.com/Learn/Home/",
             "logo": "../TANF.png",
+            "video": "-NGi5crTYPs",
         },
         2: {
             "program-id": 78700,
@@ -26,6 +27,7 @@ const Government_Program = () => {
             "description": "Child care assistance programs help families pay for child care so they can work, study, or train for jobs. These programs are funded by the federal government and may also be called vouchers, subsidies, or fee assistance. ",
             "app-link": "https://www.austintexas.gov/department/child-care/",
             "logo": "../cityofAustin.jpg",
+            "video": "W8j0TZbnXL0",
         },
         3: {
             "program-id": 78700,
@@ -36,6 +38,7 @@ const Government_Program = () => {
             "description": "SNAP provides food benefits to low-income families to supplement their grocery budget so they can afford the nutritious food essential to health and well-being.",
             "app-link": "https://www.fns.usda.gov/snap/supplemental-nutrition-assistance-program/",
             "logo": "../snap.jpg",
+            "video": "ogvnpefvvbE",
         }
     };
     const program = programs[id];
@@ -99,6 +102,20 @@ const Government_Program = () => {
                         label="Administering Agency" 
                         value={program["government-admin"]}
                     />
+                </div>
+                <div className="video-section">
+                    <h2 className = "section-title">Watch this video!</h2>
+                    <div className="video-container">
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            src={`https://www.youtube.com/embed/${program["video"]}`}
+                            title={`${program["program-name"]} Overview`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
                 </div>
             </div>
         </div>

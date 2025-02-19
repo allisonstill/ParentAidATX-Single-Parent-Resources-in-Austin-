@@ -4,11 +4,11 @@ import "./Navbar.css";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+    <nav className="navbar navbar-expand-lg navbar-dark navbar-custom w-100">
       <div className="container-fluid">
         {/* Brand */}
         <Link className="navbar-brand" to="/">
-          ParentAidATX
+          <img src="/textLogo.png" alt="ParentAidATX Logo" style={{ height: '50px' }} />
         </Link>
 
         {/* Toggle Button for Mobile View */}

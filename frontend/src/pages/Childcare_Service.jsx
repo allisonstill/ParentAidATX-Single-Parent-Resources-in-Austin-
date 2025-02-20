@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { MapPin, Users, Star, Building, Link} from 'lucide-react';
 import './Childcare_Service.css';
 import {useParams} from 'react-router-dom';
+import HousingCard from '../components/housingCard'
+import ProgramCard from '../components/programCard';
 
 const ChildcareService = () => {
     const { id } = useParams();
@@ -22,7 +24,30 @@ const ChildcareService = () => {
                 "https://childcraftschooltx.com/uploads/1/2/3/5/123531586/published/image_6.png?1546248481",
                 "https://s3-media0.fl.yelpcdn.com/bphoto/_PLB8tWLFahaR5p6adPPuw/348s.jpg",
                 "https://cf-images.us-east-1.prod.boltdns.net/v1/static/6057277741001/fe6b8cea-b81f-4d96-99b9-1ee885863fe2/52b81240-6552-49e3-929f-3db8d8589f69/1280x720/match/image.jpg"
-            ]
+            ],
+            "related-resources": {
+                "program": {
+                    name: "Supplemental Nutrition Assistance Program (SNAP)",
+                    image: "/snap.jpg",
+                    description: "SNAP provides food benefits to low-income families to supplement their grocery budget so they can afford the nutritious food essential to health and well-being.",
+                    id: 3,
+                    website: "https://www.fns.usda.gov/snap/supplemental-nutrition-assistance-program/",
+                    govtAdmin: "US Department of Agriculture",
+                    govtScope: "Texas",
+                    cat: "Food",
+                    IDnum: 78700
+                },
+                "housing": {
+                    name: "Salvation Army Social Services Center",
+                    image: "https://lh3.googleusercontent.com/p/AF1QipMAAvugxD42xXAw5K-TPQM7RbRkxZRFJpZsfaqs=s1360-w1360-h1020",
+                    cost: "$0",
+                    rating: "3.8",
+                    housingStyle: "Shelter",
+                    address: "4613 Tannehill Ln Bldg 1, Austin, TX 78721",
+                    website: "https://salvationarmyaustin.org/",
+                    id: 2
+                }
+            }
         },
         2: {
             "name": "First English Lutheran Child Development Center",
@@ -37,7 +62,30 @@ const ChildcareService = () => {
                 "https://images.squarespace-cdn.com/content/v1/659d9f977b7a4100052c42be/1704828826252-OLIWM0453MDOXDWKZAOY/FELCDC_Food.png",
                 "https://images.squarespace-cdn.com/content/v1/659d9f977b7a4100052c42be/1704828830090-C759IQ5K60BSVVNVRVMA/FELCDC_4.jpeg",
                 "https://i0.wp.com/www.felcaustin.org/wp-content/uploads/FELCDC-Logo-2023.png?fit=474%2C598&ssl=1"
-            ]
+            ],
+            "related-resources": {
+                "program": {
+                    name: "Child Care Assistance Program (CCAP)",
+                    image: "/cityofAustin.jpg",
+                    description: "Child care assistance programs help families pay for child care so they can work, study, or train for jobs. These programs are funded by the federal government and may also be called vouchers, subsidies, or fee assistance. ",
+                    id: 2,
+                    website: "https://www.austintexas.gov/department/child-care/",
+                    govtAdmin: "Texas Workforce Commission",
+                    govtScope: "Texas",
+                    cat: "Child care",
+                    IDnum: 78700
+                },
+                "housing": {
+                    name: "Kensington Apartments",
+                    image: "https://rentpath-res.cloudinary.com/t_3x2_fixed_webp_xl/t_unpaid/e2335139f4a9f2257227377307f74af1",
+                    cost: "$900-1300",
+                    rating: "3.9",
+                    housingStyle: "Apartments",
+                    address: "2202 W N Loop Blvd, Austin, TX 78756",
+                    website: "https://www.rainieratx.com/kensington-apartments",
+                    id: 1
+                }
+            }
         },
         3: {
             "name": "Lil' Angels Daycare Center",
@@ -52,7 +100,30 @@ const ChildcareService = () => {
                 "https://winnie.imgix.net/30236f96-99fe-403a-aa72-5e38719cbab7?w=242&h=124&dpr=3&fit=crop&auto=compress",
                 "https://winnie.imgix.net/2b530ca2-7c5d-448b-ad61-ffc1112998ed?w=242&h=124&dpr=3&fit=crop&auto=compress",
                 "https://winnie.imgix.net/b175c141-f134-45ce-9689-4769f254fa65?w=242&h=124&dpr=3&fit=crop&auto=compress"
-            ]
+            ],
+            "related-resources": {
+                "program": {
+                    name: "Temporary Assistance for Needy Families (TANF)",
+                    image: "/TANF.png",
+                    description: "The Temporary Assistance for Needy Families (TANF) program is designed to help families with children experiencing low-income achieve economic security and stability. ",
+                    id: 1,
+                    website: "https://yourtexasbenefits.com/Learn/Home/",
+                    govtAdmin: "US Department of Health and Human Services",
+                    govtScope: "Texas",
+                    cat: "Food",
+                    IDnum: 78750
+                },
+                "housing": {
+                    name: "Pathways at North Loop Apartments",
+                    image: "https://www.hacanet.org/wp-content/uploads/2017/02/NorthLoop-06-1024x683.jpg",
+                    cost: "$1000-1100",
+                    rating: "3.3",
+                    housingStyle: "Apartments",
+                    address: "2300 W N Loop Blvd #101, Austin, TX 78756",
+                    website: "https://www.pathwaysatnorthloop.org/",
+                    id: 3
+                }
+            }
         }
     };
     const childcare = childcares[id];
@@ -157,9 +228,42 @@ const ChildcareService = () => {
                     </div>
                     
                 </div>
+                <div className="related-resources-section">
+                    <h2 className="section-title">Related Resources</h2>
+                    <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <div style={{ width: '350px' }}>
+                           { <HousingCard 
+                                image={childcare["related-resources"].housing.image}
+                                name={childcare["related-resources"].housing.name}
+                                cost={childcare["related-resources"].housing.cost}
+                                rating={childcare["related-resources"].housing.rating}
+                                HousingStyle={childcare["related-resources"].housing.housingStyle}
+                                Address={childcare["related-resources"].housing.address}
+                                website={childcare["related-resources"].housing.website}
+                                id={childcare["related-resources"].housing.id}                           
+                           />
+                        }
+                    </div>
+                    <div style={{ width: '350px' }}>
+                            <ProgramCard
+                                name={childcare["related-resources"].program.name}
+                                description={childcare["related-resources"].program.description}
+                                image={childcare["related-resources"].program.image}
+                                IDnum={childcare["related-resources"].program.IDnum}
+                                website={childcare["related-resources"].program.website}
+                                govtScope={childcare["related-resources"].program.govtScope}
+                                govtAdmin={childcare["related-resources"].program.govtAdmin}
+                                cat={childcare["related-resources"].program.cat}
+                                id={childcare["related-resources"].program.id}
+                            />
+                    </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     );
 };
 
 export default ChildcareService;
+

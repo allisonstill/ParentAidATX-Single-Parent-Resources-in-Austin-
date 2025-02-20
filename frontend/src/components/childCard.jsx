@@ -26,7 +26,7 @@ function ChildCard({ image, name, type, rating, cost, Address, website, id}) {
         <p className="ChildCard-attributes">{Address}</p>
         <p className="attribute-label">Website</p>
         <p className="ChildCard-attributes">{website}</p>
-        <Link to={`/housing/${id}`} className="custom-btn" onClick={handleClick}>
+        <Link to={`/childcare/${id}`} className="custom-btn" onClick={handleClick}>
           View Details
         </Link>
       </div>

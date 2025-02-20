@@ -66,6 +66,9 @@ function About() {
         <span className="fw-bold">Data sources: </span> GitLab API (not using
         other data sources for phase 1)
       </p>
+      <p className="about-description">
+        <span className="fw-bold">API Documentation Link: </span> <a href="https://documenter.getpostman.com/view/42442568/2sAYdZstBv"> Documentation </a>
+      </p>
       <h3 className="about-subtitle mt-5 mb-3">Meet The Team</h3>
 
       <div className="d-flex flex-wrap justify-content-center gap-5">
@@ -84,3 +87,4 @@ function About() {
 }
 
 export default About;
+

@@ -43,7 +43,7 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 | Team Member | Estimate Time | Actual Time |
 | ----- | --- | --- | 
 | Andrew Harvey     |    8 hours  |    10 hours |
-| Rubi Rojas        |    hours    |    hours |
+| Rubi Rojas        |    10 hours |    11 hours |
 | Allison Still     |    12 hours |    10 hours |
 | Amna Ali          |    14 hours |    10 hours |
 | Ethan Yu          |    hours    |    hours |

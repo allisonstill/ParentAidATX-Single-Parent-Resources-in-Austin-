@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Star, Building, Link, Shield, Clock} from 'lucide-react';
+import { MapPin, Star, Building, Link, Shield, Clock, Landmark} from 'lucide-react';
 import './HousingComplex.css';
 import {useParams} from 'react-router-dom';
 
@@ -197,6 +197,11 @@ const HousingComplex = () => {
                             icon={Shield}
                             label="Crime Rate"
                             value={housingComplex.crime}
+                        />
+                        <FeatureCard 
+                            icon={Landmark}
+                            label="Government Subsidized"
+                            value={housingComplex.governmentSubsidized}
                         />
                     </div>
 

@@ -6,26 +6,26 @@ import "./Housing.css";
 const HousingCardData = [
     {   id: 1, 
         name: "Kensington Apartments", 
-        cost: "",
-        rating: "",
-        HousingStyle: "",
-        address: "",
+        cost: "900-1300",
+        rating: "3.9",
+        HousingStyle: "Apartments",
+        Address: "2202 W N Loop Blvd, Austin, TX 78756",
         image: "https://rentpath-res.cloudinary.com/t_3x2_fixed_webp_xl/t_unpaid/e2335139f4a9f2257227377307f74af1"
     },
     {   id: 2, 
         name: "Salvation Army Social Services Center",
-        cost: "",
-        rating: "",
-        HousingStyle: "",
-        address: "",
+        cost: "0",
+        rating: "3.8",
+        HousingStyle: "Shelter",
+        Address: "4613 Tannehill Ln Bldg 1, Austin, TX 78721",
         image: "https://lh3.googleusercontent.com/p/AF1QipMAAvugxD42xXAw5K-TPQM7RbRkxZRFJpZsfaqs=s1360-w1360-h1020"
     },
     {   id: 3, 
         name: "Pathways at North Loop Apartments",
-        cost: "",
-        rating: "",
-        HousingStyle: "",
-        address: "",
+        cost: "1000-1100",
+        rating: "3.3",
+        HousingStyle: "Apartments",
+        Address: "2300 W N Loop Blvd #101, Austin, TX 78756",
         image:  "https://www.hacanet.org/wp-content/uploads/2017/02/NorthLoop-06-1024x683.jpg"
        }
   ];

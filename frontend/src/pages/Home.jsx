@@ -6,7 +6,7 @@ function Home() {
       <div className="background-container">
         <div className="title-box">
           <h1 className="home-page-title">ParentAidATX</h1>
-          <p className="home-page-description">Empower. Simplify. Support.</p>
+          <p className="home-page-description">Your Partner in Parenting.</p>
         </div>
         <div className="learn-more-container">
           <span className="learn-more-arrow">↓</span>

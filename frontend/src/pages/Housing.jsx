@@ -43,7 +43,7 @@ function Housing(){
             <p className="housing-page-description">{pageDescription}</p>
             <p className="housing-page-description">Showing 3/3 Instances</p>
         {/* NEW WRAPPER FOR CARDS */}
-        <div className="cards-container">
+        <div className="HousingCards-container">
             {cardData.map((currCard) => (
                 <div key={currCard.id} style={{ width: "350px" }}> {/* Adjust width as needed */}
                 < HousingCard

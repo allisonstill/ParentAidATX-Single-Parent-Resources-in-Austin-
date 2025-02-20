@@ -42,7 +42,7 @@ function Childcare(){
         <p className="child-page-description">{pageDescription}</p>
         <p className="child-page-description">Showing 3/3 Instances</p>
         {/* NEW WRAPPER FOR CARDS */}
-        <div className="cards-container">
+        <div className="ChildCards-container">
           {cardData.map((currCard) => (
             <div key={currCard.id} style={{width: "350px"}}> {/* Adjust width as needed */}
               < ChildCard

@@ -10,7 +10,7 @@
     display: block; /* Ensures it takes up space */
     width:90%; /* Expands to fill the container */
     max-width: 600px; /* Prevents it from getting too wide */
-    margin-left: -31px; /* Moves the box to the right */
+    margin-left: -25px; /* Moves the box to the right */
     margin-right: auto; /* Keeps width flexible */
     margin-top: 10px;
     margin-bottom: 30px;

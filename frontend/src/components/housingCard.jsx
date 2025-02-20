@@ -23,7 +23,7 @@ function HousingCard({ image, name, cost, rating, HousingStyle, Address, id}) {
         <p className="HousingCard-attributes">{HousingStyle}</p>
         <p className="attribute-label">Address</p>
         <p className="HousingCard-attributes">{Address}</p>
-        <Link to={`/programs/${id}`} className="custom-btn" onClick={handleClick}>
+        <Link to={`/housing/${id}`} className="custom-btn" onClick={handleClick}>
           View Details
         </Link>
       </div>

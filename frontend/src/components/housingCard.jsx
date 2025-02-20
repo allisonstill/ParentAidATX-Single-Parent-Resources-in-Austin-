@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./housingCard.css";
 
-function HousingCard({ image, name, cost, rating, HousingStyle, Address, id}) {
+function HousingCard({ image, name, cost, rating, HousingStyle, Address, website, id}) {
   const handleClick = () => {
     window.scrollTo(0, 0);
   };
@@ -23,6 +23,8 @@ function HousingCard({ image, name, cost, rating, HousingStyle, Address, id}) {
         <p className="HousingCard-attributes">{HousingStyle}</p>
         <p className="attribute-label">Address</p>
         <p className="HousingCard-attributes">{Address}</p>
+        <p className="attribute-label">Website</p>
+        <p className="HousingCard-attributes">{website}</p>
         <Link to={`/housing/${id}`} className="custom-btn" onClick={handleClick}>
           View Details
         </Link>

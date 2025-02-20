@@ -10,6 +10,7 @@ const HousingCardData = [
         rating: "3.9",
         HousingStyle: "Apartments",
         Address: "2202 W N Loop Blvd, Austin, TX 78756",
+        website: "https://www.rainieratx.com/kensington-apartments",
         image: "https://rentpath-res.cloudinary.com/t_3x2_fixed_webp_xl/t_unpaid/e2335139f4a9f2257227377307f74af1"
     },
     {   id: 2, 
@@ -18,6 +19,7 @@ const HousingCardData = [
         rating: "3.8",
         HousingStyle: "Shelter",
         Address: "4613 Tannehill Ln Bldg 1, Austin, TX 78721",
+        website: "https://salvationarmyaustin.org/",
         image: "https://lh3.googleusercontent.com/p/AF1QipMAAvugxD42xXAw5K-TPQM7RbRkxZRFJpZsfaqs=s1360-w1360-h1020"
     },
     {   id: 3, 
@@ -26,6 +28,7 @@ const HousingCardData = [
         rating: "3.3",
         HousingStyle: "Apartments",
         Address: "2300 W N Loop Blvd #101, Austin, TX 78756",
+        website: "https://www.pathwaysatnorthloop.org/brochure.aspx",
         image:  "https://www.hacanet.org/wp-content/uploads/2017/02/NorthLoop-06-1024x683.jpg"
        }
   ];
@@ -51,6 +54,7 @@ function Housing(){
                     rating={currCard.rating}
                     HousingStyle={currCard.HousingStyle}
                     Address={currCard.Address}
+                    website={currCard.website}
                 />
                 </div>
             ))}

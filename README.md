@@ -46,7 +46,7 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 | Rubi Rojas        |    10 hours |    11 hours |
 | Allison Still     |    12 hours |    10 hours |
 | Amna Ali          |    14 hours |    10 hours |
-| Ethan Yu          |    hours    |    hours |
+| Ethan Yu          |    13 hours |    10 hours |
 
 
 ## Models  
@@ -56,7 +56,8 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 
 #### **Attributes:**  
 - Program ID  
-- Program Name
+- Program Name 
+
 - Government Administration/Department 
 - Government Scope (City, State, Federal) 
 - Category (Food, Housing, etc.)

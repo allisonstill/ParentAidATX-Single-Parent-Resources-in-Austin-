@@ -1,21 +1,17 @@
+/* General Layout */
 .main-container {
-  position: absolute;
   width: 100%;
   min-height: 100vh;
-  top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
-  z-index: -1;
+  align-items: center;
 }
 
+/* Background Section */
 .background-container {
-  position: relative;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100vh;
-  z-index: -100; /* Sends the blurred background behind content */
+  min-height: 100vh;
+  position: relative;
 }
 
 .background-container::before {
@@ -29,75 +25,94 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(2px); /* Adjust blur intensity */
-  z-index: -1; /* Keep it behind text */
+  filter: blur(2px);
+  z-index: -1;
 }
 
+/* Title Section */
 .title-box {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
 
 .home-page-title {
-  position: relative;
   color: white;
-  font-size: 70px;
+  font-size: clamp(40px, 6vw, 70px);
 }
 
 .home-page-description {
-  position: relative;
   color: white;
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 20px);
 }
 
+/* Learn More */
 .learn-more-container {
-  text-align: center;
   position: absolute;
-  bottom: 20px;
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .learn-more-arrow {
+  font-size: clamp(20px, 3vw, 30px);
   color: white;
-  font-size: 2rem;
 }
 
 .learn-more-text {
+  font-size: clamp(12px, 1.5vw, 16px);
   color: white;
-  font-size: 1rem;
 }
 
+/* Description Section */
 .description-overall-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: #ddbd9e; /* Light background to differentiate */
-  padding: 5% 10%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #ddbd9e;
+  padding: 5% 8%;
+  gap: 5vw;
+  width: 100%;
 }
 
 .description-container {
-  position: relative;
-  width: 100%;
-  padding: 50px 100px;
+  max-width: 600px;
   text-align: left;
 }
 
 .description-title {
-  position: relative;
-  bottom: 10%;
+  font-size: clamp(24px, 3vw, 32px);
 }
 
+/* Skyline Image */
 .skyline-container {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .austin-skyline {
-  height: 40vh;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
   border-radius: 10%;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .description-overall-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .description-container {
+    padding: 5%;
+  }
+
+  .title-box {
+    width: 90%;
+  }
 }

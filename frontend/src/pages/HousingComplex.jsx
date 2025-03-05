@@ -298,7 +298,7 @@ const HousingComplex = () => {
 
                     <div className="map-section">
                         <iframe
-                            src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(housingComplex.address)}`}
+                            src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(housingComplex.address)}`}
                             className="map-frame"
                             allowFullScreen=""
                             loading="lazy"

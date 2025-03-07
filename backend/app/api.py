@@ -1,3 +1,6 @@
+"""
+This file contains our API implementation.
+"""
 from typing import List, Dict
 from flask import Flask
 import mysql.connector

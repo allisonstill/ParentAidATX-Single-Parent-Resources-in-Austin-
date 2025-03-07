@@ -15,6 +15,6 @@ WORKDIR /app
 COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
-# Run app.py when the container launches
-COPY app.py /app
-CMD python app.py
+# Run api.py when the container launches
+COPY api.py /app
+CMD python api.py

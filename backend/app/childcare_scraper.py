@@ -1,3 +1,6 @@
+"""
+Scrapes data for childcare centers and inserts data into an sql database.
+"""
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -5,6 +8,17 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
+from sqlalchemy import create_engine
+import psycopg2
+
+# Database Configuration (Replace with AWS RDS credentials)
+DB_USERNAME = "your_username"
+DB_PASSWORD = "your_password"
+DB_HOST = "your-db-instance.us-east-2.rds.amazonaws.com"
+DB_NAME = "brightwheel"
+
+# Set up PostgreSQL Connection
+engine = create_engine(f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}")
 
 # Set up Selenium WebDriver
 options = webdriver.ChromeOptions()
@@ -101,7 +115,7 @@ def scrape_page(url):
             "Page Link": full_link
         })
 
-# Scrape the first page
+# Scrape the first page (Seperately b/c the first page does not have a pagenum. it just had to be asyemtrical...)
 scrape_page(start_url)
 
 # Loop through all other pages dynamically
@@ -112,7 +126,11 @@ for page_num in range(2, last_page + 1):
 # Close the browser
 driver.quit()
 
-# Convert to DataFrame and save
+# Convert to DataFrame and save as csv
 df = pd.DataFrame(data)
-print(df)  # Display results
+#print(df)  # Display results
 df.to_csv("brightwheel_daycares.csv", index=False)  # Save to file
+
+# Insert data into PostgreSQL
+df.to_sql("daycare", engine, if_exists="append", index=False)
+print("Data successfully inserted into PostgreSQL!")

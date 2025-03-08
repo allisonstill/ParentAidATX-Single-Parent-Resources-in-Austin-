@@ -1,28 +1,54 @@
+"""
+Defines database models, API endpoints, and serves data from our ProstgreSQL databases.
+"""
+
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
 
+# Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Allows frontend to access backend
 
-# Connect to MySQL or PostgreSQL
-app.config["SQLALCHEMY_DATABASE_URI"] = ""
+# Database Configuration
+DB_USERNAME = "your_username"
+DB_PASSWORD = "your_password"
+DB_HOST = "your-db-instance.us-east-2.rds.amazonaws.com"
+DB_NAME = "brightwheel"
+
+app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+# Initialize SQLAlchemy
 db = SQLAlchemy(app)
 
-# Define model
-class GovernmentProgram(db.Model):
+# Define Database Model
+class Daycare(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    url = db.Column(db.String(500), nullable=False)
-    description = db.Column(db.Text, nullable=True)
+    age_range = db.Column(db.String(50), nullable=True)
+    open_time = db.Column(db.String(50), nullable=True)
+    close_time = db.Column(db.String(50), nullable=True)
+    program_type = db.Column(db.String(255), nullable=True)
+    image_url = db.Column(db.String(500), nullable=True)
+    full_link = db.Column(db.String(500), nullable=True)
 
-# API endpoint: Get all programs
-@app.route("/api/programs", methods=["GET"])
-def get_programs(): # Runs this method when a GET request is made to the api/programs
-    programs = GovernmentProgram.query.all() # Query the database to get all government programs (gets all rows)
-    return jsonify([{"id": p.id, "name": p.name, "url": p.url, "description": p.description} for p in programs]) # return queried data as a JSON
+# Flask API Route to Fetch Data
+@app.route("/api/daycares", methods=["GET"])
+def get_daycares():
+    with app.app_context():
+        daycares = Daycare.query.all()
+        return jsonify([
+            {
+                "id": d.id,
+                "name": d.name,
+                "age_range": d.age_range,
+                "open_time": d.open_time,
+                "close_time": d.close_time,
+                "program_type": d.program_type,
+                "image_url": d.image_url,
+                "full_link": d.full_link
+            } for d in daycares
+        ])
 
+# Run Flask
 if __name__ == "__main__":
     app.run(debug=True)

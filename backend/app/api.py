@@ -20,8 +20,8 @@ class GovernmentProgram(db.Model):
 
 # API endpoint: Get all programs
 @app.route("/api/programs", methods=["GET"])
-def get_programs(): # runs this method when a GET request is made to the api/programs
-    programs = GovernmentProgram.query.all() # query the database to get all government programs (gets all rows)
+def get_programs(): # Runs this method when a GET request is made to the api/programs
+    programs = GovernmentProgram.query.all() # Query the database to get all government programs (gets all rows)
     return jsonify([{"id": p.id, "name": p.name, "url": p.url, "description": p.description} for p in programs]) # return queried data as a JSON
 
 if __name__ == "__main__":

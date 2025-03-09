@@ -1,20 +1,31 @@
 # Use an official Python runtime as an image
-FROM python:3.6
+FROM python:3.10
 
-# The EXPOSE instruction indicates the ports on which a container 
-# will listen for connections
-# Since Flask apps listen to port 5000  by default, we expose it
-EXPOSE 5000
-
-# Sets the working directory for following COPY and CMD instructions
-# Notice we haven’t created a directory by this name - this instruction 
-# creates a directory with this name if it doesn’t exist
+# Set the working directory
 WORKDIR /app
 
-# Install any needed packages specified in requirements.txt
-COPY requirements.txt /app
-RUN pip install -r requirements.txt
+# Install system dependencies for Selenium, Chrome & libraries (Minimized Install)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget unzip curl \
+    chromium chromium-driver \
+    libnss3 libgconf-2-4 \
+    libxss1 \
+    fonts-liberation xdg-utils && \
+    rm -rf /var/lib/apt/lists/*  # ✅ Clean up to reduce image size
 
-# Run api.py when the container launches
-COPY api.py /app
-CMD python api.py
+# Set environment variables for Chrome
+ENV CHROME_BIN=/usr/bin/chromium
+ENV CHROMEDRIVER_BIN=/usr/bin/chromedriver
+
+# Install Python dependencies
+COPY requirements.txt /app
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copy application files
+COPY . /app
+
+# For starting API first, then running the scraper
+# CMD ["sh", "-c", "gunicorn -b 0.0.0.0:5000 api:app & sleep 5 && python childcare_scraper.py"]
+
+# Only start the API (do NOT run the scraper)
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "api:app"]

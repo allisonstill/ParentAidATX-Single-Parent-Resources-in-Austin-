@@ -1,39 +1,51 @@
-"""
-Scrapes data for childcare centers and inserts data into an sql database.
-"""
+import os
+import time
+import chromedriver_autoinstaller
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
+from sqlalchemy.orm import sessionmaker
+from api import app, db, Daycare  # Import stuff from API
 import pandas as pd
-import time
-from sqlalchemy import create_engine
-import psycopg2
 
-# Database Configuration (Replace with AWS RDS credentials)
-DB_USERNAME = "your_username"
-DB_PASSWORD = "your_password"
-DB_HOST = "your-db-instance.us-east-2.rds.amazonaws.com"
-DB_NAME = "brightwheel"
+# Ensure ChromeDriver is installed
+chromedriver_autoinstaller.install()
 
-# Set up PostgreSQL Connection
-engine = create_engine(f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}")
+# Get the database URL from Railway
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL is missing")
+
+# Create a session to interact with the database inside the Flask app context
+with app.app_context():
+    Session = sessionmaker(bind=db.engine)
+    session = Session()
 
 # Set up Selenium WebDriver
-options = webdriver.ChromeOptions()
-options.add_argument("--headless")  # Run in background (no UI)
-options.add_argument("--disable-gpu")
-options.add_argument("--window-size=1920x1080")
-options.add_argument("--no-sandbox")
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--headless=new")  # Use the new headless mode (more stable)
+chrome_options.add_argument("--disable-gpu")  # Fixes crashes in some environments
+chrome_options.add_argument("--window-size=1920x1080")  # Ensures proper rendering
+chrome_options.add_argument("--no-sandbox")  # Prevents crashes due to security issues
+chrome_options.add_argument("--disable-dev-shm-usage")  # Reduces memory issues in Railway
+chrome_options.add_argument("--disable-extensions")  # Loads only essential features
+chrome_options.add_argument("--disable-background-networking")  # Reduces resource usage
+chrome_options.add_argument("--disable-software-rasterizer")  # Prevents GPU-related crashes
+chrome_options.add_argument("--disable-popup-blocking")  # Ensures page elements load
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+# Use system-installed ChromeDriver
+driver = webdriver.Chrome(options=chrome_options)
 
-# Start with the first page
+
+# Start scraping
 base_url = "https://mybrightwheel.com"
 start_url = f"{base_url}/search/austin"
 driver.get(start_url)
 time.sleep(5)
+
+print("Scraper started successfully!")
+
 
 # Find the last page from pagination links
 soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -50,87 +62,135 @@ for link in pagination_links:
 print(f"Total Pages Found: {last_page}")
 
 data = []
-
-# Function to scrape a single page
-def scrape_page(url):
+# Function to scrape and insert data
+def scrape_and_insert(url):
     print(f"Scraping: {url}")
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(5)
 
     soup = BeautifulSoup(driver.page_source, "html.parser")
     centers = soup.find_all("div", {"data-cy": "provider-card"})
 
-    for center in centers:
-        try:
-            name = center.find("h2", {"data-testid": "providerCard-name"}).text.strip()
-        except:
-            name = "N/A"
+    with app.app_context():  # Ensure app context before inserting into DB
+        for center in centers:
+            try:
+                name = center.find("h2", {"data-testid": "providerCard-name"}).text.strip()
+            except:
+                name = "N/A"
 
-        try:
-            age_range = center.find("img", {"alt": "provider age range icon"}).find_next("span").text.strip()
-        except:
-            age_range = "N/A"
+            try:
+                age_range = center.find("img", {"alt": "provider age range icon"}).find_next("span").text.strip()
+            except:
+                age_range = "N/A"
 
-        try:
-            hours = center.find("img", {"alt": "provider hours icon"}).find_next("span").text.strip()
-            open_time, close_time = hours.split(" - ")
-        except:
-            open_time, close_time = "N/A", "N/A"
+            try:
+                hours = center.find("img", {"alt": "provider hours icon"}).find_next("span").text.strip()
+                open_time, close_time = hours.split(" - ")
+            except:
+                open_time, close_time = "N/A", "N/A"
 
-        try:
-            program_type = center.find("img", {"src": "/search/images/results/provider-program.svg"}).find_next("span").text.strip()
-        except:
-            program_type = "N/A"
+            try:
+                program_type = center.find("img", {"src": "/search/images/results/provider-program.svg"}).find_next("span").text.strip()
+            except:
+                program_type = "N/A"
 
-        try:
-            relative_link = center.find("a", class_="MPLink_providerCardLink__ijZVA")["href"]
-            full_link = f"{base_url}{relative_link}"
-        except:
-            full_link = "N/A"
+            try:
+                relative_link = center.find("a", class_="MPLink_providerCardLink__ijZVA")["href"]
+                full_link = f"{base_url}{relative_link}"
+            except:
+                full_link = "N/A"
 
-        try:
-            # Extract daycare image URL and exclude placeholders
-            # TODO: BROKEN!
-            image_tag = center.find("img", {"data-testid": "providerCard-Img"})
-            if image_tag:
-                image_url = image_tag["src"].strip()
-                if "global/image-placeholder.svg" in image_url:
-                    image_url = "N/A"
-                elif image_url.startswith("/search/images"):
-                    image_url = f"{base_url}{image_url}"
-                elif not image_url.startswith("https://"):
-                    image_url = f"https://images.mybrightwheel.com{image_url}"
-            else:
+            # Attempt to grab primary image
+            try:
                 image_url = "N/A"
-        except:
-            image_url = "N/A"
+                image_tag = center.find("img", {"data-testid": "providerCard-Img"})
+                if image_tag:
+                    image_url = image_tag["src"].strip()
+                    if "global/image-placeholder.svg" in image_url:
+                        image_url = "N/A"
+                    elif image_url.startswith("/search/images"):
+                        image_url = f"{base_url}{image_url}"
+                    elif not image_url.startswith("https://"):
+                        image_url = f"https://images.mybrightwheel.com{image_url}"
+            except:
+                image_url = "N/A"
 
-        data.append({
-            "Name": name,
-            "Age Range": age_range,
-            "Open Time": open_time,
-            "Close Time": close_time,
-            "Program Type": program_type,
-            "Image URL": image_url,
-            "Page Link": full_link
-        })
+            # Get description from full_link page
+            try:
+                description = "N/A"
+                if(full_link != "N/A"):
+                    driver.get(full_link)  # Visit the provider's page
+                    time.sleep(2)  # Allow time for the page to load
+                    
+                    provider_soup = BeautifulSoup(driver.page_source, "html.parser")
 
-# Scrape the first page (Seperately b/c the first page does not have a pagenum. it just had to be asyemtrical...)
-scrape_page(start_url)
+                    desc_tag = provider_soup.find("p", class_="About_text__2fUjQ false css-1x0b0xw", attrs={"data-testid": "app-text"})
+                    if desc_tag:
+                        description = desc_tag.text.strip()
+            except:
+                description = "N/A"
+
+            # Look for an image on the full_link page if it wasnt found on the card
+            try:
+                if(image_url == "N/A" and full_link != "N/A"):
+                    driver.get(full_link)  # Visit the provider's page
+                    time.sleep(2)  # Allow time for the page to load
+
+                    provider_soup = BeautifulSoup(driver.page_source, "html.parser")
+                    
+                    image_tag = provider_soup.find("img", {"data-testid": "component-open-modal"})
+                    image_url = image_tag["src"]
+            except:
+                image_url = "N/A"
+
+            try:
+                # Insert into PostgreSQL using SQLAlchemy ORM (Non N/A rows only)
+                fields = [name, age_range, open_time, close_time, program_type, image_url, full_link, description]
+                if "N/A" not in fields:
+                    new_daycare = Daycare(
+                        name=name,
+                        age_range=age_range,
+                        open_time=open_time,
+                        close_time=close_time,
+                        program_type=program_type,
+                        image_url=image_url,
+                        full_link=full_link,
+                        description=description
+                    )
+
+                    session.add(new_daycare)  
+                    session.commit()  # Force save
+                    print(f"✅ Inserted: {name}")
+            except Exception as e:
+                session.rollback()  # Rollback in case of an error
+                print(f"🚨 Insert failed: {e}")
+
+            # for pandas
+            data.append({
+                "Name": name,
+                "Age Range": age_range,
+                "Open Time": open_time,
+                "Close Time": close_time,
+                "Program Type": program_type,
+                "Image URL": image_url,
+                "Page Link": full_link,
+                "Description": description
+            })
+
+
+# Scrape and insert data for the first page
+scrape_and_insert(start_url)
 
 # Loop through all other pages dynamically
 for page_num in range(2, last_page + 1):
     page_url = f"{base_url}/search/austin/page-{page_num}"
-    scrape_page(page_url)
+    scrape_and_insert(page_url)
 
 # Close the browser
 driver.quit()
 
-# Convert to DataFrame and save as csv
 df = pd.DataFrame(data)
-#print(df)  # Display results
+df = df.replace("N/A", pd.NA).dropna()
 df.to_csv("brightwheel_daycares.csv", index=False)  # Save to file
 
-# Insert data into PostgreSQL
-df.to_sql("daycare", engine, if_exists="append", index=False)
-print("Data successfully inserted into PostgreSQL!")
+print("Data successfully inserted into PostgreSQL")

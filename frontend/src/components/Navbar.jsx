@@ -28,8 +28,8 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/programs"> {/* "Link to" reaplces the traditional "href" attribute. When clicked, changes url to ../programs */}
-                Government Programs
+              <Link className="nav-link" to="/books"> {/* "Link to" reaplces the traditional "href" attribute. When clicked, changes url to ../books */}
+                Books
               </Link>
             </li>
             <li className="nav-item">

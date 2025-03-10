@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MapPin, Star, Building, Link, Shield, Clock, Landmark} from 'lucide-react';
 import './HousingComplex.css';
 import {useParams} from 'react-router-dom';
-import ProgramCard from '../components/programCard';
+import BookCard from '../components/bookCard';
 import ChildCard from '../components/childCard';
 
 const HousingComplex = () => {
@@ -43,16 +43,18 @@ const HousingComplex = () => {
             ],
             "website": "https://www.rainieratx.com/kensington-apartments",
             "related-resources": {
-                "program": {
-                    name: "Child Care Assistance Program (CCAP)",
-                    image: "/cityofAustin.jpg",
-                    description: "Child care assistance programs help families pay for child care so they can work, study, or train for jobs. These programs are funded by the federal government and may also be called vouchers, subsidies, or fee assistance. ",
-                    id: 2,
-                    website: "https://www.austintexas.gov/department/child-care/",
-                    govtAdmin: "Texas Workforce Commission",
-                    govtScope: "Texas",
-                    cat: "Child care",
-                    IDnum: 78700
+                "book": {
+                    id: 1, 
+                    title: "Book 1",
+                    author: "Author 1",
+                    publishDate: "January 1, 2022",
+                    pageCount: "100",
+                    listPrice: "$10.00",
+                    description: "Book about single parenting",
+                    cat: "Housing",
+                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
+                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
+                
                 },"childcare" : {
                     name: "Child Craft Schools",
                     image: "https://childcraftschooltx.com/uploads/1/2/3/5/123531586/published/image_6.png?1546248481",
@@ -98,16 +100,18 @@ const HousingComplex = () => {
             ],
             "website": "https://salvationarmyaustin.org/",
             "related-resources": {
-                "program": {
-                    name: "Supplemental Nutrition Assistance Program (SNAP)",
-                    image: "/snap.jpg",
-                    description: "SNAP provides food benefits to low-income families to supplement their grocery budget so they can afford the nutritious food essential to health and well-being.",
-                    id: 3,
-                    website: "https://www.fns.usda.gov/snap/supplemental-nutrition-assistance-program/",
-                    govtAdmin: "US Department of Agriculture",
-                    govtScope: "Texas",
-                    cat: "Food",
-                    IDnum: 78700
+                "book": {
+                    id: 1, 
+                    title: "Book 1",
+                    author: "Author 1",
+                    publishDate: "January 1, 2022",
+                    pageCount: "100",
+                    listPrice: "$10.00",
+                    description: "Book about single parenting",
+                    cat: "Housing",
+                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
+                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
+                
                 },"childcare" : {
                     name: "Lil' Angels Daycare Center",
                     image: "https://winnie.imgix.net/b175c141-f134-45ce-9689-4769f254fa65?w=242&h=124&dpr=3&fit=crop&auto=compress",
@@ -153,16 +157,18 @@ const HousingComplex = () => {
             ],
             "website": "https://www.pathwaysatnorthloop.org/brochure.aspx",
             "related-resources": {
-                "program": {
-                    name: "Temporary Assistance for Needy Families (TANF)",
-                    image: "/TANF.png",
-                    description: "The Temporary Assistance for Needy Families (TANF) program is designed to help families with children experiencing low-income achieve economic security and stability. ",
-                    id: 1,
-                    website: "https://yourtexasbenefits.com/Learn/Home/",
-                    govtAdmin: "US Department of Health and Human Services",
-                    govtScope: "Texas",
-                    cat: "Food",
-                    IDnum: 78750
+                "book": {
+                    id: 1, 
+                    title: "Book 1",
+                    author: "Author 1",
+                    publishDate: "January 1, 2022",
+                    pageCount: "100",
+                    listPrice: "$10.00",
+                    description: "Book about single parenting",
+                    cat: "Housing",
+                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
+                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
+                
                 },"childcare" : {
                     name: "First English Lutheran Child Development Center",
                     image: "https://images.squarespace-cdn.com/content/v1/659d9f977b7a4100052c42be/1704828826252-OLIWM0453MDOXDWKZAOY/FELCDC_Food.png",
@@ -310,16 +316,17 @@ const HousingComplex = () => {
                     <h2 className="section-title">Related Resources</h2>
                     <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <div style={{ width: '350px' }}>
-                            <ProgramCard
-                                name={housingComplex["related-resources"].program.name}
-                                description={housingComplex["related-resources"].program.description}
-                                image={housingComplex["related-resources"].program.image}
-                                IDnum={housingComplex["related-resources"].program.IDnum}
-                                website={housingComplex["related-resources"].program.website}
-                                govtScope={housingComplex["related-resources"].program.govtScope}
-                                govtAdmin={housingComplex["related-resources"].program.govtAdmin}
-                                cat={housingComplex["related-resources"].program.cat}
-                                id={housingComplex["related-resources"].program.id}
+                            <BookCard
+                                title={housingComplex["related-resources"].book.name}
+                                author={housingComplex["related-resources"].book.author}
+                                publishDate={housingComplex["related-resources"].book.publishDate}
+                                pageCount={housingComplex["related-resources"].book.pageCount}
+                                listPrice={housingComplex["related-resources"].book.listPrice}
+                                description={housingComplex["related-resources"].book.description}
+                                image={housingComplex["related-resources"].book.image}
+                                link={housingComplex["related-resources"].book.link}
+                                cat={housingComplex["related-resources"].book.cat}
+                                id={housingComplex["related-resources"].book.id}
                             />
                     </div>
                     <div style={{ width: '350px' }}>

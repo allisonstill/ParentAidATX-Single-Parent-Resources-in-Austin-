@@ -3,7 +3,7 @@ import { MapPin, Users, Star, Building, Link} from 'lucide-react';
 import './Childcare_Service.css';
 import {useParams} from 'react-router-dom';
 import HousingCard from '../components/housingCard'
-import ProgramCard from '../components/programCard';
+import BookCard from '../components/bookCard';
 
 const ChildcareService = () => {
     const { id } = useParams();
@@ -26,16 +26,18 @@ const ChildcareService = () => {
                 "https://cf-images.us-east-1.prod.boltdns.net/v1/static/6057277741001/fe6b8cea-b81f-4d96-99b9-1ee885863fe2/52b81240-6552-49e3-929f-3db8d8589f69/1280x720/match/image.jpg"
             ],
             "related-resources": {
-                "program": {
-                    name: "Supplemental Nutrition Assistance Program (SNAP)",
-                    image: "/snap.jpg",
-                    description: "SNAP provides food benefits to low-income families to supplement their grocery budget so they can afford the nutritious food essential to health and well-being.",
-                    id: 3,
-                    website: "https://www.fns.usda.gov/snap/supplemental-nutrition-assistance-program/",
-                    govtAdmin: "US Department of Agriculture",
-                    govtScope: "Texas",
-                    cat: "Food",
-                    IDnum: 78700
+                "book": {
+                    id: 1, 
+                    title: "Book 1",
+                    author: "Author 1",
+                    publishDate: "January 1, 2022",
+                    pageCount: "100",
+                    listPrice: "$10.00",
+                    description: "Book about single parenting",
+                    cat: "Housing",
+                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
+                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
+                
                 },
                 "housing": {
                     name: "Salvation Army Social Services Center",
@@ -64,16 +66,18 @@ const ChildcareService = () => {
                 "https://i0.wp.com/www.felcaustin.org/wp-content/uploads/FELCDC-Logo-2023.png?fit=474%2C598&ssl=1"
             ],
             "related-resources": {
-                "program": {
-                    name: "Child Care Assistance Program (CCAP)",
-                    image: "/cityofAustin.jpg",
-                    description: "Child care assistance programs help families pay for child care so they can work, study, or train for jobs. These programs are funded by the federal government and may also be called vouchers, subsidies, or fee assistance. ",
-                    id: 2,
-                    website: "https://www.austintexas.gov/department/child-care/",
-                    govtAdmin: "Texas Workforce Commission",
-                    govtScope: "Texas",
-                    cat: "Child care",
-                    IDnum: 78700
+                "book": {
+                    id: 1, 
+                    title: "Book 1",
+                    author: "Author 1",
+                    publishDate: "January 1, 2022",
+                    pageCount: "100",
+                    listPrice: "$10.00",
+                    description: "Book about single parenting",
+                    cat: "Housing",
+                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
+                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
+                
                 },
                 "housing": {
                     name: "Kensington Apartments",
@@ -102,16 +106,18 @@ const ChildcareService = () => {
                 "https://winnie.imgix.net/b175c141-f134-45ce-9689-4769f254fa65?w=242&h=124&dpr=3&fit=crop&auto=compress"
             ],
             "related-resources": {
-                "program": {
-                    name: "Temporary Assistance for Needy Families (TANF)",
-                    image: "/TANF.png",
-                    description: "The Temporary Assistance for Needy Families (TANF) program is designed to help families with children experiencing low-income achieve economic security and stability. ",
-                    id: 1,
-                    website: "https://yourtexasbenefits.com/Learn/Home/",
-                    govtAdmin: "US Department of Health and Human Services",
-                    govtScope: "Texas",
-                    cat: "Food",
-                    IDnum: 78750
+                "book": {
+                    id: 1, 
+                    title: "Book 1",
+                    author: "Author 1",
+                    publishDate: "January 1, 2022",
+                    pageCount: "100",
+                    listPrice: "$10.00",
+                    description: "Book about single parenting",
+                    cat: "Housing",
+                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
+                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
+                
                 },
                 "housing": {
                     name: "Pathways at North Loop Apartments",
@@ -245,16 +251,17 @@ const ChildcareService = () => {
                         }
                     </div>
                     <div style={{ width: '350px' }}>
-                            <ProgramCard
-                                name={childcare["related-resources"].program.name}
-                                description={childcare["related-resources"].program.description}
-                                image={childcare["related-resources"].program.image}
-                                IDnum={childcare["related-resources"].program.IDnum}
-                                website={childcare["related-resources"].program.website}
-                                govtScope={childcare["related-resources"].program.govtScope}
-                                govtAdmin={childcare["related-resources"].program.govtAdmin}
-                                cat={childcare["related-resources"].program.cat}
-                                id={childcare["related-resources"].program.id}
+                            <BookCard
+                                title={childcare["related-resources"].book.name}
+                                author={childcare["related-resources"].book.author}
+                                publishDate={childcare["related-resources"].book.publishDate}
+                                pageCount={childcare["related-resources"].book.pageCount}
+                                listPrice={childcare["related-resources"].book.listPrice}
+                                description={childcare["related-resources"].book.description}
+                                image={childcare["related-resources"].book.image}
+                                link={childcare["related-resources"].book.link}
+                                cat={childcare["related-resources"].book.cat}
+                                id={childcare["related-resources"].book.id}
                             />
                     </div>
                     </div>

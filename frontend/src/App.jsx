@@ -4,9 +4,11 @@ import Navbar from "./components/Navbar.jsx";
 import About from "./pages/About.jsx";
 import Home from "./pages/Home.jsx";
 import Childcare from "./pages/Childcare.jsx";
-import Programs from "./pages/Programs.jsx";
+//import Programs from "./pages/Programs.jsx";
+import Books from "./pages/Books.jsx";
 import Housing from "./pages/Housing.jsx";
-import Government from "./pages/Government.jsx";
+//import Government from "./pages/Government.jsx";
+import IndividualBook from "./pages/IndividualBook.jsx"
 import ChildcareService from './pages/Childcare_Service.jsx'
 import HousingComplex from './pages/HousingComplex.jsx'
 //import "./components/Navbar.css"
@@ -24,11 +26,11 @@ function App() {
         {/*Routes*/}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/programs" element={<Programs />} />
+          <Route path="/books" element={<Books />} />
           <Route path="/housing" element={<Housing />} />
           <Route path="/childcare" element={<Childcare />} />
           <Route path="/about" element={<About />} />
-          <Route path="/programs/:id" element={<Government />} />
+          <Route path="/books/:id" element={<IndividualBook />} />
           <Route path="/childcare/:id" element={<ChildcareService />} />
           <Route path="/housing/:id" element={<HousingComplex />} />
         </Routes>

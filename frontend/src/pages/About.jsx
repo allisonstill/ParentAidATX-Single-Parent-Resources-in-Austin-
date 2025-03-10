@@ -52,7 +52,7 @@ function About() {
       <h1 className="about-title">About Us</h1>
       <hr />
       <p className="about-description">
-        <strong style={{ color: "#2E8B57", fontSize: "1.2em"}}>
+        <strong style={{ color: "#f68751", fontSize: "1.2em"}}>
         Support for Single Parents in Austin, Simplified.
         </strong> ParentAidATX helps
         single parents in Austin, Texas get information on family-related
@@ -60,11 +60,10 @@ function About() {
       </p>
       <p className="about-description">
         <span className="fw-bold">Tools used: </span> NodeJS, React, Bootstrap,
-        AWS, GitLab Pipelines
+        AWS Amplify, Railway, GitLab Pipelines
       </p>
       <p className="about-description">
-        <span className="fw-bold">Data sources: </span> GitLab API (not using
-        other data sources for phase 1)
+        <span className="fw-bold">Data sources: </span> GitLab API, Brightwheel, Google Books API, Google Maps API, Yelp API
       </p>
       <p className="about-description">
         <span className="fw-bold">API Documentation Link: </span> <a href="https://documenter.getpostman.com/view/42442568/2sAYdZstBv"> Documentation </a>

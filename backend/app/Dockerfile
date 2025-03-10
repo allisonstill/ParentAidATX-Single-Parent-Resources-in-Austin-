@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libnss3 libgconf-2-4 \
     libxss1 \
     fonts-liberation xdg-utils && \
-    rm -rf /var/lib/apt/lists/*  # ✅ Clean up to reduce image size
+    rm -rf /var/lib/apt/lists/*  # Clean up to reduce image size
 
 # Set environment variables for Chrome
 ENV CHROME_BIN=/usr/bin/chromium

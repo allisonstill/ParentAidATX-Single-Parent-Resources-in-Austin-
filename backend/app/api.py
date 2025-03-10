@@ -32,32 +32,51 @@ class Daycare(db.Model):
     full_link = db.Column(db.String(500), nullable=True)
     description = db.Column(db.Text, nullable=True)
 
-# Flask API Route to Fetch Data
-@app.route("/api/daycares", methods=["GET"])
-def get_daycares():
+# Flask API Route to get all daycares
+@app.route("/api/childcare", methods=["GET"])
+def get_all_daycares():
     with app.app_context():
         daycares = Daycare.query.all()
         return jsonify([
             {
-                "id": d.id,
-                "name": d.name,
-                "age_range": d.age_range,
-                "open_time": d.open_time,
-                "close_time": d.close_time,
-                "program_type": d.program_type,
-                "image_url": d.image_url,
-                "full_link": d.full_link
-            } for d in daycares
+                "id": daycare.id,
+                "name": daycare.name,
+                "age_range": daycare.age_range,
+                "open_time": daycare.open_time,
+                "close_time": daycare.close_time,
+                "program_type": daycare.program_type,
+                "image_url": daycare.image_url,
+                "full_link": daycare.full_link
+            } for daycare in daycares
         ])
 
-# just for testing
+# Flask API Route to get a single daycare by id
+@app.route("/api/childcare/<int:id>", methods=["GET"])
+def get_specific_daycare(id):
+    with app.app_context():
+        daycare = Daycare.query.get(id)
+        if not daycare:
+            return jsonify({"error": "Daycare not found"}), 404
+        
+        return jsonify({
+            "id": daycare.id,
+            "name": daycare.name,
+            "age_range": daycare.age_range,
+            "open_time": daycare.open_time,
+            "close_time": daycare.close_time,
+            "program_type": daycare.program_type,
+            "image_url": daycare.image_url,
+            "full_link": daycare.full_link
+        })
+
+
+# Just for testing
 @app.route("/")
 def test_home():
     return "Hello I Am Here at home!"
 @app.route("/<name>")
 def test_greet(name):
     return "Hello, {}".format(name)
-
 @app.route("/api/add-test-daycare", methods=["GET"])
 def add_test_daycare():
     with app.app_context():
@@ -77,7 +96,7 @@ def add_test_daycare():
         db.session.commit()
 
         return jsonify({"message": "Test daycare added!"})
-
+# End of tests
 
 # Create database tables
 with app.app_context():

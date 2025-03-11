@@ -4,9 +4,11 @@ Defines database models, API endpoints, and serves data from our ProstgreSQL dat
 import os
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)
 
 # Database Configuration
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -31,6 +33,7 @@ class Daycare(db.Model):
     image_url = db.Column(db.String(500), nullable=True)
     full_link = db.Column(db.String(500), nullable=True)
     description = db.Column(db.Text, nullable=True)
+    address = db.Column(db.Text, nullable=True)
 
 # Flask API Route to get all daycares
 @app.route("/api/childcare", methods=["GET"])
@@ -46,7 +49,9 @@ def get_all_daycares():
                 "close_time": daycare.close_time,
                 "program_type": daycare.program_type,
                 "image_url": daycare.image_url,
-                "full_link": daycare.full_link
+                "full_link": daycare.full_link,
+                "description": daycare.description,
+                "address": daycare.address
             } for daycare in daycares
         ])
 
@@ -66,7 +71,9 @@ def get_specific_daycare(id):
             "close_time": daycare.close_time,
             "program_type": daycare.program_type,
             "image_url": daycare.image_url,
-            "full_link": daycare.full_link
+            "full_link": daycare.full_link,
+            "description": daycare.description,
+            "address": daycare.address
         })
 
 
@@ -88,7 +95,9 @@ def add_test_daycare():
             close_time="6:00 PM",
             program_type="Montessori",
             image_url="https://example.com/image.jpg",
-            full_link="https://example.com"
+            full_link="https://example.com",
+            description = "example description",
+            address = "example address"
         )
         
         # Add to database and commit

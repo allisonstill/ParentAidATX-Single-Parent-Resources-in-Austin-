@@ -25,7 +25,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . /app
 
 # For starting API first, then running the scraper
-# CMD ["sh", "-c", "gunicorn -b 0.0.0.0:5000 api:app & sleep 5 && python childcare_scraper.py"]
+#CMD ["sh", "-c", "gunicorn -b 0.0.0.0:5000 api:app & sleep 5 && python childcare_scraper.py"]
 
 # Only start the API (do NOT run the scraper)
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "api:app"]

@@ -143,9 +143,22 @@ def scrape_and_insert(url):
             except:
                 image_url = "N/A"
 
+            # Get daycare address from full_link page
+            try:
+                address = "N/A"
+                if(full_link != "N/A"):
+                    driver.get(full_link)
+                    time.sleep(2)
+                    provider_soup = BeautifulSoup(driver.page_source, "html.parser")
+                    address_element = driver.find_element(By.CSS_SELECTOR, "p.ContactInfo_contactInfoLink__v_3u4 a")
+                    address = address_element.text.strip()
+                    #print(address)
+            except:
+                address = "N/A"
+
             try:
                 # Insert into PostgreSQL using SQLAlchemy ORM (Non N/A rows only)
-                fields = [name, age_range, open_time, close_time, program_type, image_url, full_link, description]
+                fields = [name, age_range, open_time, close_time, program_type, image_url, full_link, description, address]
                 if "N/A" not in fields:
                     new_daycare = Daycare(
                         name=name,
@@ -155,7 +168,8 @@ def scrape_and_insert(url):
                         program_type=program_type,
                         image_url=image_url,
                         full_link=full_link,
-                        description=description
+                        description=description,
+                        address=address
                     )
 
                     session.add(new_daycare)  
@@ -174,7 +188,8 @@ def scrape_and_insert(url):
                 "Program Type": program_type,
                 "Image URL": image_url,
                 "Page Link": full_link,
-                "Description": description
+                "Description": description,
+                "Address": address
             })
 
 

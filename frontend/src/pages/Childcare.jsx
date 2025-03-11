@@ -40,7 +40,6 @@ function Childcare(){
                   open_time={daycare.open_time}
                   close_time={daycare.close_time}
                   address={daycare.address}
-                  /*website={daycare.full_link} I think this should go on the instance page, not the card.*/
                   id={daycare.id}
               />
               </div>

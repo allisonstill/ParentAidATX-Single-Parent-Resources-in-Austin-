@@ -231,6 +231,46 @@
     line-height: 1.5;
 }
 
+/* Description Section */
+.description-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.description-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fca46c;
+    margin-bottom: 0.5rem;
+}
+
+.description-body {
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.6;
+}
+
+/*Description section "See More" button*/
+.see-more-button {
+    background: none;
+    border: none;
+    color: #2563eb;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+}
+
+.see-more-button:hover {
+    color: #1e40af;
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .childcare-container {

@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
+  const location = useLocation();
   return (
     <nav className="navbar navbar-expand-lg navbar-dark navbar-custom w-100">
       <div className="container-fluid">
@@ -32,24 +33,44 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/books">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/books" ? "active" : ""
+                }`}
+                to="/books"
+              >
                 {" "}
                 {/* "Link to" reaplces the traditional "href" attribute. When clicked, changes url to ../books */}
                 Books
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/housing">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/housing" ? "active" : ""
+                }`}
+                to="/housing"
+              >
                 Housing
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/childcare">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/childcare" ? "active" : ""
+                }`}
+                to="/childcare"
+              >
                 Childcare
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/about" ? "active" : ""
+                }`}
+                to="/about"
+              >
                 About
               </Link>
             </li>

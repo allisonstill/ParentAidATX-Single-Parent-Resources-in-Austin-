@@ -1,9 +1,10 @@
-import React from 'react';
-import {BookOpen, Calendar, DollarSign, BookMarked, Tag, ExternalLink, MessageSquare, Award, Heart, Building, Navigation, Shield, Users, Link, Play } from 'lucide-react';
+import React, { useState } from 'react';
+import { BookOpen, Calendar, DollarSign, BookMarked, Tag, ExternalLink, MessageSquare, Award, Heart, Building, Navigation, Shield, Users, Link, Play } from 'lucide-react';
 import './IndividualBook.css';
-import {useParams} from 'react-router-dom';
-import HousingCard from '../components/housingCard'
+import { useParams } from 'react-router-dom';
+import HousingCard from '../components/housingCard';
 import ChildCard from '../components/childCard';
+import ReactPaginate from 'react-paginate';  // Import pagination component
 
 const Individual_Book = () => {
     const { id } = useParams();
@@ -43,7 +44,7 @@ const Individual_Book = () => {
             }
         },
         2: {
-           "title": "Book 2",
+            "title": "Book 2",
             "author": "Author 2",
             "publishDate": "January 2, 2022",
             "pageCount": "200",
@@ -74,40 +75,6 @@ const Individual_Book = () => {
                     id: 2
                 }
             }
-        },
-        3: {
-            "title": "Book 3",
-            "author": "Author 3",
-            "publishDate": "January 3, 2022",
-            "pageCount": "300",
-            "listPrice": "$30.00",
-            "description": "Book about single parenting 3",
-            "cat": "Childcare",
-            "link": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.abebooks.com%2F9781565078604%2FSuccessful-Single-Parenting-Richmond-Gary-1565078608%2Fplp&psig=AOvVaw2HRvHUEpjhpKlo2-I_vjaX&ust=1741721448851000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJDCvpqggIwDFQAAAAAdAAAAABAN",
-            "image": "https://pictures.abebooks.com/isbn/9781565078604-us.jpg",
-            "video": "ogvnpefvvbE",
-            "related-resources": {
-                "housing": {
-                    name: "Salvation Army Social Services Center",
-                    image: "https://lh3.googleusercontent.com/p/AF1QipMAAvugxD42xXAw5K-TPQM7RbRkxZRFJpZsfaqs=s1360-w1360-h1020",
-                    cost: "$0",
-                    rating: "3.8",
-                    housingStyle: "Shelter",
-                    address: "4613 Tannehill Ln Bldg 1, Austin, TX 78721",
-                    website: "https://salvationarmyaustin.org/",
-                    id: 2
-                },"childcare" : {
-                    name: "Child Craft Schools",
-                    image: "https://childcraftschooltx.com/uploads/1/2/3/5/123531586/published/image_6.png?1546248481",
-                    cost: "$850-1050",
-                    rating: "5.0",
-                    type: "Daycare",
-                    address: "800 W 30th St, Austin, TX",
-                    website: "https://www.childcraftschooltx.com/index.html",
-                    id: 1
-                }
-            }
-
         }
     };
     const book = books[id];
@@ -121,6 +88,21 @@ const Individual_Book = () => {
             </div>
         </div>
     );
+
+    // Pagination State
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 1;  // Only 1 item per page to display related resources
+
+    // Pagination logic
+    const offset = currentPage * itemsPerPage;
+    const relatedResources = [book["related-resources"].housing, book["related-resources"].childcare];  // List of resources
+    const currentItems = relatedResources.slice(offset, offset + itemsPerPage);
+    const pageCount = Math.ceil(relatedResources.length / itemsPerPage);
+
+    // Page change handler
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
 
     return (
         <div className="book-container">
@@ -151,7 +133,6 @@ const Individual_Book = () => {
                             <Link size={20} />
                             Visit Official Book Link
                         </a>
-                        
                     </div>
                     <div className="book-badges">
                         <span className="badge"><BookMarked size={16} /> Paperback</span>
@@ -182,58 +163,62 @@ const Individual_Book = () => {
                         value={book.cat}
                     />
                 </div>
-                <div className="video-section">
-                    <h2 className = "section-title">Watch this video!</h2>
-                    <div className="video-container">
-                        <iframe
-                            width="100%"
-                            height="100%"
-                            src={`https://www.youtube.com/embed/${book["video"]}`}
-                            title={`${book["title"]} Overview`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
-                    </div>
-                </div>
 
                 <div className="related-resources-section">
                     <h2 className="section-title">Related Resources</h2>
                     <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    <div style={{ width: '350px' }}>
-                           { <HousingCard 
-                                image={book["related-resources"].housing.image}
-                                name={book["related-resources"].housing.name}
-                                cost={book["related-resources"].housing.cost}
-                                rating={book["related-resources"].housing.rating}
-                                HousingStyle={book["related-resources"].housing.housingStyle}
-                                Address={book["related-resources"].housing.address}
-                                website={book["related-resources"].housing.website}
-                                id={book["related-resources"].housing.id}                           
-                           />
-                        }
-                        </div>
-                        <div style={{ width: '350px' }}>
-                           { <ChildCard
-                                image={book["related-resources"].childcare.image}
-                                name={book["related-resources"].childcare.name}
-                                cost={book["related-resources"].childcare.cost}
-                                rating={book["related-resources"].childcare.rating}
-                                type={book["related-resources"].childcare.type}
-                                Address={book["related-resources"].childcare.address}
-                                website={book["related-resources"].childcare.website}
-                                id={book["related-resources"].childcare.id}                           
-                           />
-                        }
-                        </div>
+                        {currentItems.map((resource, index) => (
+                            <div style={{ width: '350px' }} key={index}>
+                                {resource.name.includes('Apartments') ? (
+                                    <HousingCard 
+                                        image={resource.image}
+                                        name={resource.name}
+                                        cost={resource.cost}
+                                        rating={resource.rating}
+                                        HousingStyle={resource.housingStyle}
+                                        Address={resource.address}
+                                        website={resource.website}
+                                    />
+                                ) : (
+                                    <ChildCard
+                                        image={resource.image}
+                                        name={resource.name}
+                                        cost={resource.cost}
+                                        rating={resource.rating}
+                                        type={resource.type}
+                                        Address={resource.address}
+                                        website={resource.website}
+                                    />
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
+
+                {/* Pagination for Related Resources */}
+                <ReactPaginate
+                    previousLabel={"Previous"}
+                    nextLabel={"Next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={pageCount} // Total number of pages
+                    marginPagesDisplayed={2} // How many pages to show at the beginning and end
+                    pageRangeDisplayed={3} // How many pages to show around the current page
+                    onPageChange={handlePageClick} // What happens when a page is clicked
+                    containerClassName={"pagination"} // CSS class for the pagination container
+                    pageClassName={"page-item"} // CSS class for each page element
+                    pageLinkClassName={"page-link"} // CSS class for each page link
+                    previousClassName={"page-item"} // CSS class for the "previous" button
+                    previousLinkClassName={"page-link"} // CSS class for the "previous" link
+                    nextClassName={"page-item"} // CSS class for the "next" button
+                    nextLinkClassName={"page-link"} // CSS class for the "next" link
+                    breakLinkClassName={"page-link"} // CSS class for the break link
+                    activeClassName={"active"} // CSS class for the active page
+                    disabledClassName={"disabled"} // CSS class for disabled elements
+                />
             </div>
         </div>
     );
 };
 
 export default Individual_Book;
-
-
-

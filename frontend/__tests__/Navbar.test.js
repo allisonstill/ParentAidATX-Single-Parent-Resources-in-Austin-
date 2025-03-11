@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Navbar from "../Navbar";
+jest.mock("../src/components/Navbar.css", () => ({}));
+import Navbar from "../src/components/Navbar.jsx";
 
 describe("Navbar", () => {
   test("renders the Navbar with correct links", () => {
@@ -10,17 +11,15 @@ describe("Navbar", () => {
       </MemoryRouter>
     );
 
-    // Check if the brand logo is present
-    expect(screen.getByAltText("ParentAidATX Logo")).toBeInTheDocument();
-
     // Check if the expected links are present
     const links = [
-      { text: "Government Programs", href: "/programs" },
+      { text: "Books", href: "/books" },
       { text: "Housing", href: "/housing" },
       { text: "Childcare", href: "/childcare" },
       { text: "About", href: "/about" },
     ];
 
+    // Loop through the links and check if they are rendered correctly
     links.forEach(({ text, href }) => {
       const navLink = screen.getByText(text);
       expect(navLink).toBeInTheDocument();

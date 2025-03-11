@@ -11,7 +11,6 @@ from flask import request
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": ["https://www.parentaidatx.me", "https://parentaidatx.me", "http://localhost:*"]}})
 
-
 # Database Configuration
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:QlxiIYKeqZPqCDORvAcjgWoswvsqbrkO@gondola.proxy.rlwy.net:46024/railway")
 if not DATABASE_URL:

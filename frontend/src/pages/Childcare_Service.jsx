@@ -4,6 +4,9 @@ import './Childcare_Service.css';
 import {useParams} from 'react-router-dom';
 import HousingCard from '../components/housingCard'
 import BookCard from '../components/bookCard';
+// for pretty loading page
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const ChildcareService = () => {
     const { id } = useParams();
@@ -12,7 +15,7 @@ const ChildcareService = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [error, setError] = useState(null);
 
-    // Fetch data for a signle daycare using API
+    // Fetch data for a single daycare using API
     useEffect(() => {
         const fetchDaycare = async () => {
             try {
@@ -28,9 +31,9 @@ const ChildcareService = () => {
         fetchDaycare();
     }, [id]);
 
-    /*if (!daycare || Object.keys(daycare).length === 0) {
+    if (!daycare || Object.keys(daycare).length === 0) {
         return <p>Loading...</p>;
-    }*/
+    }
 
     // Basic childcare data
     const childcares = {
@@ -282,7 +285,7 @@ const ChildcareService = () => {
                     
                 </div>
                 
-                <div className="related-resources-section">
+                {/*<div className="related-resources-section">
                     <h2 className="section-title">Related Resources</h2>
                     <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <div style={{ width: '350px' }}>
@@ -313,7 +316,7 @@ const ChildcareService = () => {
                             />
                     </div>
                     </div>
-                </div>
+                </div>*/}
                 
             </div>
         </div>

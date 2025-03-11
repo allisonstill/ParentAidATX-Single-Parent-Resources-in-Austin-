@@ -51,18 +51,11 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 
 ## Models  
 
-### 1. Government Programs  
-- **Instances:** ~50  
+### 1. Books  
+- **Instances:** ~100 
 
 #### **Attributes:**  
-- Program ID  
-- Program Name 
-
-- Government Administration/Department 
-- Government Scope (City, State, Federal) 
-- Category (Food, Housing, etc.)
-- Description
-- Application Link  
+- Insert Book Attributes here  
 
 #### **Media:**  
   - Links
@@ -106,12 +99,13 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - **Instances:** ~8000  
 
 #### **Attributes:**  
-- Name  
-- Type of Childcare (Daycare, Afterschool, etc.)  
-- Cost  
-- Quality Rating  
-- Age Range of Children
-- Zipcode
+- Name
+- Age Range
+- Open Time
+- Close Time
+- Program Type
+- Image URL
+- Full Link
 - Address
 
 #### **Media:**
@@ -120,8 +114,8 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
   - Link to Childcare Website  
 
 #### **Connections to Other Models:**  
-- **Government Programs:** Childcare provided by government programs  
-- **Housing:** Affordable housing near the location of schools/daycare  
+- **Books:** Childcare related books
+- **Housing:** Affordable housing near the location of schools/daycare
 
 
 ## Questions Our Website Will Answer  

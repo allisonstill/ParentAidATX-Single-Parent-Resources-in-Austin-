@@ -12,7 +12,7 @@ CORS(app, resources={r"/*": {"origins": ["https://parentaidatx.me", "http://loca
 
 
 # Database Configuration
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:QlxiIYKeqZPqCDORvAcjgWoswvsqbrkO@gondola.proxy.rlwy.net:46024/railway")
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL is missing. Make sure .env is set correctly.")
 

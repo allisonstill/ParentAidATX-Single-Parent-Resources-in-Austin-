@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "lucide-react": "^0.475.0"
+    "lucide-react": "^0.475.0",
+    "react-paginate": "^8.3.0"
   }
 }

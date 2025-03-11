@@ -8,7 +8,8 @@ from flask_cors import CORS
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": ["https://parentaidatx.me", "http://localhost:5175"]}})
+
 
 # Database Configuration
 DATABASE_URL = os.getenv("DATABASE_URL")

@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["https://parentaidatx.me", "http://localhost:5175"]}})
+CORS(app, resources={r"/*": {"origins": ["https://parentaidatx.me", "https://www.parentaidatx.me/books", "https://www.parentaidatx.me/childcare" "http://localhost:5175"]}})
 
 
 # Database Configuration

@@ -114,6 +114,7 @@ def get_all_books():
             } for book in books
         ])
         response.headers.add('Access-Control-Allow-Origin', 'https://www.parentaidatx.me')
+        response.headers.add('Access-Control-Allow-Origin', 'https://parentaidatx.me')
         response.headers.add('Access-Control-Allow-Methods', 'GET')
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
         return response

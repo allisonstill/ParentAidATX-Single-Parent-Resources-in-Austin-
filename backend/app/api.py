@@ -71,6 +71,7 @@ def get_all_daycares():
             } for daycare in daycares
         ])
 
+
 # Flask API Route to get a single daycare by id
 @app.route("/api/childcare/<int:id>", methods=["GET"])
 def get_specific_daycare(id):
@@ -96,7 +97,7 @@ def get_specific_daycare(id):
 def get_all_books():
     with app.app_context():
         books = Book.query.all()
-        return jsonify([
+        response = jsonify([
             {
                 "id": book.id,
                 "title": book.title,
@@ -112,6 +113,10 @@ def get_all_books():
                 "related_childcare_id": book.related_childcare_id
             } for book in books
         ])
+        response.headers.add('Access-Control-Allow-Origin', 'https://www.parentaidatx.me')
+        response.headers.add('Access-Control-Allow-Methods', 'GET')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        return response
     
 @app.route("/api/books/<int:id>", methods=["GET"])
 def get_specific_book(id):
@@ -134,6 +139,21 @@ def get_specific_book(id):
             "related_housing_id": book.related_housing_id,
             "related_childcare_id": book.related_childcare_id
         })
+    
+@app.route("/api/books", methods=["OPTIONS"])
+def books_options():
+    response = jsonify({})
+    response.headers.add('Access-Control-Allow-Origin', 'https://www.parentaidatx.me')
+    response.headers.add('Access-Control-Allow-Methods', 'GET')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers.add('Access-Control-Allow-Origin', 'https://www.parentaidatx.me')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
 
 
 # Just for testing

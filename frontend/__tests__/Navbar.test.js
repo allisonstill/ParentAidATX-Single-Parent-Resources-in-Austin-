@@ -13,7 +13,7 @@ describe("Navbar", () => {
 
     // Check if the expected links are present
     const links = [
-      { text: "Government Programs", href: "/programs" },
+      { text: "Books", href: "/books" },
       { text: "Housing", href: "/housing" },
       { text: "Childcare", href: "/childcare" },
       { text: "About", href: "/about" },

@@ -36,6 +36,21 @@ class Daycare(db.Model):
     description = db.Column(db.Text, nullable=True)
     address = db.Column(db.Text, nullable=True)
 
+class Book(db.Model):
+    __tablename__ = "books"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(255), nullable=False, unique=True)
+    author = db.Column(db.String(255), nullable=False)
+    publishDate = db.Column(db.String(50), nullable=True)
+    pageCount = db.Column(db.Integer, nullable=True)
+    listPrice = db.Column(db.String(50), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    cat = db.Column(db.String(100), nullable=True)
+    image = db.Column(db.String(500), nullable=True)
+    link = db.Column(db.String(500), nullable=True)
+    related_housing_id = db.Column(db.Integer, nullable=True)
+    related_childcare_id = db.Column(db.Integer, nullable=True)
+
 # Flask API Route to get all daycares
 @app.route("/api/childcare", methods=["GET"])
 def get_all_daycares():
@@ -75,6 +90,49 @@ def get_specific_daycare(id):
             "full_link": daycare.full_link,
             "description": daycare.description,
             "address": daycare.address
+        })
+    
+@app.route("/api/books", methods=["GET"])
+def get_all_books():
+    with app.app_context():
+        books = Book.query.all()
+        return jsonify([
+            {
+                "id": book.id,
+                "title": book.title,
+                "author": book.author,
+                "publishDate": book.publishDate,
+                "pageCount": book.pageCount,
+                "listPrice": book.listPrice,
+                "description": book.description,
+                "cat": book.cat,
+                "image": book.image,
+                "link": book.link,
+                "related_housing_id": book.related_housing_id,
+                "related_childcare_id": book.related_childcare_id
+            } for book in books
+        ])
+    
+@app.route("/api/books/<int:id>", methods=["GET"])
+def get_specific_book(id):
+    with app.app_context():
+        book = Book.query.get(id)
+        if not book:
+            return jsonify({"error": "Book not found"}), 404
+        
+        return jsonify({
+            "id": book.id,
+            "title": book.title,
+            "author": book.author,
+            "publishDate": book.publishDate,
+            "pageCount": book.pageCount,
+            "listPrice": book.listPrice,
+            "description": book.description,
+            "cat": book.cat,
+            "image": book.image,
+            "link": book.link,
+            "related_housing_id": book.related_housing_id,
+            "related_childcare_id": book.related_childcare_id
         })
 
 

@@ -98,7 +98,7 @@ def get_specific_daycare(id):
 def get_all_books():
     with app.app_context():
         books = Book.query.all()
-        response = jsonify([
+        return jsonify([
             {
                 "id": book.id,
                 "title": book.title,
@@ -114,6 +114,7 @@ def get_all_books():
                 "related_childcare_id": book.related_childcare_id
             } for book in books
         ])
+        """
         origin = request.headers.get('Origin')
 
         if origin in ["https://www.parentaidatx.me", "https://parentaidatx.me"]:
@@ -122,7 +123,8 @@ def get_all_books():
         response.headers["Access-Control-Allow-Methods"] = "GET"
         response.headers["Access-Control-Allow-Headers"] = "Content-Type"
 
-        return response
+        return response"
+        """
     
 @app.route("/api/books/<int:id>", methods=["GET"])
 def get_specific_book(id):

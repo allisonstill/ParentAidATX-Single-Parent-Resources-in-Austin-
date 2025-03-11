@@ -9,7 +9,7 @@ from flask import request
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": ["https://www.parentaidatx.me", "https://parentaidatx.me", "http://localhost:5175"]}})
+CORS(app, resources={r"/api/*": {"origins": ["https://www.parentaidatx.me", "https://parentaidatx.me", "http://localhost:*"]}})
 
 
 # Database Configuration

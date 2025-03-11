@@ -8,7 +8,11 @@ function Navbar() {
       <div className="container-fluid">
         {/* Brand */}
         <Link className="navbar-brand" to="/">
-          <img src="/textLogo.png" alt="ParentAidATX Logo" style={{ height: '50px' }} />
+          <img
+            src="/textLogo.png"
+            alt="ParentAidATX Logo"
+            style={{ height: "50px" }}
+          />
         </Link>
 
         {/* Toggle Button for Mobile View */}
@@ -28,7 +32,9 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/books"> {/* "Link to" reaplces the traditional "href" attribute. When clicked, changes url to ../books */}
+              <Link className="nav-link" to="/books">
+                {" "}
+                {/* "Link to" reaplces the traditional "href" attribute. When clicked, changes url to ../books */}
                 Books
               </Link>
             </li>

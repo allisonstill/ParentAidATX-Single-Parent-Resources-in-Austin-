@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": ["https://www.parentaidatx.me", "https://parentaidatx.me", "http://localhost:5175"]}})
+CORS(app, resources={r"/api/*": {"origins": ["https://www.parentaidatx.me", "https://parentaidatx.me", "http://localhost:5175", "*"]}})
 
 
 # Database Configuration
@@ -139,21 +139,6 @@ def get_specific_book(id):
             "related_housing_id": book.related_housing_id,
             "related_childcare_id": book.related_childcare_id
         })
-    
-@app.route("/api/books", methods=["OPTIONS"])
-def books_options():
-    response = jsonify({})
-    response.headers.add('Access-Control-Allow-Origin', 'https://www.parentaidatx.me')
-    response.headers.add('Access-Control-Allow-Methods', 'GET')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    return response
-
-@app.after_request
-def add_cors_headers(response):
-    response.headers.add('Access-Control-Allow-Origin', 'https://www.parentaidatx.me')
-    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    return response
 
 
 # Just for testing

@@ -15,7 +15,7 @@ function BookCard({ image, title, author, publishDate, description, pageCount, l
       />
       <div className="card-body">
         <h5 className="BookCard-title">{title}</h5>
-        <p className="BookCard-text">{description}</p>
+        {/*<p className="BookCard-text">{description}</p>*/} 
         <p className="attribute-label">Author</p>
         <p className="BookCard-attributes">{author}</p>
         <p className="attribute-label">Date of Publication</p>
@@ -30,9 +30,11 @@ function BookCard({ image, title, author, publishDate, description, pageCount, l
           <Link to={`/books/${id}`} className="custom-btn" onClick={handleClick}>
             View Details
           </Link>
+          {/*
           <a href={link} target="_blank" rel="noopener noreferrer" className="custom-btn external-link">
             Visit Book Website
           </a>
+          */}
         </div>
       </div>
     </div>

@@ -113,17 +113,6 @@ def get_all_books():
                 "related_childcare_id": book.related_childcare_id
             } for book in books
         ])
-        """
-        origin = request.headers.get('Origin')
-
-        if origin in ["https://www.parentaidatx.me", "https://parentaidatx.me"]:
-            response.headers["Access-Control-Allow-Origin"] = origin
-
-        response.headers["Access-Control-Allow-Methods"] = "GET"
-        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
-
-        return response"
-        """
     
 @app.route("/api/books/<int:id>", methods=["GET"])
 def get_specific_book(id):

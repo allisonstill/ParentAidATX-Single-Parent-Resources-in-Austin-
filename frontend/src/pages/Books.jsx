@@ -11,7 +11,7 @@ function Books() {
   const [searchParams, setSearchParams] = useSearchParams();
   
   // Pagination state
-  const itemsPerPage = 6; // Adjust as needed
+  const itemsPerPage = 3; // Adjust as needed
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
   
   // Fetch books data from API

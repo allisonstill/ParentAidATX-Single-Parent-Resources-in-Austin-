@@ -13,6 +13,7 @@ const ChildcareService = () => {
     const [activeImageIndex, setActiveImageIndex] = useState(0);
     const [daycare, setDaycare] = useState([]); // the api response data will be stored in "daycare"
     const [isExpanded, setIsExpanded] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     // Fetch data for a single daycare using API
@@ -20,19 +21,29 @@ const ChildcareService = () => {
         const fetchDaycare = async () => {
             try {
                 const response = await fetch(`https://flask-api-production-730f.up.railway.app/api/childcare/${id}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
                 const data = await response.json();
                 console.log("Fetched data:", data); // Debugging (F12)
                 setDaycare(data);
             } catch (error) {
                 console.error("Error fetching daycares:", error);
+                setError("Failed to load daycares. Please try again later.");
+            } finally {
+                setLoading(false)
             }
         };
 
         fetchDaycare();
     }, [id]);
 
-    if (!daycare || Object.keys(daycare).length === 0) {
-        return <p>Loading...</p>;
+    if(loading){
+       return (<p className="loading-message">Loading daycares...</p>);
+    }
+    if(error){
+        return (<p className="error-message">{error}</p>)
     }
 
     // Basic childcare data

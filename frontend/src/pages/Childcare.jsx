@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Pagination from "../components/Pagination.jsx";
 import { useSearchParams } from "react-router-dom";
 
-const pageTitle = "Child Care Services";
+const pageTitle = "Childcare Services";
 const pageDescription = "Find affordable child care services in your area";
 
 function Childcare() {

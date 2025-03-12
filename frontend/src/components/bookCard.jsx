@@ -26,11 +26,14 @@ function BookCard({ image, title, author, publishDate, description, pageCount, l
         <p className="BookCard-attributes">{listPrice}</p>
         <p className="attribute-label">Category </p>
         <p className="BookCard-attributes">{cat}</p>
-        <p className="attribute-label">Link </p>
-        <p className="BookCard-attributes">{link}</p>
-        <Link to={`/books/${id}`} className="custom-btn" onClick={handleClick}>
-          View Details
-        </Link>
+        <div className = "buttons-group">
+          <Link to={`/books/${id}`} className="custom-btn" onClick={handleClick}>
+            View Details
+          </Link>
+          <a href={link} target="_blank" rel="noopener noreferrer" className="custom-btn external-link">
+            Visit Book Website
+          </a>
+        </div>
       </div>
     </div>
   );

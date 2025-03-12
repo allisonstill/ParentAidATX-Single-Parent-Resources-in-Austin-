@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Users, Star, Building, Link} from 'lucide-react';
+import { MapPin, Users, Star, Building, Link, ArrowLeft} from 'lucide-react';
 import './Childcare_Service.css';
-import {useParams} from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import HousingCard from '../components/housingCard'
 import BookCard from '../components/bookCard';
 // for pretty loading page
@@ -198,6 +198,13 @@ const ChildcareService = () => {
     return (
         <div className="childcare-container">
             <div className="childcare-card">
+                <div className="back-link">
+                    <RouterLink to="/childcare" className="back-button">
+                        <ArrowLeft size={16} />
+                            See All Childcare Services
+                    </RouterLink>
+                </div>
+
                 <div className="image-gallery">
                     <img 
                     src={daycare.image_url} 

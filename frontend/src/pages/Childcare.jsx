@@ -5,7 +5,7 @@ import Pagination from "../components/Pagination.jsx";
 import { useSearchParams } from "react-router-dom";
 
 const pageTitle = "Childcare Services";
-const pageDescription = "Find affordable child care services in your area";
+const pageDescription = "Find affordable childcare services in the Austin area";
 
 function Childcare() {
   const [daycares, setDaycares] = useState([]);

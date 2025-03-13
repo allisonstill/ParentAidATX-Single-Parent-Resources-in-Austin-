@@ -137,10 +137,10 @@ def get_specific_book(id):
         })
 
 
-# Just for testing
+# Test endpoints
 @app.route("/")
 def test_home():
-    return "Hello I Am Here at home!"
+    return "Hello I Am Here at Home!"
 @app.route("/<name>")
 def test_greet(name):
     return "Hello, {}".format(name)
@@ -165,7 +165,7 @@ def add_test_daycare():
         db.session.commit()
 
         return jsonify({"message": "Test daycare added!"})
-# End of tests
+# End of test endpoints
 
 # Create database tables
 with app.app_context():

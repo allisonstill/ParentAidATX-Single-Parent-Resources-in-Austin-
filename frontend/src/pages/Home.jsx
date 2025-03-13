@@ -24,7 +24,7 @@ function Home() {
           <p>
             Navigating support systems can be overwhelming, especially for single parents balancing 
             work and family. ParentAidATX bridges this gap by connecting users with curated educational books 
-            to help navigate parenting, 
+            to help navigate single parenting, 
             affordable housing options, and quality childcare resources in Austin—making it 
             easier to find the support they need.
           </p>

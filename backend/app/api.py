@@ -144,27 +144,6 @@ def test_home():
 @app.route("/<name>")
 def test_greet(name):
     return "Hello, {}".format(name)
-@app.route("/api/add-test-daycare", methods=["GET"])
-def add_test_daycare():
-    with app.app_context():
-        # Create a test entry
-        test_entry = Daycare(
-            name="Test Daycare",
-            age_range="2-5 years",
-            open_time="8:00 AM",
-            close_time="6:00 PM",
-            program_type="Montessori",
-            image_url="https://example.com/image.jpg",
-            full_link="https://example.com",
-            description = "example description",
-            address = "example address"
-        )
-        
-        # Add to database and commit
-        db.session.add(test_entry)
-        db.session.commit()
-
-        return jsonify({"message": "Test daycare added!"})
 # End of test endpoints
 
 # Create database tables

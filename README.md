@@ -1,7 +1,7 @@
 # cs373-spring-2025-group-17
 # Project Name: ParentAidATX
 **Support for Single Parents in Austin, Simplified.**  
-ParentAidATX is a website that helps single parents in Austin, Texas get information on family-related government assistance, affordable nearby housing, and childcare centers.
+ParentAidATX is a website that helps single parents in Austin, Texas get information on family-related books, affordable nearby housing, and childcare centers.
 
 **Website Link:** https://www.parentaidatx.me	or https://parentaidatx.me
 
@@ -16,8 +16,11 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - Ethan Yu / @ethany04
 
 ## Data Sources
-- [Google Maps API](https://developers.google.com/maps) (RESTful) - For affordable  housing and Childcare Centers
+- [Google Books API](https://developers.google.com/books) (RESTful) - For Books
+- [Brightwheel](https://mybrightwheel.com/search/austin) (Web scrape)- For the best daycares and childcare centers in Austn
+- [Google Maps API](https://developers.google.com/maps) (RESTful) - For map media, affordable housing in Austin, and location of Childcare Centers
 
+Other potential sources:
 - [Yelp API](https://www.yelp.com/search?find_desc=Affordable+Child+care&find_loc=Austin%2C+TX) (RESTful) - Reviews for Child Care Options and Affordable Housing
 
 - [Texas Department of Housing and Community Affairs: Single Family Programs](https://www.tdhca.texas.gov/programs/single-family-programs) – Web scrape for government single-family programs in Texas
@@ -55,16 +58,22 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - **Instances:** ~100 
 
 #### **Attributes:**  
-- Insert Book Attributes here  
+- Author
+- Date of Publication
+- Page Count 
+- Price
+- Category (Parenting, Childcare, or Housing related)
+- Description
+- Link to Purchase Book
 
 #### **Media:**  
   - Links
-  - Text descriptions of programs  
-  - Government department image  
+  - Text descriptions of book  
+  - Book cover image  
 
 #### **Connections to Other Models:**  
 - **Housing:** Displays local programs based on location  
-- **Affordable Childcare:** Government programs realted to childcare  
+- **Affordable Childcare:** Books related to childcare  
 
 
 
@@ -82,7 +91,6 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - Crime Level
 - Nearby Park
 - Transportation
-- Government Subsidized (Or Not)
 
 #### **Media:**  
   - Google Maps for location
@@ -91,7 +99,7 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
   - User Reviews  
 
 #### **Connections to Other Models:**  
-- **Government Programs:** Government programs pertaining to housing  
+- **Books:** Books pertaining to housing  
 - **Affordable Childcare:** Displays affordable housing near the location of schools/daycares  
 
 
@@ -104,14 +112,12 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - Open Time
 - Close Time
 - Program Type
-- Image URL
-- Full Link
 - Address
 
 #### **Media:**
   - Google Maps for location 
-  - Image of Childcare Location  
-  - Link to Childcare Website  
+  - Image of childcare center
+  - Link to childcare center's website  
 
 #### **Connections to Other Models:**  
 - **Books:** Childcare related books
@@ -120,7 +126,7 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 
 ## Questions Our Website Will Answer  
 
-- What single-parent government programs am I eligible to apply for?  
-- Where can I find affordable housing near my child's daycare or school?  
-- What are the best-rated childcare centers that fit my budget?  
-- What government assistance is available for housing and childcare in Austin?  
+- What are some helpful books for single-parenting?
+- Where can I find affordable housing near my child's daycare or school?
+- What are the best childcare centers that fit my preferred times and style of education for my child?
+- What books are available for housing and childcare?

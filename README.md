@@ -16,8 +16,11 @@ ParentAidATX is a website that helps single parents in Austin, Texas get informa
 - Ethan Yu / @ethany04
 
 ## Data Sources
-- [Google Maps API](https://developers.google.com/maps) (RESTful) - For affordable  housing and Childcare Centers
+- [Google Books API](https://developers.google.com/books) (RESTful) - For Books
+- [Brightwheel](https://mybrightwheel.com/search/austin) (Web scrape)- For the best daycares and childcare centers in Austn
+- [Google Maps API](https://developers.google.com/maps) (RESTful) - For map media, affordable housing in Austin, and location of Childcare Centers
 
+Other potential sources:
 - [Yelp API](https://www.yelp.com/search?find_desc=Affordable+Child+care&find_loc=Austin%2C+TX) (RESTful) - Reviews for Child Care Options and Affordable Housing
 
 - [Texas Department of Housing and Community Affairs: Single Family Programs](https://www.tdhca.texas.gov/programs/single-family-programs) – Web scrape for government single-family programs in Texas

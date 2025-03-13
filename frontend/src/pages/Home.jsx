@@ -19,14 +19,14 @@ function Home() {
           <p>
             ParentAidATX empowers single parents in Austin, Texas, by
             simplifying access to essential resources, including family-related
-            government assistance, affordable housing, and childcare services.
+            books, affordable housing, and childcare services.
           </p>
           <p>
-            Navigating support systems can be overwhelming, especially for
-            single parents balancing work and family. ParentAidATX bridges this
-            gap by connecting users to tailored programs and services, making it
-            easier to understand eligibility, find nearby affordable housing,
-            and locate quality childcare.
+            Navigating support systems can be overwhelming, especially for single parents balancing 
+            work and family. ParentAidATX bridges this gap by connecting users with curated educational books 
+            to help navigate parenting, 
+            affordable housing options, and quality childcare resources in Austin—making it 
+            easier to find the support they need.
           </p>
           <p>
             We believe every parent deserves support, and every child deserves

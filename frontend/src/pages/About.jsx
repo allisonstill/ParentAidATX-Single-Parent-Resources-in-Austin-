@@ -56,7 +56,7 @@ function About() {
         Support for Single Parents in Austin, Simplified.
         </strong> ParentAidATX helps
         single parents in Austin, Texas get information on family-related
-        government assistance, affordable nearby housing, and childcare centers.
+        books, affordable nearby housing, and childcare centers.
       </p>
       <p className="about-description">
         <span className="fw-bold">Tools used: </span> NodeJS, React, Bootstrap,
@@ -79,8 +79,8 @@ function About() {
       </div>
       <p className="about-description mt-5 mb-5">This project was born out of the need to integrate disparate data sources, 
         making it easier for single parents to access support resources. With so much to juggle, navigating hundreds of
-        government programs, housing options, and childcare services can be overwhelming and time-consuming for single parents.
-        We aim to simplify this process by consolidating the most useful information into a single, accessible website.</p>
+        housing options and childcare services can be overwhelming and time-consuming for single parents.
+        We aim to simplify this process by consolidating the most useful resources into a single, accessible website.</p>
     </div>
   );
 }

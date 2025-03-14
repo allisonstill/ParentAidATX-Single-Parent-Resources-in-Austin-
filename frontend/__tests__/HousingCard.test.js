@@ -7,21 +7,21 @@ import { MemoryRouter } from "react-router-dom";
 jest.mock("../src/pages/Housing.css", () => ({}));
 jest.mock("../src/components/housingCard.css", () => ({}));
 
-// Mock the HousingCard component to check its rendering
+// Mock the BookCard component to check its rendering
 jest.mock("../src/components/housingCard", () => (props) => {
   return (
     <div data-testid="housing-card">
       <h3>{props.name}</h3>
-      <p>{props.cost}</p>
-      <p>{props.rating}</p>
-      <p>{props.HousingStyle}</p>
-      <p>{props.Address}</p>
+      <p>{props.address}</p>
+      <p>{props.phone_number}</p>
       <p>{props.website}</p>
+      <p>{props.rating}</p>
+      <p>{props.totalRatings}</p>
     </div>
   );
 });
 
-// Mock Housing Data
+// Mock Fetch API
 beforeEach(() => {
   global.fetch = jest.fn(() =>
     Promise.resolve({
@@ -30,30 +30,31 @@ beforeEach(() => {
         Promise.resolve([
           {
             id: 1,
-            name: "Kensington Apartments",
-            cost: "900-1300",
-            rating: "3.9",
-            HousingStyle: "Apartments",
-            Address: "2202 W N Loop Blvd, Austin, TX 78756",
-            website: "https://www.rainieratx.com/kensington-apartments",
+            name: "Villas On Guadalupe",
+            address: "2810 Hemphill Park, Austin, TX 78705, USA",
+            phone_number: "(737) 497-4094",
+            website:
+              "https://www.villasonguadalupe.com/?switch_cls%5Bid%5D=68820",
+            rating: "3.1",
+            totalRatings: "187",
           },
           {
             id: 2,
-            name: "Salvation Army Social Services Center",
-            cost: "0",
-            rating: "3.8",
-            HousingStyle: "Shelter",
-            Address: "4613 Tannehill Ln Bldg 1, Austin, TX 78721",
-            website: "https://salvationarmyaustin.org/",
+            name: "Villas on Rio",
+            address: "2111 Rio Grande St, Austin, TX 78705, USA",
+            phone_number: "(512) 254-0282",
+            website: "https://villasonrio.com",
+            rating: "4.1",
+            totalRatings: "320",
           },
           {
             id: 3,
-            name: "Pathways at North Loop Apartments",
-            cost: "1000-1100",
-            rating: "3.3",
-            HousingStyle: "Apartments",
-            Address: "2300 W N Loop Blvd #101, Austin, TX 78756",
-            website: "https://www.pathwaysatnorthloop.org/brochure.aspx",
+            name: "Housing Authority of the City of Austin",
+            address: "1124 S I-35 Frontage Rd, Austin, TX 78704, USA",
+            phone_number: "(512) 477-4488",
+            website: "https://www.hacanet.org",
+            rating: "3.7",
+            totalRatings: "85",
           },
         ]),
     })
@@ -73,49 +74,43 @@ describe("Housing Page", () => {
       </MemoryRouter>
     );
 
-    // Wait for HousingCards to load
+    // Wait for BookCards to load
     const housingCards = await screen.findAllByTestId("housing-card");
-    expect(housingCards.length).toBe(3); // Ensure the correct number of housing listings are rendered
+    expect(housingCards.length).toBe(3); // Ensure the correct number of books are rendered
 
-    // Verify HousingCard content for each listing
+    // Verify BookCard content for each book
     const firstHousingCard = housingCards[0];
-    expect(firstHousingCard).toHaveTextContent("Kensington Apartments");
-    expect(firstHousingCard).toHaveTextContent("900-1300");
-    expect(firstHousingCard).toHaveTextContent("3.9");
-    expect(firstHousingCard).toHaveTextContent("Apartments");
+    expect(firstHousingCard).toHaveTextContent("Villas On Guadalupe");
     expect(firstHousingCard).toHaveTextContent(
-      "2202 W N Loop Blvd, Austin, TX 78756"
+      "2810 Hemphill Park, Austin, TX 78705, USA"
     );
+    expect(firstHousingCard).toHaveTextContent("(737) 497-4094");
     expect(firstHousingCard).toHaveTextContent(
-      "https://www.rainieratx.com/kensington-apartments"
+      "https://www.villasonguadalupe.com/?switch_cls%5Bid%5D=68820"
     );
+    expect(firstHousingCard).toHaveTextContent("3.1");
+    expect(firstHousingCard).toHaveTextContent("187");
 
     const secondHousingCard = housingCards[1];
+    expect(secondHousingCard).toHaveTextContent("Villas on Rio");
     expect(secondHousingCard).toHaveTextContent(
-      "Salvation Army Social Services Center"
+      "2111 Rio Grande St, Austin, TX 78705, USA"
     );
-    expect(secondHousingCard).toHaveTextContent("0");
-    expect(secondHousingCard).toHaveTextContent("3.8");
-    expect(secondHousingCard).toHaveTextContent("Shelter");
-    expect(secondHousingCard).toHaveTextContent(
-      "4613 Tannehill Ln Bldg 1, Austin, TX 78721"
-    );
-    expect(secondHousingCard).toHaveTextContent(
-      "https://salvationarmyaustin.org/"
-    );
+    expect(secondHousingCard).toHaveTextContent("(512) 254-0282");
+    expect(secondHousingCard).toHaveTextContent("https://villasonrio.com");
+    expect(secondHousingCard).toHaveTextContent("4.1");
+    expect(secondHousingCard).toHaveTextContent("320");
 
     const thirdHousingCard = housingCards[2];
     expect(thirdHousingCard).toHaveTextContent(
-      "Pathways at North Loop Apartments"
-    );
-    expect(thirdHousingCard).toHaveTextContent("1000-1100");
-    expect(thirdHousingCard).toHaveTextContent("3.3");
-    expect(thirdHousingCard).toHaveTextContent("Apartments");
-    expect(thirdHousingCard).toHaveTextContent(
-      "2300 W N Loop Blvd #101, Austin, TX 78756"
+      "Housing Authority of the City of Austin"
     );
     expect(thirdHousingCard).toHaveTextContent(
-      "https://www.pathwaysatnorthloop.org/brochure.aspx"
+      "1124 S I-35 Frontage Rd, Austin, TX 78704, USA"
     );
+    expect(thirdHousingCard).toHaveTextContent("(512) 477-4488");
+    expect(thirdHousingCard).toHaveTextContent("https://www.hacanet.org");
+    expect(thirdHousingCard).toHaveTextContent("3.7");
+    expect(thirdHousingCard).toHaveTextContent("85");
   });
 });

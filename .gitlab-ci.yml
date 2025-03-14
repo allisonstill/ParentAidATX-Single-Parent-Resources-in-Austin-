@@ -13,39 +13,27 @@ install_and_build:
     - if: '$CI_COMMIT_REF_NAME == "main"'
       when: always
 
-run_tests:
+unit-test-job:
   stage: test
-  image: mcr.microsoft.com/playwright/python:v1.40.0-focal
-  dependencies:
-    - install_and_build
-  before_script:
-    # Install Node.js manually (if not included in the image)
-    - curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-    - apt-get install -y nodejs
-    - npm --version # Debugging: Check if npm is installed
-    - node --version # Debugging: Check if Node.js is installed
-    # Install required dependencies
-    - apt-get update && apt-get install -y wget unzip
-    # Install Google Chrome
-    - wget -q -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    - apt-get install -y ./google-chrome.deb
-    - google-chrome --version
-    # Download the latest ChromeDriver
-    - LATEST_CHROMEDRIVER=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
-    - wget -q -O chromedriver.zip https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER/chromedriver_linux64.zip
-    - unzip chromedriver.zip
-    - mv chromedriver /usr/local/bin/
-    - chmod +x /usr/local/bin/chromedriver
-    # Install Python dependencies
-    - python3 -m pip install --upgrade pip
-    - python3 -m pip install selenium webdriver-manager unittest-xml-reporting
+  image: node:latest
   script:
-    - cd ./frontend
-    - npm test -- --coverage # Run Jest tests
-    - python3 -m unittest discover -s ./frontend/__tests__ -p "*.py" # Run Selenium tests
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == "main"'
-      when: always
+    - echo "Running Jest tests..."
+    - cd frontend # Navigate to the front-end directory
+    - npm install # Install dependencies
+    - npm test # Run Jest tests
+    - echo "Jest tests complete."
+
+selenium-test-job:
+  stage: test
+  image: python:3.8
+  services:
+    - name: selenium/standalone-chrome:latest
+      alias: selenium
+  script:
+    - echo "Running Selenium tests..."
+    - pip install selenium webdriver-manager
+    - python -m unittest discover -s frontend/__tests__ -p "acceptance-tests.py" -v
+    - echo "Selenium tests complete."
 
 deploy_to_amplify:
   stage: deploy

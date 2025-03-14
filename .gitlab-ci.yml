@@ -39,7 +39,8 @@ deploy_to_amplify:
   stage: deploy
   image: node:latest
   dependencies:
-    - run_tests
+    - unit-test-job
+    - selenium-test-job
   script:
     - echo "Deploying to Amplify"
   rules:

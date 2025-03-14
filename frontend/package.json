@@ -12,13 +12,18 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
+    "chai": "^5.2.0",
+    "chromedriver": "^134.0.3",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
+    "react-paginate": "^8.3.0",
     "react-router-bootstrap": "^0.26.3",
     "react-router-dom": "^7.2.0",
-    "react-paginate": "^8.3.0"
+    "requests": "^0.3.0",
+    "selenium": "^2.20.0",
+    "selenium-webdriver": "^4.29.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",

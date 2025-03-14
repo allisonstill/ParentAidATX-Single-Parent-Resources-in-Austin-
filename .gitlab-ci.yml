@@ -31,7 +31,7 @@ run_tests:
     - python3 -m pip install selenium webdriver-manager unittest-xml-reporting
   script:
     - cd ./frontend
-    - npm test -- --coverage
+    - npm test --coverage
     - python3 -m unittest discover -s ./frontend/__tests__ -p "*.py"
   rules:
     - if: '$CI_COMMIT_REF_NAME == "main"'

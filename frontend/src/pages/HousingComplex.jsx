@@ -187,7 +187,7 @@ const HousingComplex = () => {
                         />
                         <FeatureCard 
                             icon={Landmark}
-                            label="Government Subsidized"
+                            label="Operating Hours"
                             value={housing.opening_hours}
                         />
                     </div>

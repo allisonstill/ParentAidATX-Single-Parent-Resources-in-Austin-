@@ -16,6 +16,7 @@ const ChildcareService = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [randomBook, setRandomBook] = useState(null); // state for random book
+    const [randomHousing, setRandomHousing] = useState(null);
 
 
     // Fetch data for a single daycare using API
@@ -59,6 +60,7 @@ const ChildcareService = () => {
                 if (filteredBooks.length > 0) {
                     const randomIndex = Math.floor(Math.random() * filteredBooks.length);
                     setRandomBook(filteredBooks[randomIndex]);
+                    
                 } else {
                     setRandomBook(null); // No matching books available
                 }
@@ -69,8 +71,34 @@ const ChildcareService = () => {
         };
     
         fetchRandomBook();
+        
     }, []);
+    const HOUSING_ADDRESS = ["78705"]; // Categories most related to housing near downtown
+    useEffect(() => {
+        const fetchRandomHousing = async () => {
+            try {
+                const response = await fetch("https://flask-api-production-730f.up.railway.app/api/housing");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
     
+                const data = await response.json();
+
+                const filteredHousing = data.filter(housing => housing.address.includes(HOUSING_ADDRESS));
+    
+                if (filteredHousing.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * filteredHousing.length);
+                    setRandomHousing(filteredHousing[randomIndex]);
+                } else {
+                    setRandomHousing(null);
+                }
+            } catch (error) {
+                console.error("Error fetching housing:", error);
+                setRandomHousing(null);
+            }
+        };
+        fetchRandomHousing();
+    }, []);
 
     if(loading){
         return (<p className="loading-message">Loading daycares...</p>);
@@ -78,131 +106,6 @@ const ChildcareService = () => {
      if(error){
          return (<p className="error-message">{error}</p>)
      }
-
-    // Basic childcare data
-    const childcares = {
-        1: {
-            "name": "Child Craft Schools",
-            "childcare-type": "Daycare",
-            "cost": "850-1050",
-            "quality-rating": 5.0,
-            "ages": "5 months - 5 years old",
-            "zipcode": "78705",
-            "address": "800 W 30th St, Austin, TX",
-            "website": "https://www.childcraftschooltx.com/index.html",
-            "images": [
-                "https://childcraftschooltx.com/uploads/1/2/3/5/123531586/published/image_6.png?1546248481",
-                "https://s3-media0.fl.yelpcdn.com/bphoto/_PLB8tWLFahaR5p6adPPuw/348s.jpg",
-                "https://cf-images.us-east-1.prod.boltdns.net/v1/static/6057277741001/fe6b8cea-b81f-4d96-99b9-1ee885863fe2/52b81240-6552-49e3-929f-3db8d8589f69/1280x720/match/image.jpg"
-            ],
-            "related-resources": {
-                "book": {
-                    id: 1, 
-                    title: "Book 1",
-                    author: "Author 1",
-                    publishDate: "January 1, 2022",
-                    pageCount: "100",
-                    listPrice: "$10.00",
-                    description: "Book about single parenting",
-                    cat: "Housing",
-                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
-                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
-                
-                },
-                "housing": {
-                    name: "Salvation Army Social Services Center",
-                    image: "https://lh3.googleusercontent.com/p/AF1QipMAAvugxD42xXAw5K-TPQM7RbRkxZRFJpZsfaqs=s1360-w1360-h1020",
-                    cost: "$0",
-                    rating: "3.8",
-                    housingStyle: "Shelter",
-                    address: "4613 Tannehill Ln Bldg 1, Austin, TX 78721",
-                    website: "https://salvationarmyaustin.org/",
-                    id: 2
-                }
-            }
-        },
-        2: {
-            "name": "First English Lutheran Child Development Center",
-            "childcare-type": "Daycare",
-            "cost": "0",
-            "quality-rating": 5.0,
-            "ages": "6 weeks - 5 years old",
-            "zipcode": "78705",
-            "address": "3001 Whitis Ave, Austin, TX",
-            "website": "https://www.firstenglishcdc.org/",
-            "images": [
-                "https://images.squarespace-cdn.com/content/v1/659d9f977b7a4100052c42be/1704828826252-OLIWM0453MDOXDWKZAOY/FELCDC_Food.png",
-                "https://images.squarespace-cdn.com/content/v1/659d9f977b7a4100052c42be/1704828830090-C759IQ5K60BSVVNVRVMA/FELCDC_4.jpeg",
-                "https://i0.wp.com/www.felcaustin.org/wp-content/uploads/FELCDC-Logo-2023.png?fit=474%2C598&ssl=1"
-            ],
-            "related-resources": {
-                "book": {
-                    id: 1, 
-                    title: "Book 1",
-                    author: "Author 1",
-                    publishDate: "January 1, 2022",
-                    pageCount: "100",
-                    listPrice: "$10.00",
-                    description: "Book about single parenting",
-                    cat: "Housing",
-                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
-                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
-                
-                },
-                "housing": {
-                    name: "Kensington Apartments",
-                    image: "https://rentpath-res.cloudinary.com/t_3x2_fixed_webp_xl/t_unpaid/e2335139f4a9f2257227377307f74af1",
-                    cost: "$900-1300",
-                    rating: "3.9",
-                    housingStyle: "Apartments",
-                    address: "2202 W N Loop Blvd, Austin, TX 78756",
-                    website: "https://www.rainieratx.com/kensington-apartments",
-                    id: 1
-                }
-            }
-        },
-        3: {
-            "name": "Lil' Angels Daycare Center",
-            "childcare-type": "Daycare",
-            "cost": "0",
-            "quality-rating": 4.9,
-            "ages": "2 months - 11 years",
-            "zipcode": "78723",
-            "address": "6006 Cameron Rd, Austin, TX 78723",
-            "website": "http://lilangelsaustin.com/",
-            "images": [
-                "https://winnie.imgix.net/30236f96-99fe-403a-aa72-5e38719cbab7?w=242&h=124&dpr=3&fit=crop&auto=compress",
-                "https://winnie.imgix.net/2b530ca2-7c5d-448b-ad61-ffc1112998ed?w=242&h=124&dpr=3&fit=crop&auto=compress",
-                "https://winnie.imgix.net/b175c141-f134-45ce-9689-4769f254fa65?w=242&h=124&dpr=3&fit=crop&auto=compress"
-            ],
-            "related-resources": {
-                "book": {
-                    id: 1, 
-                    title: "Book 1",
-                    author: "Author 1",
-                    publishDate: "January 1, 2022",
-                    pageCount: "100",
-                    listPrice: "$10.00",
-                    description: "Book about single parenting",
-                    cat: "Housing",
-                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
-                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
-                
-                },
-                "housing": {
-                    name: "Pathways at North Loop Apartments",
-                    image: "https://www.hacanet.org/wp-content/uploads/2017/02/NorthLoop-06-1024x683.jpg",
-                    cost: "$1000-1100",
-                    rating: "3.3",
-                    housingStyle: "Apartments",
-                    address: "2300 W N Loop Blvd #101, Austin, TX 78756",
-                    website: "https://www.pathwaysatnorthloop.org/",
-                    id: 3
-                }
-            }
-        }
-    };
-    const childcare = childcares[id];
 
     // Component for feature cards
     const FeatureCard = ({ icon: Icon, label, value }) => (
@@ -340,17 +243,20 @@ const ChildcareService = () => {
                     <h2 className="section-title">Related Resources</h2>
                     <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <div style={{ width: '350px' }}>
-                           { <HousingCard 
-                                image={childcare["related-resources"].housing.image}
-                                name={childcare["related-resources"].housing.name}
-                                cost={childcare["related-resources"].housing.cost}
-                                rating={childcare["related-resources"].housing.rating}
-                                HousingStyle={childcare["related-resources"].housing.housingStyle}
-                                Address={childcare["related-resources"].housing.address}
-                                website={childcare["related-resources"].housing.website}
-                                id={childcare["related-resources"].housing.id}                           
-                           />
-                        }
+                        {randomHousing ? (
+                            <HousingCard 
+                                name={randomHousing.name}
+                                address={randomHousing.address}
+                                rating={randomHousing.rating}
+                                totalRatings={randomHousing.totalRatings}
+                                photo={randomHousing.photo}
+                                phone_number={randomHousing.phone_number}
+                                website={randomHousing.website}
+                                id={randomHousing.id}
+                            />
+                        ) : (
+                            <p>Loading housing...</p>  // Optional: Show a loading message
+                        )}
                     </div>
                     <div style={{ width: '350px' }}>
                         {randomBook ? (
@@ -378,4 +284,3 @@ const ChildcareService = () => {
 };
 
 export default ChildcareService;
-

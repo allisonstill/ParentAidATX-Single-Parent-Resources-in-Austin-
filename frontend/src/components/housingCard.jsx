@@ -22,7 +22,11 @@ function HousingCard({ name, address, rating, totalRatings, photo, phone_number,
         <p className="attribute-label">Phone Number</p>
         <p className="HousingCard-attributes">{phone_number}</p>
         <p className="attribute-label">Website</p>
-        <p className="HousingCard-attributes">{website}</p>
+        <p className="HousingCard-attributes">
+          <a href={website} target="_blank" rel="noopener noreferrer">
+            <button className="housing-card-btn">Visit Website</button>
+          </a>
+        </p>
         <p className="attribute-label">Rating</p>
         <p className="HousingCard-attributes">{rating}</p>
         <p className="attribute-label">Total Ratings</p>

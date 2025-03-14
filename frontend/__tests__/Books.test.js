@@ -14,8 +14,8 @@ global.fetch = jest.fn(() =>
   })
 );
 
-describe("Housing Page", () => {
-  test("renders the Housing page and displays key information", async () => {
+describe("Books Page", () => {
+  test("renders the Books page and displays key information", async () => {
     render(
       <MemoryRouter>
         <Books />

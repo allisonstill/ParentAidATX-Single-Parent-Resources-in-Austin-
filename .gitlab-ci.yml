@@ -15,18 +15,16 @@ install_and_build:
 
 run_tests:
   stage: test
-  image: node:latest
+  image: python:latest
   dependencies:
     - install_and_build
   before_script:
-    - cd ./frontend
-    - npm install # Ensure dependencies are installed
-  script:
-    # Run Jest tests for frontend (React)
-    - npm test -- --coverage
-    # Run Selenium tests for acceptance testing (Python)
+    - apt-get update && apt-get install -y python3-pip chromium-chromedriver
     - pip install selenium webdriver-manager unittest-xml-reporting
-    - python -m unittest discover -s ./frontend/__tests__ -p "*.py"
+  script:
+    - cd ./frontend
+    - npm test -- --coverage
+    - python3 -m unittest discover -s ./frontend/__tests__ -p "*.py"
   rules:
     - if: '$CI_COMMIT_REF_NAME == "main"'
       when: always

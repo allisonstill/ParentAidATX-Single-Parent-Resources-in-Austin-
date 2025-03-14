@@ -35,6 +35,42 @@ selenium-test-job:
     - python -m unittest discover -s frontend/__tests__ -p "acceptance-tests.py" -v
     - echo "Selenium tests complete."
 
+postman_tests:
+  stage: test
+  image: postman/newman:latest
+  dependencies:
+    - install_and_build
+  script:
+    - newman run backend/app/postman_tests/parentaidatx_postman_collection.json --reporters cli,junit --reporter-junit-export results.xml
+  artifacts:
+    when: always
+    paths:
+      - results.xml
+    reports:
+      junit: results.xml
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      when: always
+
+run_api_tests:
+  stage: test
+  image: python:latest
+  dependencies:
+    - install_and_build
+  before_script:
+    - pip install pytest flask-sqlalchemy flask-testing
+  script:
+    - pytest backend/app/unit_tests/ --junitxml=results.xml
+  artifacts:
+    when: always
+    paths:
+      - results.xml
+    reports:
+      junit: results.xml
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      when: always
+
 deploy_to_amplify:
   stage: deploy
   image: node:latest

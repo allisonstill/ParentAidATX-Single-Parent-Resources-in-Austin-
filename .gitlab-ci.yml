@@ -19,8 +19,15 @@ run_tests:
   dependencies:
     - install_and_build
   before_script:
-    - apt-get update && apt-get install -y python3-pip chromium-chromedriver
-    - pip install selenium webdriver-manager unittest-xml-reporting
+    - apt-get update && apt-get install -y wget unzip
+    - wget -q -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - apt-get install -y ./google-chrome.deb
+    - CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f1)
+    - wget -q -O chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_VERSION.0.0/chromedriver_linux64.zip
+    - unzip chromedriver.zip
+    - mv chromedriver /usr/local/bin/
+    - chmod +x /usr/local/bin/chromedriver
+    - python3 -m pip install selenium webdriver-manager unittest-xml-reporting
   script:
     - cd ./frontend
     - npm test -- --coverage

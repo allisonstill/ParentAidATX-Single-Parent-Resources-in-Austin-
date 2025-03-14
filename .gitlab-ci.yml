@@ -58,7 +58,7 @@ run_api_tests:
   dependencies:
     - install_and_build
   before_script:
-    - pip install pytest flask-sqlalchemy flask-testing
+    - pip install -r backend/app/requirements.txt
   script:
     - pytest backend/app/unit_tests/ --junitxml=results.xml
   artifacts:

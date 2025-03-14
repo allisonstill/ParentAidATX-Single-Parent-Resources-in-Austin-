@@ -1,188 +1,97 @@
-import React, { useState } from 'react';
-import { MapPin, Star, Building, Link, Shield, Clock, Landmark} from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { MapPin, Building, Link, ArrowLeft, Landmark, Star} from 'lucide-react';
 import './HousingComplex.css';
-import {useParams} from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import BookCard from '../components/bookCard';
 import ChildCard from '../components/childCard';
 
+
 const HousingComplex = () => {
     const { id } = useParams();
-    const [activeImageIndex, setActiveImageIndex] = useState(0);
+    const [housing, setHousing] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [randomBook, setRandomBook] = useState(null); // state for random book
+    const [randomChildCare, setRandomChildCare] = useState(null);
 
-    const housingComplexes = {
-        1: {
-            "name": "Kensington Apartments",
-	        "cost": "900-1300",
-	        "rating": "3.9",
-	        "reviews": [
-                {
-                    name: "Indiana Jones",
-                    review: "He really listened to me and I was quickly approved and in my new home",
-                    date: "Last Week"
-                },
-                {
-                    name: "Sally David",
-                    review: "I hated it here. Don't live here!",
-                    date: "Two Years Ago"
-                }
-            ],
-            "housingStyle": "Apartments",
-            "address": "2202 W N Loop Blvd, Austin, TX 78756",
-            "zipcode": "78756",
-            "crime": "High",
-            "park": "Ramsey Neighborhood Park",
-            "transportation": {
-                "Distance": "10",
-                "Type": "public"
-            },
-            "governmentSubsidized": "True",
-            "images": [
-                "https://rentpath-res.cloudinary.com/t_3x2_fixed_webp_xl/t_unpaid/e2335139f4a9f2257227377307f74af1",
-                "https://images1.apartments.com/i2/OPxQY7oifS8B7xNNK_RJBNDJo3BfiQPIs_IMA6j1SGg/117/estates-at-east-riverside-austin-tx-building-photo.jpg?p=1",
-                "https://lirp.cdn-website.com/609bac3c/dms3rep/multi/opt/DSC08231-1920w.jpg"
-            ],
-            "website": "https://www.rainieratx.com/kensington-apartments",
-            "related-resources": {
-                "book": {
-                    id: 1, 
-                    title: "Book 1",
-                    author: "Author 1",
-                    publishDate: "January 1, 2022",
-                    pageCount: "100",
-                    listPrice: "$10.00",
-                    description: "Book about single parenting",
-                    cat: "Housing",
-                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
-                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
+    useEffect(() => {
+        const getHousing = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`https://flask-api-production-730f.up.railway.app/api/housing/${id}`);
                 
-                },"childcare" : {
-                    name: "Child Craft Schools",
-                    image: "https://childcraftschooltx.com/uploads/1/2/3/5/123531586/published/image_6.png?1546248481",
-                    cost: "$850-1050",
-                    rating: "5.0",
-                    type: "Daycare",
-                    address: "800 W 30th St, Austin, TX",
-                    website: "https://www.childcraftschooltx.com/index.html",
-                    id: 1
+                if (!response.ok) {
+                    throw new Error("HTTP ERROR!");
                 }
-            }
-        },
-        2: {
-            "name": "Salvation Army Social Services Center",
-	        "cost": "0",
-	        "rating": "3.8",
-            "reviews": [
-                {
-                    name: "Edith J.",
-                    review: "Positive and encouraging staff make staying here enjoyable and pleasant. The center itself is generally clean, calm, and feels safe for the family.",
-                    date: "Three Months Ago"
-                },
-                {
-                    name: "John Quincy",
-                    review: "It was sufficient. The staff was very helpful.",
-                    date: "Two Days Ago"
-                }
-            ],
-            "housingStyle": "Shelter",
-            "address": "4613 Tannehill Ln Bldg 1, Austin, TX 78721",
-            "zipcode": "78721",
-            "crime": "Moderate",
-            "park": "Springdale Neighborhood Park",
-            "transportation": {
-                "Distance": "10",
-                "Type": "public"
-            },
-            "governmentSubsidized": "False",
-            "images": [
-                "https://lh3.googleusercontent.com/p/AF1QipMAAvugxD42xXAw5K-TPQM7RbRkxZRFJpZsfaqs=s1360-w1360-h1020",
-                "https://lh3.googleusercontent.com/p/AF1QipM-g_EuyyD7J5ua2Q43GLVjwZPlqkEQImJXOB_X=s1360-w1360-h1020",
-                "https://lh3.googleusercontent.com/p/AF1QipOez4dGtPFeqxBtDjEQiE6rswxW_VjBKpCa55lO=s1360-w1360-h1020"
-            ],
-            "website": "https://salvationarmyaustin.org/",
-            "related-resources": {
-                "book": {
-                    id: 1, 
-                    title: "Book 1",
-                    author: "Author 1",
-                    publishDate: "January 1, 2022",
-                    pageCount: "100",
-                    listPrice: "$10.00",
-                    description: "Book about single parenting",
-                    cat: "Housing",
-                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
-                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
                 
-                },"childcare" : {
-                    name: "Lil' Angels Daycare Center",
-                    image: "https://winnie.imgix.net/b175c141-f134-45ce-9689-4769f254fa65?w=242&h=124&dpr=3&fit=crop&auto=compress",
-                    cost: "$0",
-                    rating: "4.9",
-                    type: "Daycare",
-                    address: "6006 Cameron Rd, Austin, TX 78723",
-                    website: "http://lilangelsaustin.com/",
-                    id: 3
-                }
+                const data = await response.json();
+                console.log("Fetched data:", data); 
+                setHousing(data);
+            } catch (error) {
+                console.error("Error fetching housing");
+                setLoading(false);
+            } finally {
+                setLoading(false);
             }
-        },
-        3: {
-            "name": "Pathways at North Loop Apartments",
-	        "cost": "1000-1100",
-	        "rating": "3.3",
-	        "reviews": [
-                {
-                    name: "Nancy O.",
-                    review: "I have never stayed at a nicer apartment! Community was great!",
-                    date: "One Month Ago"
-                },
-                {
-                    name: "William Smith",
-                    review: "Had a great stay! Sad to leave :(",
-                    date: "Two Weeks Ago"
+        };
+        getHousing();
+    }, [id]);
+    const BOOK_CATEGORIES = ["Family & Relationships", "Parenting"]; // Categories most related to childcare
+    useEffect(() => {
+        const fetchRandomBook = async () => {
+            try {
+                const response = await fetch("https://flask-api-production-730f.up.railway.app/api/books");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-            ],
-            "housingStyle": "Apartments",
-            "address": "2300 W N Loop Blvd #101, Austin, TX 78756",
-            "zipcode": "78756",
-            "crime": "High",
-            "park": "Crestmont Park",
-            "transportation": {
-                "Distance": "10",
-                "Type": "public"
-            },
-            "governmentSubsidized": "True",
-            "images": [
-                "https://www.hacanet.org/wp-content/uploads/2017/02/NorthLoop-06-1024x683.jpg",
-                "https://cdngeneralcf.rentcafe.com/dmslivecafe/2/102511/North%20Loop%20Property%201.jpg?&quality=85&",
-                "https://cdngeneralcf.rentcafe.com/dmslivecafe/2/102511/North%20Loop%20Sign.jpg?quality=85&scale=both&"
-            ],
-            "website": "https://www.pathwaysatnorthloop.org/brochure.aspx",
-            "related-resources": {
-                "book": {
-                    id: 1, 
-                    title: "Book 1",
-                    author: "Author 1",
-                    publishDate: "January 1, 2022",
-                    pageCount: "100",
-                    listPrice: "$10.00",
-                    description: "Book about single parenting",
-                    cat: "Housing",
-                    image: "https://novapublishers.com/wp-content/uploads/2018/09/9781536132779-e1537696463162.jpg",
-                    link: "https://novapublishers.com/shop/single-parenting-in-the-21st-century-perceptions-issues-and-implications/"       
-                
-                },"childcare" : {
-                    name: "First English Lutheran Child Development Center",
-                    image: "https://images.squarespace-cdn.com/content/v1/659d9f977b7a4100052c42be/1704828826252-OLIWM0453MDOXDWKZAOY/FELCDC_Food.png",
-                    cost: "$0",
-                    rating: "5.0",
-                    type: "Daycare",
-                    address: "3001 Whitis Ave, Austin, TX",
-                    website: "https://www.firstenglishcdc.org/",
-                    id: 2
+    
+                const data = await response.json();
+    
+                // Filter books to only include categories "Family & Relationships" or "Parenting"
+                const filteredBooks = data.filter(book => BOOK_CATEGORIES.includes(book.cat));
+    
+                if (filteredBooks.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * filteredBooks.length);
+                    setRandomBook(filteredBooks[randomIndex]);
+                    
+                } else {
+                    setRandomBook(null); // No matching books available
                 }
+            } catch (error) {
+                console.error("Error fetching books:", error);
+                setRandomBook(null);
             }
-        }
-    };
-    const housingComplex = housingComplexes[id];
+        };
+    
+        fetchRandomBook();
+    }, []);
+
+    const CHILDCARE_AGE =["5 yrs"]; // Categories most related to housing near downtown
+    useEffect(() => {
+        const fetchRandomChildCare = async () => {
+            try {
+                const response = await fetch("https://flask-api-production-730f.up.railway.app/api/childcare");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                const filteredChildcare = data.filter(daycare => daycare.age_range.includes(CHILDCARE_AGE));
+    
+                if (filteredChildcare.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * filteredChildcare.length);
+                    setRandomChildCare(filteredChildcare[randomIndex]);
+                } else {
+                    setRandomChildCare(null);
+                }
+            } catch (error) {
+                console.error("Error fetching childcare:", error);
+                setRandomChildCare(null);
+            }
+        };
+        fetchRandomChildCare();
+    }, []);
 
     // Component for feature cards
     const FeatureCard = ({ icon: Icon, label, value }) => (
@@ -194,6 +103,24 @@ const HousingComplex = () => {
             </div>
         </div>
     );
+    if (loading) {
+        return (
+            <div className="housingComplex-container">
+                <div className="housingComplex-card">
+                    <p>Loading Housing</p>
+                </div>
+            </div>
+        );
+    }
+    if (error) {
+        return (
+            <div className="housingComplex-container">
+                <div className="housingComplex-card">
+                    <p>Error loading housing</p>
+                </div>
+            </div>
+        );
+    }
 
     // Component for rating stars
     const RatingStars = ({ rating }) => (
@@ -211,46 +138,37 @@ const HousingComplex = () => {
     return (
         <div className="housingComplex-container">
             <div className="housingComplex-card">
-            <div className="image-gallery">
+                <div className="back-link">
+                    <RouterLink to="/housing" className="back-button">
+                        <ArrowLeft size={16} />
+                            See All Housing
+                    </RouterLink>
+                </div>
+                <div className="image-gallery">
                     <img
-                        src={housingComplex.images[activeImageIndex]}
-                        alt="Housing Complex"
+                        src={housing.photo}
+                        alt={housing.name} 
                         className="gallery-image"
                     />
-                    {housingComplex.images.length > 1 && (
-                        <div className="pagination-dots">
-                            {housingComplex.images.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setActiveImageIndex(index)}
-                                    className={`dot ${activeImageIndex === index ? 'active' : ''}`}
-                                />
-                            ))}
-                        </div>
-                    )}
                 </div>
 
                 <div className="content-section">
                     {/* Header Section */}
                     <div className="header-section">
                         <div>
-                            <h1 className="housingComplex-title">{housingComplex.name}</h1>
+                            <h1 className="housingComplex-title">{housing.name}</h1>
                             <div className="address">
                                 <MapPin size={16} />
-                                <p>{housingComplex.address}</p>
+                                <p>{housing.address}</p>
                             </div>
                             <div className="rating">
-                                <RatingStars rating={housingComplex["rating"]} />
+                                <RatingStars rating={housing["rating"]} />
                                 
                             </div>
                         </div>
-                        <div className="cost-section">
-                            <p className="cost-label">Daily Rate</p>
-                            <p className="cost-value">${housingComplex.cost}</p>
-                        </div>
                         <div className = "website-link">
                         <a 
-                            href={housingComplex["website"]} 
+                            href={housing["website"]} 
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="website-button"
@@ -265,46 +183,19 @@ const HousingComplex = () => {
                         <FeatureCard 
                             icon={Building}
                             label="Property Type"
-                            value={housingComplex.housingStyle}
-                        />
-                        <FeatureCard 
-                            icon={Shield}
-                            label="Crime Rate"
-                            value={housingComplex.crime}
+                            value="Apartments"
                         />
                         <FeatureCard 
                             icon={Landmark}
                             label="Government Subsidized"
-                            value={housingComplex.governmentSubsidized}
+                            value={housing.opening_hours}
                         />
-                    </div>
-
-                    {/* Reviews Section */}
-                    <div className="reviews-section">
-                        <div className="reviews-header">
-                            <h2 className="section-title">Reviews</h2>
-                            <RatingStars rating={housingComplex.rating} />
-                        </div>
-                        <div className="reviews-list">
-                            {housingComplex.reviews.map((review, index) => (
-                                <div key={index} className="review-card">
-                                    <div className="review-header">
-                                        <p className="reviewer-name">{review.name}</p>
-                                        <div className="review-date">
-                                            <Clock size={16} />
-                                            <span>{review.date}</span>
-                                        </div>
-                                    </div>
-                                    <p className="review-text">{review.review}</p>
-                                </div>
-                            ))}
-                        </div>
                     </div>
 
 
                     <div className="map-section">
                         <iframe
-                            src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(housingComplex.address)}`}
+                            src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(housing.address)}`}
                             className="map-frame"
                             allowFullScreen=""
                             loading="lazy"
@@ -316,32 +207,38 @@ const HousingComplex = () => {
                     <h2 className="section-title">Related Resources</h2>
                     <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <div style={{ width: '350px' }}>
-                            <BookCard
-                                title={housingComplex["related-resources"].book.name}
-                                author={housingComplex["related-resources"].book.author}
-                                publishDate={housingComplex["related-resources"].book.publishDate}
-                                pageCount={housingComplex["related-resources"].book.pageCount}
-                                listPrice={housingComplex["related-resources"].book.listPrice}
-                                description={housingComplex["related-resources"].book.description}
-                                image={housingComplex["related-resources"].book.image}
-                                link={housingComplex["related-resources"].book.link}
-                                cat={housingComplex["related-resources"].book.cat}
-                                id={housingComplex["related-resources"].book.id}
+                        {randomChildCare ? (
+                            <ChildCard 
+                                name={randomChildCare.name}
+                                image={randomChildCare.image}
+                                type={randomChildCare.type}
+                                age_range={randomChildCare.age_range}
+                                open_time={randomChildCare.open_time}
+                                close_time={randomChildCare.close_time}
+                                address={randomChildCare.address}
+                                id={randomChildCare.id}
                             />
+                        ) : (
+                            <p>Loading childcare...</p>  // Optional: Show a loading message
+                        )}
                     </div>
                     <div style={{ width: '350px' }}>
-                           { <ChildCard
-                                image={housingComplex["related-resources"].childcare.image}
-                                name={housingComplex["related-resources"].childcare.name}
-                                cost={housingComplex["related-resources"].childcare.cost}
-                                rating={housingComplex["related-resources"].childcare.rating}
-                                type={housingComplex["related-resources"].childcare.type}
-                                Address={housingComplex["related-resources"].childcare.address}
-                                website={housingComplex["related-resources"].childcare.website}
-                                id={housingComplex["related-resources"].childcare.id}                           
-                           />
-                        }
+                        {randomBook ? (
+                            <BookCard
+                                image={randomBook.image}
+                                title={randomBook.title}
+                                author={randomBook.author}
+                                publishDate={randomBook.publishDate}
+                                pageCount={randomBook.pageCount}
+                                listPrice={randomBook.listPrice}
+                                cat={randomBook.cat}
+                                id={randomBook.id}
+                            />
+                        ) : (
+                            <p>Loading book...</p>  // Optional: Show a loading message
+                        )}
                     </div>
+
                     </div>
                 </div>
             </div>

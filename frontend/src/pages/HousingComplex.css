@@ -15,6 +15,24 @@
     margin-bottom: 2rem;
 }
 
+.back-link {
+    margin-bottom: 1.5rem;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-weight: 500;
+}
+
+.back-button:hover {
+    color: #1e293b;
+}
+
 .image-gallery {
     position: relative;
     height: 400px;

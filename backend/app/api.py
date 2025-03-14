@@ -51,6 +51,23 @@ class Book(db.Model):
     related_housing_id = db.Column(db.Integer, nullable=True)
     related_childcare_id = db.Column(db.Integer, nullable=True)
 
+class Housing(db.Model):
+    __tablename__ = "housing"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(255), nullable=False, unique=True)  # "Foundation Communities Trails at the Park"
+    address = db.Column(db.String(255), nullable=False, unique=True)  # "815 W Slaughter Ln, Austin, TX 78748, USA"
+    rating = db.Column(db.Float, nullable=True)  # 4.1
+    place_id = db.Column(db.String(255), nullable=False, unique=True)  # "ChIJ1XYMEsJMW4YRnFdi53JJw3Q"
+    totalRatings = db.Column(db.Integer, nullable=True)  # 80
+    photo =  db.Column(db.String(500), nullable=True)
+    google_maps_link = db.Column(db.Text, nullable=True)  # Google Maps link
+    phone_number = db.Column(db.String(255), nullable=True, unique=True)  # "(512) 280-5200"
+    website = db.Column(db.String(255), nullable=True, unique=True)  # "http://www.foundcom.org/get-housing/austin-communities/trails-at-the-park/"
+    opening_hours = db.Column(db.Text, nullable=True)  # JSON string or text field for list storage
+    related_book_id = db.Column(db.Integer, nullable=True)  # Optional foreign key
+    related_childcare_id = db.Column(db.Integer, nullable=True) 
+
+
 # Flask API Route to get all daycares
 @app.route("/api/childcare", methods=["GET"])
 def get_all_daycares():
@@ -134,6 +151,51 @@ def get_specific_book(id):
             "link": book.link,
             "related_housing_id": book.related_housing_id,
             "related_childcare_id": book.related_childcare_id
+        })
+
+@app.route("/api/housing", methods=["GET"])
+def get_all_housing():
+    with app.app_context():
+        allHousing = Housing.query.all()
+        return jsonify([
+            {
+                "id": housing.id,
+                "name": housing.name,
+                "address": housing.address,
+                "rating": housing.rating,
+                "place_id": housing.place_id,
+                "totalRatings": housing.totalRatings,
+                "photo":  housing.photo,
+                "google_maps_link": housing.google_maps_link,
+                "phone_number": housing.phone_number,
+                "website": housing.website,
+                "opening_hours": housing.opening_hours,
+                "related_book_id": housing.related_book_id,
+                "related_childcare_id": housing.related_childcare_id
+            } for housing in allHousing
+        ])
+    
+@app.route("/api/housing/<int:id>", methods=["GET"])
+def get_specific_housing(id):
+    with app.app_context():
+        housing = Housing.query.get(id)
+        if not housing:
+            return jsonify({"error": "Housing not found"}), 404
+        
+        return jsonify({
+            "id": housing.id,
+            "name": housing.name,
+            "address": housing.address,
+            "rating": housing.rating,
+            "place_id": housing.place_id,
+            "totalRatings": housing.totalRatings,
+            "photo": housing.photo,
+            "google_maps_link": housing.google_maps_link,
+            "phone_number": housing.phone_number,
+            "website": housing.website,
+            "opening_hours": housing.opening_hours,
+            "related_book_id": housing.related_book_id,
+            "related_childcare_id": housing.related_childcare_id
         })
 
 

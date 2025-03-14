@@ -15,6 +15,8 @@ const ChildcareService = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [randomBook, setRandomBook] = useState(null); // state for random book
+
 
     // Fetch data for a single daycare using API
     useEffect(() => {
@@ -39,12 +41,43 @@ const ChildcareService = () => {
         fetchDaycare();
     }, [id]);
 
+    // Fetch a random book using API
+    const BOOK_CATEGORIES = ["Family & Relationships", "Parenting"]; // Categories most related to childcare
+    useEffect(() => {
+        const fetchRandomBook = async () => {
+            try {
+                const response = await fetch("https://flask-api-production-730f.up.railway.app/api/books");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+    
+                const data = await response.json();
+    
+                // Filter books to only include categories "Family & Relationships" or "Parenting"
+                const filteredBooks = data.filter(book => BOOK_CATEGORIES.includes(book.cat));
+    
+                if (filteredBooks.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * filteredBooks.length);
+                    setRandomBook(filteredBooks[randomIndex]);
+                } else {
+                    setRandomBook(null); // No matching books available
+                }
+            } catch (error) {
+                console.error("Error fetching books:", error);
+                setRandomBook(null);
+            }
+        };
+    
+        fetchRandomBook();
+    }, []);
+    
+
     if(loading){
-       return (<p className="loading-message">Loading daycares...</p>);
-    }
-    if(error){
-        return (<p className="error-message">{error}</p>)
-    }
+        return (<p className="loading-message">Loading daycares...</p>);
+     }
+     if(error){
+         return (<p className="error-message">{error}</p>)
+     }
 
     // Basic childcare data
     const childcares = {
@@ -303,7 +336,7 @@ const ChildcareService = () => {
                     
                 </div>
                 
-                {/*<div className="related-resources-section">
+                <div className="related-resources-section">
                     <h2 className="section-title">Related Resources</h2>
                     <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <div style={{ width: '350px' }}>
@@ -320,21 +353,24 @@ const ChildcareService = () => {
                         }
                     </div>
                     <div style={{ width: '350px' }}>
+                        {randomBook ? (
                             <BookCard
-                                title={childcare["related-resources"].book.name}
-                                author={childcare["related-resources"].book.author}
-                                publishDate={childcare["related-resources"].book.publishDate}
-                                pageCount={childcare["related-resources"].book.pageCount}
-                                listPrice={childcare["related-resources"].book.listPrice}
-                                description={childcare["related-resources"].book.description}
-                                image={childcare["related-resources"].book.image}
-                                link={childcare["related-resources"].book.link}
-                                cat={childcare["related-resources"].book.cat}
-                                id={childcare["related-resources"].book.id}
+                                image={randomBook.image}
+                                title={randomBook.title}
+                                author={randomBook.author}
+                                publishDate={randomBook.publishDate}
+                                pageCount={randomBook.pageCount}
+                                listPrice={randomBook.listPrice}
+                                cat={randomBook.cat}
+                                id={randomBook.id}
                             />
+                        ) : (
+                            <p>Loading book...</p>  // Optional: Show a loading message
+                        )}
                     </div>
+
                     </div>
-                </div>*/}
+                </div>
                 
             </div>
         </div>

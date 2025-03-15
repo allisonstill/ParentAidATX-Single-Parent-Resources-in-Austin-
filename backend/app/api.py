@@ -1,6 +1,7 @@
 """
 Defines database models, API endpoints, and serves data from our ProstgreSQL databases.
 """
+
 import os
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy

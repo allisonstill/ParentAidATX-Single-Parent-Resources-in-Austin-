@@ -211,7 +211,7 @@ const HousingComplex = () => {
                             <ChildCard 
                                 name={randomChildCare.name}
                                 image={randomChildCare.image_url}
-                                type={randomChildCare.type}
+                                type={randomChildCare.program_type}
                                 age_range={randomChildCare.age_range}
                                 open_time={randomChildCare.open_time}
                                 close_time={randomChildCare.close_time}

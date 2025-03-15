@@ -235,7 +235,7 @@ const HousingComplex = () => {
                                 id={randomBook.id}
                             />
                         ) : (
-                            <p>Loading book...</p>  // Optional: Show a loading message
+                            <p>Loading books...</p>  // Optional: Show a loading message
                         )}
                     </div>
 

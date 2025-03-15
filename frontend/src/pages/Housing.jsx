@@ -62,7 +62,7 @@ function Housing() {
             <p className="housing-page-description">{pageDescription}</p>
 
             {loading ? (
-                <p className="loading-message">Loading books...</p>
+                <p className="loading-message">Loading housing...</p>
             ) : error ? (
                 <p className="error-message">{error}</p>
             ) : (

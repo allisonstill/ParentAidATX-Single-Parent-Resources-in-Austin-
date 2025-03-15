@@ -52,6 +52,22 @@ Other potential sources:
 | Amna Ali          |    14 hours |    10 hours |
 | Ethan Yu          |    13 hours |    10 hours |
 
+### Phase 2: 
+
+- Git SHA: 
+
+- Phase Leader(s): 
+
+- Phase Leader Responsibilities: 
+
+| Team Member | Estimate Time | Actual Time |
+| ----- | --- | --- | 
+| Andrew Harvey     |      hours  |       hours |
+| Rubi Rojas        |       hours |       hours |
+| Allison Still     |       hours |       hours |
+| Amna Ali          |       hours |       hours |
+| Ethan Yu          |       hours |       hours |
+
 
 ## Models  
 

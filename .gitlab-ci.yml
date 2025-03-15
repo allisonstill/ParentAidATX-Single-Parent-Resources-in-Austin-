@@ -54,7 +54,7 @@ postman_tests:
 
 run_api_tests:
   stage: test
-  image: python:latest
+  image: python:3.10
   dependencies:
     - install_and_build
   before_script:

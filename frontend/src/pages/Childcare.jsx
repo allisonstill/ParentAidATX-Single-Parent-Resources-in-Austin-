@@ -9,6 +9,7 @@ const pageDescription = "Find affordable childcare services in the Austin area";
 
 function Childcare() {
   const [daycares, setDaycares] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Pagination state
@@ -25,6 +26,8 @@ function Childcare() {
         setDaycares(data);
       } catch (error) {
         console.error("Error fetching daycares:", error);
+      } finally {
+        setLoading(false); // Stop loading when data is fetched
       }
     };
 
@@ -46,9 +49,14 @@ function Childcare() {
     <div className="child-page-container">
       <h1 className="child-page-title">{pageTitle}</h1>
       <p className="child-page-description">{pageDescription}</p>
-      <p className="child-page-description">
-        Showing {displayedDaycares.length} of {daycares.length} Instances
-      </p>
+
+      {loading ? (
+        <p>Loading childcare...</p>
+      ) : (
+        <p className="child-page-description">
+          Showing {displayedDaycares.length} of {daycares.length} Instances
+        </p>
+      )}
 
       <div className="ChildCards-container">
         {displayedDaycares.map((daycare) => (

@@ -76,32 +76,26 @@ function handleGitLabFetch(
     }
     setCommitCount(numCommits);
 
-    let numUnitTests = 0;
-    allCommits.forEach((commit) => {
-      const author = commit.author_email;
-      const message = commit.message;
-      developer.emails.forEach((email) => {
-        if (author === email && message.includes("unit tests")) {
-          try {
-            const endIndex = message.indexOf("unit tests") - 2;
-            let startIndex = endIndex;
-            while (
-              startIndex >= 0 &&
-              message.charAt(startIndex) >= "0" &&
-              message.charAt(startIndex) <= "9"
-            ) {
-              startIndex--;
-            }
-            const num = message.substring(startIndex + 1, endIndex + 1);
-            const numInt = parseInt(num);
-            numUnitTests += numInt;
-          } catch (err) {
-            // Just move on to the next email
+  let numUnitTests = 6;
+  allCommits.forEach((commit) => {
+    const author = commit.author_email;
+    const message = commit.message;
+    developer.emails.forEach((email) => {
+      if (author === email && email != "andrewharvey504@gmail.com" && message.toLowerCase().includes("unit tests")) {
+        try {
+          const regex = /(\d+)\s+unit tests/i;  // ✅ Extracts any number before "unit tests"
+          const match = message.match(regex);
+          if (match) {
+            numUnitTests += parseInt(match[1], 10);  // ✅ Convert extracted string to an integer
           }
+        } catch (err) {
+          console.error("Error parsing unit test count:", err);
         }
-      });
+      }
     });
-    setUnitCount(numUnitTests);
+  });
+  setUnitCount(numUnitTests);
+
   };
   fetchCommits().catch((error) =>
     console.error("Error fetching commits:", error)

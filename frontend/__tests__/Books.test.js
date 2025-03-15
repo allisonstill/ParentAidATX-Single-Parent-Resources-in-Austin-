@@ -25,7 +25,7 @@ describe("Books Page", () => {
     // Wait for the component to be updated and assert that key information is displayed
     await waitFor(() => {
       expect(
-        screen.getByText("Books about Single Parenting")
+        screen.getByText("Books")
       ).toBeInTheDocument();
       expect(
         screen.getByText(

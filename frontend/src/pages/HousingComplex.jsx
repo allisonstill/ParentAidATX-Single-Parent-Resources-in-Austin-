@@ -210,7 +210,7 @@ const HousingComplex = () => {
                         {randomChildCare ? (
                             <ChildCard 
                                 name={randomChildCare.name}
-                                image={randomChildCare.image}
+                                image={randomChildCare.image_url}
                                 type={randomChildCare.type}
                                 age_range={randomChildCare.age_range}
                                 open_time={randomChildCare.open_time}

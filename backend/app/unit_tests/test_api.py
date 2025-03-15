@@ -13,10 +13,11 @@ from api import app  # Import the app but avoid running db.create_all()
 
 @pytest.fixture
 def client():
-    """Create a test client without touching the database."""
+    """Create a test client and ensure the app context is active."""
     app.config["TESTING"] = True
-    with app.test_client() as client:
-        yield client
+    with app.app_context():  # FIX: Ensure app context is set
+        with app.test_client() as client:
+            yield client
 
 ### Mocking Queries for Each Endpoint ###
 

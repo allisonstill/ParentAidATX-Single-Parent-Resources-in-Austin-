@@ -3,7 +3,7 @@ import sys
 import os
 from unittest.mock import patch
 
-# Set an environment variable to prevent db.create_all() from running in tests
+# Set an environment variable to prevent db.create_all() from running in tests.
 os.environ["FLASK_TESTING"] = "1"
 
 # Add the backend/app folder to Python’s module search path

@@ -59,9 +59,9 @@ Other potential sources:
 
 ### Phase 2:
 
-- Git SHA:
+- Git SHA: fa69fcacdb72e4a4ac85ffef3408f3f3eb89e740
 
-- Phase Leader(s):
+- Phase Leader(s): Ethan Yu
 
 - Phase Leader Responsibilities: Team Coordination, set meeting times, lead development on frontend and backend, ensure tasks are completed
 

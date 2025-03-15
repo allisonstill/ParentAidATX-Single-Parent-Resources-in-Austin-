@@ -27,30 +27,6 @@ const Individual_Book = () => {
                 const data = await response.json();
                 setBook(data);
 
-                setRelatedHousing({
-                    "name": "Kensington Apartments",
-                    "cost": "900-1300",
-                    "rating": "3.9",
-                    "housingStyle": "Apartments",
-                    "address": "2202 W N Loop Blvd, Austin, TX 78756",
-                    "website": "https://www.rainieratx.com/kensington-apartments",
-                    "image": "https://rentpath-res.cloudinary.com/t_3x2_fixed_webp_xl/t_unpaid/e2335139f4a9f2257227377307f74af1",
-                    "id": 1
-                });
-
-                setRelatedChildcare({
-                    "name": "Child Craft Schools",
-                    "open_time": "8:00 AM",
-                    "close_time": "6:00 PM",
-                    "program_type": "Daycare",
-                    "age_range": "5 months - 5 years old",
-                    "address": "800 W 30th St, Austin, TX",
-                    "full_link": "https://www.childcraftschooltx.com/index.html",
-                    "image_url": "https://childcraftschooltx.com/uploads/1/2/3/5/123531586/published/image_6.png?1546248481",
-                    "description": "Child Craft Schools provides a nurturing environment for early childhood development with experienced staff and engaging educational activities.",
-                    "id": 1
-                });
-
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching book");
@@ -60,6 +36,33 @@ const Individual_Book = () => {
         
         fetchBook();
     }, [id]);
+
+    useEffect(() => {
+        const fetchRelatedResources = async () => {
+            try {
+                const childcareResponse = await fetch("https://flask-api-production-730f.up.railway.app/api/childcare");
+                if (!childcareResponse.ok) {
+                    throw new Error("Error!!")
+                }
+                const childcareData = await childcareResponse.json()
+
+                const housingResponse = await fetch("https://flask-api-production-730f.up.railway.app/api/housing");
+                if (!housingResponse.ok) {
+                    throw new Error("Error!!")
+                }
+                const housingData = await housingResponse.json()
+
+                const randomHousing = housingData[Math.floor(Math.random() * housingData.length)];
+                const randomChildcare = childcareData[Math.floor(Math.random() * childcareData.length)];
+
+                setRelatedHousing(randomHousing);
+                setRelatedChildcare(randomChildcare);
+            } catch (error) {
+                throw new Error("Error!")
+            }
+        };
+        fetchRelatedResources();
+    }, []);
 
     const FeatureCard = ({ icon: Icon, label, value }) => (
         <div className="feature-card">
@@ -173,8 +176,6 @@ const Individual_Book = () => {
                 </div>
 
                 
-                
-                {(relatedHousing || relatedChildcare) && (
                     <div className="related-resources-section">
                         <h2 className="section-title">Related Resources</h2>
                         <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -208,7 +209,7 @@ const Individual_Book = () => {
                             )}
                         </div>
                     </div>
-                )}
+                
             </div>
         </div>
     );

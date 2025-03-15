@@ -70,7 +70,7 @@ Other potential sources:
 | Andrew Harvey | 25 hours      | 35 hours    |
 | Rubi Rojas    | 25 hours      | 33 hours    |
 | Allison Still | 24 hours      | 32 hours    |
-| Amna Ali      | hours         | hours       |
+| Amna Ali      | 20 hours      | 31 hours    |
 | Ethan Yu      | 25 hours      | 32 hours    |
 
 ## Models

@@ -52,6 +52,26 @@ postman_tests:
     - if: '$CI_COMMIT_REF_NAME == "main"'
       when: always
 
+run_api_tests:
+  stage: test
+  image: python:3.10
+  dependencies:
+    - install_and_build
+  before_script:
+    - pip install -r backend/app/requirements.txt
+    - export FLASK_TESTING=1  # Ensures tests don’t modify the real database
+  script:
+    - pytest backend/app/unit_tests/ --junitxml=results.xml
+  artifacts:
+    when: always
+    paths:
+      - results.xml
+    reports:
+      junit: results.xml
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      when: always
+
 
 deploy_to_amplify:
   stage: deploy

@@ -216,4 +216,9 @@ with app.app_context():
 
 # Run Flask app
 if __name__ == "__main__":
+    with app.app_context():
+        if not os.getenv("FLASK_TESTING"):  # Prevent db.create_all() in tests
+            db.create_all()
+            print("Database tables ensured!")
     app.run(debug=True)
+

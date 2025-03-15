@@ -54,7 +54,7 @@ function Books() {
 
   return (
     <div className="books-page-container">
-      <h1 className="books-page-title">Books about Single Parenting</h1>
+      <h1 className="books-page-title">Books</h1>
       <p className="books-page-description">Find many books and resources about single parenting.</p>
       
       {loading ? (

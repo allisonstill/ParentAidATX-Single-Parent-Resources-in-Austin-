@@ -47,7 +47,7 @@ Other potential sources:
 
 - Phase Leader(s): Andrew Harvey
 
-- Phase Leader Responsibilities: Team Coordination, set meeting times, lead React app frontend, deploy on AWS
+- Phase Leader Responsibilities: Team Coordination, set meeting times, lead development on frontend and backend, ensure tasks are completed
 
 | Team Member   | Estimate Time | Actual Time |
 | ------------- | ------------- | ----------- |
@@ -63,11 +63,11 @@ Other potential sources:
 
 - Phase Leader(s):
 
-- Phase Leader Responsibilities:
+- Phase Leader Responsibilities: Team Coordination, set meeting times, lead development on frontend and backend, ensure tasks are completed
 
 | Team Member   | Estimate Time | Actual Time |
 | ------------- | ------------- | ----------- |
-| Andrew Harvey | hours         | hours       |
+| Andrew Harvey | 25 hours      | 35 hours    |
 | Rubi Rojas    | 25 hours      | 33 hours    |
 | Allison Still | 24 hours      | 32 hours    |
 | Amna Ali      | hours         | hours       |

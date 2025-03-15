@@ -183,11 +183,12 @@ const Individual_Book = () => {
                                 <div style={{ width: '350px' }}>
                                     <HousingCard 
                                         photo={relatedHousing.photo}
+                                        phone_number={relatedHousing.phone_number}
                                         name={relatedHousing.name}
                                         cost={relatedHousing.cost}
                                         rating={relatedHousing.rating}
-                                        HousingStyle={relatedHousing.housingStyle}
-                                        Address={relatedHousing.address}
+                                        //HousingStyle={relatedHousing.housingStyle}
+                                        address={relatedHousing.address}
                                         website={relatedHousing.website}
                                         id={relatedHousing.id}                           
                                     />

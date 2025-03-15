@@ -63,7 +63,7 @@ Other potential sources:
 | Team Member | Estimate Time | Actual Time |
 | ----- | --- | --- | 
 | Andrew Harvey     |      hours  |       hours |
-| Rubi Rojas        |       hours |       hours |
+| Rubi Rojas        |  25   hours |  33   hours |
 | Allison Still     |       hours |       hours |
 | Amna Ali          |       hours |       hours |
 | Ethan Yu          |       hours |       hours |

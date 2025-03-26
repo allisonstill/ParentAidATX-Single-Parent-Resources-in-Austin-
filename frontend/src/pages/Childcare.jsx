@@ -20,7 +20,7 @@ function Childcare() {
   useEffect(() => {
     const fetchDaycares = async () => {
       try {
-        const response = await fetch("https://flask-api-production-730f.up.railway.app/api/childcare");
+        const response = await fetch("https://api.parentaidatx.me/api/childcare");
         const data = await response.json();
         console.log("Fetched data:", data);
         setDaycares(data);

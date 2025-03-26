@@ -18,7 +18,7 @@ const Individual_Book = () => {
         const fetchBook = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`https://flask-api-production-730f.up.railway.app/api/books/${id}`);
+                const response = await fetch(`https://api.parentaidatx.me/api/books/${id}`);
                 
                 if (!response.ok) {
                     throw new Error("HTTP ERROR!");
@@ -40,13 +40,13 @@ const Individual_Book = () => {
     useEffect(() => {
         const fetchRelatedResources = async () => {
             try {
-                const childcareResponse = await fetch("https://flask-api-production-730f.up.railway.app/api/childcare");
+                const childcareResponse = await fetch("https://api.parentaidatx.me/api/childcare");
                 if (!childcareResponse.ok) {
                     throw new Error("Error!!")
                 }
                 const childcareData = await childcareResponse.json()
 
-                const housingResponse = await fetch("https://flask-api-production-730f.up.railway.app/api/housing");
+                const housingResponse = await fetch("https://api.parentaidatx.me/api/housing");
                 if (!housingResponse.ok) {
                     throw new Error("Error!!")
                 }

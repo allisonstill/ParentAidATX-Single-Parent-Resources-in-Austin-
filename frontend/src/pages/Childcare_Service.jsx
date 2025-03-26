@@ -23,7 +23,7 @@ const ChildcareService = () => {
     useEffect(() => {
         const fetchDaycare = async () => {
             try {
-                const response = await fetch(`https://flask-api-production-730f.up.railway.app/api/childcare/${id}`);
+                const response = await fetch(`https://api.parentaidatx.me/api/childcare/${id}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -47,7 +47,7 @@ const ChildcareService = () => {
     useEffect(() => {
         const fetchRandomBook = async () => {
             try {
-                const response = await fetch("https://flask-api-production-730f.up.railway.app/api/books");
+                const response = await fetch("https://api.parentaidatx.me/api/books");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -77,7 +77,7 @@ const ChildcareService = () => {
     useEffect(() => {
         const fetchRandomHousing = async () => {
             try {
-                const response = await fetch("https://flask-api-production-730f.up.railway.app/api/housing");
+                const response = await fetch("https://api.parentaidatx.me/api/housing");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

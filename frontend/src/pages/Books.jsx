@@ -19,7 +19,7 @@ function Books() {
     const fetchBooks = async () => {
       try {
         setLoading(true);
-        const response = await fetch("https://flask-api-production-730f.up.railway.app/api/books");
+        const response = await fetch("https://api.parentaidatx.me/api/books");
         
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

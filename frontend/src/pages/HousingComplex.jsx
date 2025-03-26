@@ -19,7 +19,7 @@ const HousingComplex = () => {
         const getHousing = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`https://flask-api-production-730f.up.railway.app/api/housing/${id}`);
+                const response = await fetch(`https://api.parentaidatx.me/api/housing/${id}`);
                 
                 if (!response.ok) {
                     throw new Error("HTTP ERROR!");
@@ -41,7 +41,7 @@ const HousingComplex = () => {
     useEffect(() => {
         const fetchRandomBook = async () => {
             try {
-                const response = await fetch("https://flask-api-production-730f.up.railway.app/api/books");
+                const response = await fetch("https://api.parentaidatx.me/api/books");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -71,7 +71,7 @@ const HousingComplex = () => {
     useEffect(() => {
         const fetchRandomChildCare = async () => {
             try {
-                const response = await fetch("https://flask-api-production-730f.up.railway.app/api/childcare");
+                const response = await fetch("https://api.parentaidatx.me/api/childcare");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

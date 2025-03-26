@@ -23,7 +23,7 @@ function Housing() {
     const getHousing = async () => {
       try {
         setLoading(true);
-        const response = await fetch("https://flask-api-production-730f.up.railway.app/api/housing");
+        const response = await fetch("https://api.parentaidatx.me/api/housing");
         
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

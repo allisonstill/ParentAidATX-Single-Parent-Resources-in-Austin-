@@ -5,7 +5,7 @@
 		"description": "**The ParentAidATX API provides information and data scraped by ParentAidATX with resources on government programs, housing, and affordable childcare for single-parent families in the Austin area.**",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42962330",
-		"_collection_link": "https://parentaidatx.postman.co/workspace/ParentAidATX-Workspace~52bdad83-5286-423e-8d26-5d9c1cdc8778/collection/42442568-42da5829-2e01-4ac3-af14-f7aabac4ddff?action=share&source=collection_link&creator=42962330"
+		"_collection_link": "https://parentaidatx.postman.co/workspace/52bdad83-5286-423e-8d26-5d9c1cdc8778/collection/42442568-42da5829-2e01-4ac3-af14-f7aabac4ddff?action=share&source=collection_link&creator=42962330"
 	},
 	"item": [
 		{
@@ -57,10 +57,9 @@
 							"raw": "https://api.parentaidatx.me/api/books",
 							"protocol": "https",
 							"host": [
-								"flask-api-production-730f",
-								"up",
-								"railway",
-								"app"
+								"api",
+								"parentaidatx",
+								"me"
 							],
 							"path": [
 								"api",
@@ -79,10 +78,9 @@
 									"raw": "https://api.parentaidatx.me/api/books",
 									"protocol": "https",
 									"host": [
-										"flask-api-production-730f",
-										"up",
-										"railway",
-										"app"
+										"api",
+										"parentaidatx",
+										"me"
 									],
 									"path": [
 										"api",
@@ -146,10 +144,9 @@
 							"raw": "https://api.parentaidatx.me/api/books/{{id}}",
 							"protocol": "https",
 							"host": [
-								"flask-api-production-730f",
-								"up",
-								"railway",
-								"app"
+								"api",
+								"parentaidatx",
+								"me"
 							],
 							"path": [
 								"api",
@@ -169,10 +166,9 @@
 									"raw": "https://api.parentaidatx.me/api/books/87",
 									"protocol": "https",
 									"host": [
-										"flask-api-production-730f",
-										"up",
-										"railway",
-										"app"
+										"api",
+										"parentaidatx",
+										"me"
 									],
 									"path": [
 										"api",
@@ -261,10 +257,9 @@
 							"raw": "https://api.parentaidatx.me/api/housing",
 							"protocol": "https",
 							"host": [
-								"flask-api-production-730f",
-								"up",
-								"railway",
-								"app"
+								"api",
+								"parentaidatx",
+								"me"
 							],
 							"path": [
 								"api",
@@ -283,10 +278,9 @@
 									"raw": "https://api.parentaidatx.me/api/housing",
 									"protocol": "https",
 									"host": [
-										"flask-api-production-730f",
-										"up",
-										"railway",
-										"app"
+										"api",
+										"parentaidatx",
+										"me"
 									],
 									"path": [
 										"api",
@@ -371,10 +365,9 @@
 							"raw": "https://api.parentaidatx.me/api/housing/{{id}}",
 							"protocol": "https",
 							"host": [
-								"flask-api-production-730f",
-								"up",
-								"railway",
-								"app"
+								"api",
+								"parentaidatx",
+								"me"
 							],
 							"path": [
 								"api",
@@ -394,10 +387,9 @@
 									"raw": "https://api.parentaidatx.me/api/housing/237",
 									"protocol": "https",
 									"host": [
-										"flask-api-production-730f",
-										"up",
-										"railway",
-										"app"
+										"api",
+										"parentaidatx",
+										"me"
 									],
 									"path": [
 										"api",
@@ -411,7 +403,6 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
 									"description": "",
 									"type": "text"
 								}
@@ -467,10 +458,9 @@
 							"raw": "https://api.parentaidatx.me/api/childcare",
 							"protocol": "https",
 							"host": [
-								"flask-api-production-730f",
-								"up",
-								"railway",
-								"app"
+								"api",
+								"parentaidatx",
+								"me"
 							],
 							"path": [
 								"api",
@@ -489,10 +479,9 @@
 									"raw": "https://api.parentaidatx.me/api/childcare",
 									"protocol": "https",
 									"host": [
-										"flask-api-production-730f",
-										"up",
-										"railway",
-										"app"
+										"api",
+										"parentaidatx",
+										"me"
 									],
 									"path": [
 										"api",
@@ -571,10 +560,9 @@
 							"raw": "https://api.parentaidatx.me/api/childcare/{{id}}",
 							"protocol": "https",
 							"host": [
-								"flask-api-production-730f",
-								"up",
-								"railway",
-								"app"
+								"api",
+								"parentaidatx",
+								"me"
 							],
 							"path": [
 								"api",
@@ -594,10 +582,9 @@
 									"raw": "https://api.parentaidatx.me/api/childcare/1",
 									"protocol": "https",
 									"host": [
-										"flask-api-production-730f",
-										"up",
-										"railway",
-										"app"
+										"api",
+										"parentaidatx",
+										"me"
 									],
 									"path": [
 										"api",

@@ -60,7 +60,7 @@ function About() {
       </p>
       <p className="about-description">
         <span className="fw-bold">Tools used: </span> NodeJS, React, Bootstrap,
-        AWS Amplify, Railway, GitLab Pipelines
+        AWS Amplify, AWS EC2, Railway, GitLab Pipelines
       </p>
       <p className="about-description">
         <span className="fw-bold">Data sources: </span> GitLab API, Brightwheel, Google Books API, Google Maps API, Yelp API

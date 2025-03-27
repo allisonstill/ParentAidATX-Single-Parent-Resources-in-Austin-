@@ -135,6 +135,40 @@ const HousingComplex = () => {
         </div>
     );
 
+    const formatHours = (hoursString) => {
+        if (!hoursString) return "Hours Not Provided";
+
+        if (typeof hoursString != 'string') {
+            return hoursString;
+        }
+
+        let tempString = hoursString;
+        if (tempString.startsWith('{') && tempString.endsWith('}')) {
+            tempString = tempString.slice(1, -1);
+
+            const hoursPerDay = tempString.split('","');
+            if (hoursPerDay.length > 0) {
+                hoursPerDay[0] = hoursPerDay[0].replace('"', '');
+                const last = hoursPerDay.length - 1;
+                hoursPerDay[last] = hoursPerDay[last].replace('"', '');
+            }
+
+            return (
+                <div className = "hours-container">
+                    {hoursPerDay.map((day, index) => (
+                        <div key={index} className = "hours-per-day">
+                            {day}
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+        return tempString;
+
+        return hoursString;
+
+    }
+
     return (
         <div className="housingComplex-container">
             <div className="housingComplex-card">
@@ -188,7 +222,7 @@ const HousingComplex = () => {
                         <FeatureCard 
                             icon={Landmark}
                             label="Operating Hours"
-                            value={housing.opening_hours}
+                            value={formatHours(housing.opening_hours)}
                         />
                     </div>
 

@@ -1,4 +1,5 @@
 import "./Childcare.css";
+import "./Search.css"
 import ChildCard from "../components/childCard";
 import React, { useEffect, useState } from "react";
 import Pagination from "../components/Pagination.jsx";
@@ -11,10 +12,19 @@ function Childcare() {
   const [daycares, setDaycares] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
+  
 
   // Pagination state
   const itemsPerPage = 3; // Limit to 3 instances per page
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
+
+  // or sorting/filtering
+  //const [searchQuery, setSearchQuery] = useState("");
+  //const [sortBy, setSortBy] = useState(""); // e.g. "name", "program_type", etc.
+  //const [sortOrder, setSortOrder] = useState("asc"); // or "desc"
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterDropdown, setFilterDropdown] = useState(false);
+
 
   // Fetch data for childcare using API
   useEffect(() => {
@@ -57,6 +67,58 @@ function Childcare() {
           Showing {displayedDaycares.length} of {daycares.length} Instances
         </p>
       )}
+
+      {/* PHASE THREE TODO */}
+      <div className="filters-search-container">
+          <div className="filters-search-wrapper">
+              <div className="filter-dropdown">
+                  <button className="filter-button" onClick={() => setFilterDropdown(!filterDropdown)}>
+                      Filter By ⏷
+                  </button>
+                  {filterDropdown && (
+                  <div className="filter-options">
+                      <label>Distance (miles):</label>
+                      <select>
+                          <option value="">Any</option>
+                          <option value="5">≤ 5 miles</option>
+                          <option value="10">≤ 10 miles</option>
+                          <option value="20">≤ 20 miles</option>
+                          <option value="40">≤ 40 miles</option>
+                          <option value="80">≤ 80 miles</option>
+                          <option value="160">≤ 160 miles</option>
+                      </select>
+                      <label>Cost (per session):</label>
+                      <select>
+                          <option value="">Any</option>
+                          <option value="40">≤ $40</option>
+                          <option value="80">≤ $80</option>
+                          <option value="160">≤ $160</option>
+                          <option value="320">≤ $320</option>
+                      </select>
+                      <label>Availability:</label>
+                      <select>
+                          <option value="1">Available</option>
+                          <option value="0">Unavailable</option>
+                      </select>
+                      <label>Session:</label>
+                      <select>
+                          <option value="2">Remote or In-Person</option>
+                          <option value="0">Remote Only</option>
+                          <option value="1">In-Person Only</option>
+                      </select>
+                  </div>)}
+              </div>
+              <input
+                  type="text"
+                  className="search-box"
+                  placeholder="Search by name or speciality..."
+                  value={searchQuery}
+                  onChange={function(e) {setSearchQuery(e.target.value)}}
+              />
+          </div>
+      </div>
+      {/* END PHASE THREE TODO */}
+
 
       <div className="ChildCards-container">
         {displayedDaycares.map((daycare) => (

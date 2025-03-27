@@ -1,0 +1,85 @@
+/*Searching*/
+.filters-search-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .filters-search-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+  }
+  
+  /* Search box */
+  .search-box {
+    flex: 1;
+    min-width: 240px;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+  }
+  
+  /* Filter button */
+  .filter-button {
+    padding: 10px 16px;
+    font-size: 1rem;
+    background-color: #ffc878;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+  
+  .filter-button:hover {
+    background-color: #ffb347;
+  }
+  
+  /* Filter dropdown container */
+  .filter-dropdown {
+    position: relative;
+  }
+  
+  /* Filter dropdown options */
+  .filter-options {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    background-color: #fff8e1;
+    border: 1px solid #ffd369;
+    border-radius: 8px;
+    padding: 1rem;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 10;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .filter-options label {
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  
+  .filter-options select,
+  .filter-options input {
+    padding: 6px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    width: 100%;
+  }
+  
+  

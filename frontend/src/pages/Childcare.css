@@ -3,24 +3,22 @@
     display: flex;
     flex-direction: column; /* Ensures items are stacked vertically */
     align-items: center; /* Centers content */
-    padding-top: 100px;
+    padding-top: 20px;
     background-color:#f4ebd0;
-    padding-bottom: 150px;
+    padding-bottom: 60px;
   }
 .child-page-title {
-    font-size: 4rem;
+    font-size: clamp(1.75rem, 1.375rem + 1.5vw, 2.75rem);
     font-weight: bold;
-    text-transform: uppercase;
     text-align: center;
     color: #fca46c;
     text-shadow: 2px 2px 4px rgba(224, 213, 213, 0.2);
-    margin-bottom: 15px;
-    margin-top: 20 px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .child-page-description {
-    font-size: 1.2rem;
-    font-style: italic;
+    font-size: clamp(1rem, 1rem + 0.5vw, 1.3rem);
     text-align: center;
     color: #fcb454;
     max-width: 600px;
@@ -37,7 +35,7 @@
     margin-bottom: 100px;
   }
 .ChildCard { 
-    width: 200px; /* Adjust this to make the cards wider */
+    width: 280px; /* Adjust this to make the cards wider */
     max-width: 100%; /* Prevents overflow on smaller screens */
     background-color: white; /* Ensures border is visible */
     border: 7px solid #fce7a7; /* Thicker border */

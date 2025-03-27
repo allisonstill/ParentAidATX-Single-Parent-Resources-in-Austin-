@@ -60,13 +60,7 @@ function Childcare() {
       <h1 className="child-page-title">{pageTitle}</h1>
       <p className="child-page-description">{pageDescription}</p>
 
-      {loading ? (
-        <p>Loading childcare...</p>
-      ) : (
-        <p className="child-page-description">
-          Showing {displayedDaycares.length} of {daycares.length} Instances
-        </p>
-      )}
+      
 
       {/* PHASE THREE TODO */}
       <div className="filters-search-container">
@@ -118,7 +112,14 @@ function Childcare() {
           </div>
       </div>
       {/* END PHASE THREE TODO */}
-
+      
+      {loading ? (
+        <p>Loading childcare...</p>
+      ) : (
+        <p className="child-page-description">
+          Showing {displayedDaycares.length} of {daycares.length} daycares
+        </p>
+      )}
 
       <div className="ChildCards-container">
         {displayedDaycares.map((daycare) => (

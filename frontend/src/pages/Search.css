@@ -81,5 +81,22 @@
     background-color: white;
     width: 100%;
   }
+
+  .filter-done-button {
+    margin-top: 0.5rem;
+    padding: 8px 12px;
+    background-color: #fcb454;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-end;
+  }
+  
+  .filter-done-button:hover {
+    background-color: #fca046;
+  }
+  
   
   

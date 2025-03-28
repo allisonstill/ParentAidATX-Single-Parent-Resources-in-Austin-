@@ -18,7 +18,7 @@
 }
 
 .child-page-description {
-    font-size: clamp(1rem, 1rem + 0.5vw, 1.3rem);
+    font-size: 1.2rem;
     text-align: center;
     color: #fcb454;
     max-width: 600px;

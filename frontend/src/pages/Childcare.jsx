@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 const pageTitle = "Childcare Services";
 const pageDescription = "Find affordable childcare services in the Austin area";
 
-// for standardizing age fomrat
+// for standardizing age format
 const ageCategories = {
   Infant: { min: 0, max: 12 },
   Toddler: { min: 12, max: 24 },
@@ -112,9 +112,10 @@ function Childcare() {
   // Calculate pagination, filter menu logic, and search bar logic
   const startIndex = (currentPage - 1) * itemsPerPage;
   const filteredDaycares = daycares
-    // searching logic
+    // Searching logic. We want want to be able to search everything, so include any
+    //  including attributes only visible on the instance page.
     .filter((d) =>
-      (d.name + d.program_type + d.age_range  + d.open_time + d.close_time + d.address)
+      (d.name + d.program_type + d.age_range  + d.open_time + d.close_time + d.address + d.description)
         .toLowerCase()
         .includes(searchQuery.toLowerCase())
     )
@@ -261,7 +262,7 @@ function Childcare() {
               <input
                   type="text"
                   className="search-box"
-                  placeholder="Search by name or speciality..."
+                  placeholder="Search..."
                   value={searchQuery}
                   onChange={function(e) {setSearchQuery(e.target.value)}}
               />
@@ -289,6 +290,7 @@ function Childcare() {
               close_time={daycare.close_time}
               address={daycare.address}
               id={daycare.id}
+              searchQuery={searchQuery}
             />
           </div>
         ))}

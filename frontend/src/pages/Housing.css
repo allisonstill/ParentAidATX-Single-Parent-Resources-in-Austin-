@@ -1,31 +1,29 @@
 .housing-page-container {
-    text-align: left; /* Centers text */
-    display: flex;
-    flex-direction: column; /* Ensures items are stacked vertically */
-    align-items: center; /* Centers content */
-    padding-top: 100px;
-    background-color:#f4ebd0;
-    padding-bottom: 150px;
-  }
+  text-align: left; /* Centers text */
+  display: flex;
+  flex-direction: column; /* Ensures items are stacked vertically */
+  align-items: center; /* Centers content */
+  padding-top: 20px;
+  background-color:#f4ebd0;
+  padding-bottom: 60px;
+}
 .housing-page-title {
-    font-size: 4rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    color: #fca46c;
-    text-shadow: 2px 2px 4px rgba(224, 213, 213, 0.2);
-    margin-bottom: 15px;
-    margin-top: 20 px;
+  font-size: clamp(1.75rem, 1.375rem + 1.5vw, 2.75rem);
+  font-weight: bold;
+  text-align: center;
+  color: #fca46c;
+  text-shadow: 2px 2px 4px rgba(224, 213, 213, 0.2);
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .housing-page-description {
-    font-size: 1.2rem;
-    font-style: italic;
-    text-align: center;
-    color: #fcb454;
-    max-width: 600px;
-    margin: 0 auto 30px;
-    line-height: 1.5;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #fcb454;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.5;
 }
   
 .HousingCards-container {

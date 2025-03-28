@@ -26,15 +26,15 @@ function ChildCard({ image, name, type, age_range, open_time, close_time, addres
       />
       <div className="card-body">
         <h5 className="ChildCard-title">{highlightText(name, searchQuery)}</h5>
-        <p className="attribute-label">Type</p>
+        <p className="attribute-label">{highlightText("Type", searchQuery)}</p>
         <p className="ChildCard-attributes">{highlightText(type, searchQuery)}</p>
-        <p className="attribute-label">Age Range</p>
+        <p className="attribute-label">{highlightText("Age Range", searchQuery)}</p>
         <p className="ChildCard-attributes">{highlightText(age_range, searchQuery)}</p>
-        <p className="attribute-label">Open Time</p>
+        <p className="attribute-label">{highlightText("Open Time", searchQuery)}</p>
         <p className="ChildCard-attributes">{highlightText(open_time, searchQuery)}</p>
-        <p className="attribute-label">Close Time</p>
+        <p className="attribute-label">{highlightText("Close Time", searchQuery)}</p>
         <p className="ChildCard-attributes">{highlightText(close_time, searchQuery)}</p>
-        <p className="attribute-label">Address</p>
+        <p className="attribute-label">{highlightText("Address", searchQuery)}</p>
         <p className="ChildCard-attributes">{highlightText(address, searchQuery)}</p>
         <Link to={`/childcare/${id}`} className="custom-btn" onClick={handleClick}>
           View Details

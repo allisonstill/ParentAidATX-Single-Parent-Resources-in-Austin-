@@ -112,10 +112,10 @@ function Childcare() {
   // Calculate pagination, filter menu logic, and search bar logic
   const startIndex = (currentPage - 1) * itemsPerPage;
   const filteredDaycares = daycares
-    // Searching logic. We want want to be able to search everything, so include any
-    //  including attributes only visible on the instance page.
+    // Searching logic. We want want to be able to search all text, so include any
+    // attributes only visible on the instance page.
     .filter((d) =>
-      (d.name + d.program_type + d.age_range  + d.open_time + d.close_time + d.address + d.description)
+      (d.name + d.program_type + d.age_range  + d.open_time + d.close_time + d.address + d.description + "Type" + "Age Range" + "Open Time" + "Close Time" + "Address")
         .toLowerCase()
         .includes(searchQuery.toLowerCase())
     )

@@ -7,7 +7,46 @@ import { useSearchParams } from "react-router-dom";
 
 const pageTitle = "Childcare Services";
 const pageDescription = "Find affordable childcare services in the Austin area";
-// for ages
+
+// for standardizing age fomrat
+const ageCategories = {
+  Infant: { min: 0, max: 12 },
+  Toddler: { min: 12, max: 24 },
+  "2 Year Old": { min: 24, max: 36 },
+  "3 Year Old": { min: 36, max: 48 },
+  "4 Year Old": { min: 48, max: 60 },
+  "5 Years Old and Up": { min: 60, max: Infinity },
+};
+
+function parseAgeRange(rangeStr) {
+  const months = (str) => {
+    if (str.includes("yr")) {
+      return parseInt(str) * 12;
+    } else if (str.includes("mo")) {
+      return parseInt(str);
+    }
+    return null;
+  };
+
+  // Format: "Up to X yrs"
+  if (/Up to/i.test(rangeStr)) {
+    const match = rangeStr.match(/Up to (\d+)\s*yrs?/i);
+    if (match) {
+      return { min: 0, max: parseInt(match[1]) * 12 };
+    }
+  }
+
+  // Format: "X mos - Y mos", "X mos - Y yrs", etc.
+  const match = rangeStr.match(/(\d+)\s*(mos|yrs?)\s*-\s*(\d+)\s*(mos|yrs?)/i);
+  if (match) {
+    const [, minVal, minUnit, maxVal, maxUnit] = match;
+    const min = minUnit.startsWith("yr") ? parseInt(minVal) * 12 : parseInt(minVal);
+    const max = maxUnit.startsWith("yr") ? parseInt(maxVal) * 12 : parseInt(maxVal);
+    return { min, max };
+  }
+
+  return { min: null, max: null }; // fallback
+}
 
 // For converting time to handle filtering
 function to24HourFormat(timeStr) {
@@ -41,12 +80,15 @@ function Childcare() {
   const [filterOpensAt, setFilterOpensAt] = useState("");
   const [filterClosesAt, setFilterClosesAt] = useState("");
   const [sortByAddress, setSortByAddress] = useState("");
+  const [selectedAgeCategory, setSelectedAgeCategory] = useState("");
+
+
 
   // add more...
   // Reset page to 1 when filters/search change
   useEffect(() => {
     setSearchParams({ page: "1" });
-  }, [searchQuery, filterType, filterOpensAt, filterClosesAt]);
+  }, [searchQuery, filterType, filterOpensAt, filterClosesAt, sortByAddress, selectedAgeCategory]);
 
 
   // Fetch data for childcare using API
@@ -69,7 +111,6 @@ function Childcare() {
 
   // Calculate pagination, filter menu logic, and search bar logic
   const startIndex = (currentPage - 1) * itemsPerPage;
-  
   const filteredDaycares = daycares
     // searching logic
     .filter((d) =>
@@ -94,6 +135,24 @@ function Childcare() {
       const daycareCloseTime = to24HourFormat(d.close_time);
       return daycareCloseTime <= filterClosesAt;
     })
+
+    // filter by age
+    .filter((d) => {
+      if (!selectedAgeCategory) return true;
+    
+      const daycareRange = parseAgeRange(d.age_range); // e.g., { min: 12, max: 36 }
+      const filterRange = ageCategories[selectedAgeCategory]; // e.g., { min: 24, max: 36 }
+    
+      if (daycareRange.min == null || daycareRange.max == null) return false;
+
+    
+      // Check if the two ranges overlap
+      return (
+        daycareRange.max >= filterRange.min &&
+        daycareRange.min <= filterRange.max
+      );
+    })
+    
   ;
   
   // sorting (must sort after filtering, but before pagination!)
@@ -156,10 +215,17 @@ function Childcare() {
                         <option value="Waldorf">Waldorf</option>
                       </select>
 
-                      <label>Age Range</label>
-                      <select>
+                      <label>Age</label>
+                        <select value={selectedAgeCategory} onChange={(e) => setSelectedAgeCategory(e.target.value)}>
                           <option value="">Any</option>
-                      </select>
+                          <option value="Infant">Infant</option>
+                          <option value="Toddler">Toddler</option>
+                          <option value="2 Year Old">2 Year Old</option>
+                          <option value="3 Year Old">3 Year Old</option>
+                          <option value="4 Year Old">4 Year Old</option>
+                          <option value="5 Years Old and Up">5 Years Old and Up</option>
+                        </select>
+
 
                       <label>Opens at</label>
                         <select value={filterOpensAt} onChange={(e) => setFilterOpensAt(e.target.value)}>
@@ -179,7 +245,7 @@ function Childcare() {
                         <option value="20:00">8 pm or earlier</option>
                       </select>
 
-                      <label>Sort by Address</label>
+                      <label>Address</label>
                       <select value={sortByAddress} onChange={(e) => setSortByAddress(e.target.value)}>
                         <option value="">None</option>
                         <option value="asc">Ascending (A–Z)</option>

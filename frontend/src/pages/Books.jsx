@@ -218,7 +218,7 @@ function Books() {
   // Calculate pagination
   const totalPages = Math.ceil(books.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const displayedBooks = books.slice(startIndex, startIndex + itemsPerPage);
+  const displayedBooks = filterBooks.slice(startIndex, startIndex + itemsPerPage);
 
   // Handle page change
   const handlePageChange = (page) => {
@@ -229,7 +229,7 @@ function Books() {
 
   const handleNumbers = (e, setter) => {
     const inputVal = e.target.value;
-    if (inputVal === "" || /^\d+$/.test(value)) {
+    if (inputVal === '' || /^\d+$/.test(inputVal)) {
       setter(inputVal);
     }
   };
@@ -249,19 +249,47 @@ function Books() {
 
                 {filterDropdown && (
                   <div className = "filter-options">
+
                     <label>Category</label>
                     <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
                       <option value="">Any</option>
-                      {allCategories.map((category, index) => (
+                      {categories.map((category, index) => (
                         <option key={index} value={category}>
                           {category}
                         </option>
                       ))}
                     </select>
+
+                    <label>Author</label>
+                    <input type="text" placeholder="Author Name" value={author} onChange={(e) => setAuthor(e.target.value)}/>
+                    
+                    <label>Page Count</label>
+                    <div style={{ display: 'flex', alignItems: 'center'}}>
+                      <input type="text" placeHolder="Min Pages" value={minPage} onChange={(e) => handleNumbers(e, setMinPage)} />
+                      <span>to</span>
+                      <input type="text" placeHolder="Max Pages" value={maxPage} onChange={(e) => handleNumbers(e, setMaxPage)} />
+                    </div>
+
+                    <label>Price (USD)</label>
+                    <div style={{ display: 'flex', alignItems: 'center'}}>
+                      <input type="text" placeHolder="Min Price" value={minPrice} onChange={(e) => handleNumbers(e, setMinPrice)} />
+                      <span>to</span>
+                      <input type="text" placeHolder="Max Price" value={maxPrice} onChange={(e) => handleNumbers(e, setMaxPrice)} />
+                    </div>
+
+                    <label>Publication Year</label>
+                    <div style={{ display: 'flex', alignItems: 'center'}}>
+                      <input type="text" placeHolder="Min Year" value={minYear} onChange={(e) => handleNumbers(e, setMinYear)} />
+                      <span>to</span>
+                      <input type="text" placeHolder="Max Year" value={maxYear} onChange={(e) => handleNumbers(e, setMaxYear)} />
+                    </div>
+
                   </div>
                 )}
 
               </div>
+
+              <input type="text" className="search-box" placeHolder = "Search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
           </div>
       </div>
 

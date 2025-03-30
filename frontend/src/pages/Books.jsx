@@ -4,6 +4,8 @@ import "./Books.css";
 import "./Search.css";
 import Pagination from "../components/Pagination.jsx";
 import { useSearchParams } from "react-router-dom";
+import Fuse from "fuse.js";
+
 
 const parsePages = (pageCountStr) => {
   if (!pageCountStr) return 0;
@@ -63,7 +65,17 @@ function Books() {
   const [maxYear, setMaxYear] = useState("");
 
 
+  // Reset page to 1 when search, sort, or filters changes
+  useEffect(() => {
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set("page", "1");
+      return newParams;
+    });
+  }, [searchQuery, sortBy, sortWay, categoryFilter, author, minPage, maxPage, minPrice, maxPrice, minYear, maxYear]);
   
+  
+
   // Fetch books data from API
   useEffect(() => {
     const fetchBooks = async () => {
@@ -100,11 +112,40 @@ function Books() {
     fetchBooks();
   }, []);
 
-  let filterBooks = [];
+  let filteredBooks = [];
   try {
     const booksArray = Array.isArray(books) ? books : [];
-    filterBooks = booksArray
 
+    // Construct _search_blob for Fuse
+    const booksWithSearchBlob = booksArray.map((book) => ({
+      ...book,
+      _search_blob: `
+        ${book.title}
+        ${book.author}
+        ${book.cat}
+        ${book.pageCount}
+        ${book.listPrice}
+        ${book.publishDate}
+        ${book.description || ""}
+        Author Date of Publication Page Count Listed Price Category
+      `
+    }));
+
+    // Create Fuse instance
+    const fuse = new Fuse(booksWithSearchBlob, {
+      keys: ["_search_blob"],
+      threshold: 0.3,
+      ignoreLocation: true,
+      includeScore: true
+    });
+
+    //perform fuzzy search and order results by score
+    const fuzzyResults = searchQuery
+      ? fuse.search(searchQuery).sort((a, b) => a.score - b.score).map(res => res.item)
+      : booksWithSearchBlob;
+
+    // Apply filtering
+    filteredBooks = fuzzyResults
       //category
       .filter(book => {
         if (!categoryFilter) return true;
@@ -199,23 +240,12 @@ function Books() {
         }
       })
 
-      .filter(book => {
-        if (!searchQuery) return true;
-        const searchText = `${book.title || ""}
-                            ${book.author || ""}
-                            ${book.cat || ""}
-                            ${book.pageCount || ""}
-                            ${book.listPrice || ""}
-                            ${book.publishDate || ""}`.toLowerCase();
-        return searchText.includes(searchQuery.toLowerCase());
-      })
-
   } catch (err) {
     console.log("ERROR - filtering (books)");
-    filterBooks = [];
+    filteredBooks = [];
   }
 
-  let sortedBooks = [...filterBooks];
+  let sortedBooks = [...filteredBooks];
   try {
     if (sortBy) {
       sortedBooks.sort((first,second) => {
@@ -266,8 +296,8 @@ function Books() {
   }
 
   // Calculate pagination
-  const totalPages = Math.ceil(sortedBooks.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
+  const totalPages = Math.ceil(sortedBooks.length / itemsPerPage);
   const displayedBooks = sortedBooks.slice(startIndex, startIndex + itemsPerPage);
 
   // Handle page change
@@ -363,9 +393,6 @@ function Books() {
       </div>
 
 
-
-
-
       {loading ? (
         <p className="loading-message">Loading books...</p>
       ) : error ? (
@@ -398,7 +425,7 @@ function Books() {
           </div>
           
           {/* Pagination Component */}
-          {sortedBooks.length > itemsPerPage && (
+          {sortedBooks.length > 0 && (
             <Pagination
               totalPages={totalPages}
               currentPage={currentPage}

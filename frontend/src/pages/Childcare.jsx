@@ -82,7 +82,7 @@ function Childcare() {
   const [sortByAddress, setSortByAddress] = useState("");
   const [selectedAgeCategory, setSelectedAgeCategory] = useState("");
 
-  // Reset page to 1 when filters/search change
+  // Reset page to 1 when filters or search changes
   useEffect(() => {
     setSearchParams({ page: "1" });
   }, [searchQuery, filterType, filterOpensAt, filterClosesAt, sortByAddress, selectedAgeCategory]);
@@ -106,12 +106,11 @@ function Childcare() {
     fetchDaycares();
   }, []);
 
-  // Calculate pagination, filter menu logic, and search bar logic
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  // filter menu logic, and search bar logic
 
   // Define what data the search engine should search.
   // Note: we want want to be able to search all text, so include any attributes only visible on the instance page. 
-  const daycaresWithLabels = daycares.map((d) => ({
+  const daycaresSearchBlob = daycares.map((d) => ({
     ...d,
     _search_blob: `
       ${d.name}
@@ -126,14 +125,14 @@ function Childcare() {
   }));
   
   // Create the fuse object for the searching. 
-  const fuse = new Fuse(daycaresWithLabels, {
+  const fuse = new Fuse(daycaresSearchBlob, {
     keys: ["_search_blob"], // which attributes of your data objects it should search through
     threshold: 0.3, // fuzzy sensitivity
     ignoreLocation: true, // make it not required for the match to be in the same order or place in the text
     includeScore: true // return a relevance score
   });
 
-  // perform the search and order results by score
+  // perform the fuzzy search and order results by score
   const fuzzyResults = searchQuery
     ? fuse
         .search(searchQuery)
@@ -141,6 +140,7 @@ function Childcare() {
         .map(result => result.item)
     : daycares;
 
+  // Apply filtering
   const filteredDaycares = fuzzyResults
     // filter by program type
     .filter((d) => (filterType ? d.program_type === filterType : true))
@@ -195,11 +195,11 @@ function Childcare() {
     if (aVal > bVal) return sortByAddress === "asc" ? 1 : -1;
     return 0;
   });
-  
 
+  // Calculate pagination
+  const startIndex = (currentPage - 1) * itemsPerPage;
   const totalPages = Math.ceil(sortedDaycares.length / itemsPerPage);
   const displayedDaycares = sortedDaycares.slice(startIndex, startIndex + itemsPerPage);
-
 
   // Handle page change
   const handlePageChange = (page) => {
@@ -315,7 +315,7 @@ function Childcare() {
       </div>
 
       {/* Pagination Component */}
-      {daycares.length > itemsPerPage && (
+      {sortedDaycares.length > 0 && (
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}

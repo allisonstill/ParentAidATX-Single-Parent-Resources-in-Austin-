@@ -4,12 +4,15 @@ import "./childCard.css";
 // For highlighting text as it is searched
 function highlightText(text, query) {
   if (!query) return text;
+
   const regex = new RegExp(`(${query})`, "gi");
   const parts = text.split(regex);
+
   return parts.map((part, index) =>
-    regex.test(part) ? <mark key={index}>{part}</mark> : part
+    part.toLowerCase() === query.toLowerCase() ? <mark key={index}>{part}</mark> : part
   );
 }
+
 
 
 function ChildCard({ image, name, type, age_range, open_time, close_time, address, id, searchQuery}) {

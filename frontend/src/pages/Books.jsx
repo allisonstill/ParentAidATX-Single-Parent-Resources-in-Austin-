@@ -350,6 +350,8 @@ function Books() {
                         <option value="desc">Descending (Z–A)</option>
                       </select>
                     </div>
+                    
+                    <button className="filter-done-button" onClick={() => setFilterDropdown(false)}>Done</button>
 
                   </div>
                 )}

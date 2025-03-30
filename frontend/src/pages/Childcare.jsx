@@ -274,9 +274,6 @@ function Childcare() {
                         <option value="desc">Descending (Z–A)</option>
                       </select>
 
-
-
-                      
                       <button className="filter-done-button" onClick={() => setFilterDropdown(false)}>Done</button>
                   </div>)}
               </div>

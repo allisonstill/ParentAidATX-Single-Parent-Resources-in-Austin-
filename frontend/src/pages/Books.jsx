@@ -294,7 +294,7 @@ function Books() {
           <div className="filters-search-wrapper">
               <div className="filter-dropdown">
                 <button className = "filter-button" onClick = {() => setFilterDropdown(!filterDropdown)}>
-                  Filter By
+                  Filter By  ⏷
                 </button>
 
                 {filterDropdown && (

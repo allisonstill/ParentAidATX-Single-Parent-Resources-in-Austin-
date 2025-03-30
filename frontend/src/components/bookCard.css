@@ -92,10 +92,16 @@
 }
 
 .BookCard mark {
-    background-color: rgb(235, 160, 38);
-    color: #ffffff;
-    padding: 2px 4px;
-}
+    background-color: yellow;
+    color: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0;
+    margin: 0;
+    border-radius: 2px;
+
 
 .range-input-container {
     display: flex;

@@ -71,7 +71,6 @@ function Childcare() {
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   
-
   // states for pagination and filtering and querying
   const itemsPerPage = 3; // Limit to 3 instances per page
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
@@ -83,9 +82,6 @@ function Childcare() {
   const [sortByAddress, setSortByAddress] = useState("");
   const [selectedAgeCategory, setSelectedAgeCategory] = useState("");
 
-
-
-  // add more...
   // Reset page to 1 when filters/search change
   useEffect(() => {
     setSearchParams({ page: "1" });

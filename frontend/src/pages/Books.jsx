@@ -389,6 +389,7 @@ function Books() {
                   cat={book.cat}
                   link={book.link}
                   image={book.image}
+                  searchQuery = {searchQuery}
                 />
               </div>
             ))}

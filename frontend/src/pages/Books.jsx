@@ -371,7 +371,7 @@ function Books() {
       ) : (
         <>
           <p className="books-page-description">
-            Showing {displayedBooks.length} of {books.length} Books
+            Showing {displayedBooks.length} of {sortedBooks.length} Books
           </p>
           
           {/* Book Cards Container */}
@@ -395,12 +395,12 @@ function Books() {
           </div>
           
           {/* Pagination Component */}
-          {books.length > itemsPerPage && (
+          {sortedBooks.length > itemsPerPage && (
             <Pagination
               totalPages={totalPages}
               currentPage={currentPage}
               onPageChange={handlePageChange}
-              totalItems={books.length}
+              totalItems={sortedBooks.length}
               itemsPerPage={itemsPerPage}
               url="/books"
             />

@@ -4,7 +4,7 @@ import ChildCard from "../components/childCard";
 import React, { useEffect, useState } from "react";
 import Pagination from "../components/Pagination.jsx";
 import { useSearchParams } from "react-router-dom";
-import Fuse from "fuse.js"
+import Fuse from "fuse.js";
 
 const pageTitle = "Childcare Services";
 const pageDescription = "Find affordable childcare services in the Austin area";

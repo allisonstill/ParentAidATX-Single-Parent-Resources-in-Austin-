@@ -314,21 +314,21 @@ function Books() {
                     <input type="text" placeholder="Author Name" value={author} onChange={(e) => setAuthor(e.target.value)}/>
                     
                     <label>Page Count</label>
-                    <div style={{ display: 'flex', alignItems: 'center'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}>
                       <input type="text" placeHolder="Min Pages" value={minPage} onChange={(e) => handleNumbers(e, setMinPage)} />
                       <span>to</span>
                       <input type="text" placeHolder="Max Pages" value={maxPage} onChange={(e) => handleNumbers(e, setMaxPage)} />
                     </div>
 
                     <label>Price (USD)</label>
-                    <div style={{ display: 'flex', alignItems: 'center'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}>
                       <input type="text" placeHolder="Min Price" value={minPrice} onChange={(e) => handleNumbers(e, setMinPrice)} />
                       <span>to</span>
                       <input type="text" placeHolder="Max Price" value={maxPrice} onChange={(e) => handleNumbers(e, setMaxPrice)} />
                     </div>
 
                     <label>Publication Year</label>
-                    <div style={{ display: 'flex', alignItems: 'center'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}>
                       <input type="text" placeHolder="Min Year" value={minYear} onChange={(e) => handleNumbers(e, setMinYear)} />
                       <span>to</span>
                       <input type="text" placeHolder="Max Year" value={maxYear} onChange={(e) => handleNumbers(e, setMaxYear)} />
@@ -336,7 +336,7 @@ function Books() {
 
                     {/* Sorting! */}
                     <label>Sort By</label>
-                    <div style={{ display: 'flex'}}>
+                    <div style={{ display: 'flex', gap: '5px'}}>
                       <select value = {sortBy} onChange = {(e) => setSortBy(e.target.value)}>
                         <option value="">No Sort</option>
                         <option value="title">Title</option>

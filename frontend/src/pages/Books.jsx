@@ -215,10 +215,60 @@ function Books() {
     filterBooks = [];
   }
 
+  let sortedBooks = [...filterBooks];
+  try {
+    if (sortBy) {
+      sortedBooks.sort((first,second) => {
+        let firstVal;
+        let secondVal;
+        switch (sortBy) {
+          case 'title':
+            firstVal = (first.title || '').toLowerCase();
+            secondVal = (second.title || '').toLowerCase();
+            break;
+          case 'author':
+            firstVal = (first.author || '').toLowerCase();
+            secondVal = (second.author || '').toLowerCase();
+            break;
+          case 'pageCount':
+            firstVal = parsePages(first.pageCount);
+            secondVal = parsePages(second.pageCount);
+            break;
+          case 'price':
+            firstVal = parsePrice(first.listPrice);
+            secondVal = parsePrice(second.listPrice);
+            break;
+          case 'publishDate':
+            firstVal = getYear(first.publishDate);
+            secondVal = getYear(second.publishDate);
+            break;
+          default:
+            return 0;
+        }
+        if (firstVal > secondVal) {
+          if (sortWay === 'asc') {
+            return -1;
+          } else {
+            return 1;
+          }
+        } else {
+          if (sortWay === 'asc') {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+        return 0;
+      });
+    }
+  } catch (err) {
+    console.log("ERROR - sort books");
+  }
+
   // Calculate pagination
-  const totalPages = Math.ceil(books.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedBooks.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const displayedBooks = filterBooks.slice(startIndex, startIndex + itemsPerPage);
+  const displayedBooks = sortedBooks.slice(startIndex, startIndex + itemsPerPage);
 
   // Handle page change
   const handlePageChange = (page) => {
@@ -282,6 +332,23 @@ function Books() {
                       <input type="text" placeHolder="Min Year" value={minYear} onChange={(e) => handleNumbers(e, setMinYear)} />
                       <span>to</span>
                       <input type="text" placeHolder="Max Year" value={maxYear} onChange={(e) => handleNumbers(e, setMaxYear)} />
+                    </div>
+
+                    {/* Sorting! */}
+                    <label>Sort By</label>
+                    <div style={{ display: 'flex'}}>
+                      <select value = {sortBy} onChange = {(e) => setSortBy(e.target.value)}>
+                        <option value="">No Sort</option>
+                        <option value="title">Title</option>
+                        <option value="author">Author</option>
+                        <option value="pageCount">Page Count</option>
+                        <option value="price">Price</option>
+                        <option value="publishDate">Publish Year</option>
+                      </select>
+                      <select value = {sortWay} onChange = {(e) => setSortWay(e.target.value)}>
+                        <option value="asc">Ascending (A–Z)</option>
+                        <option value="desc">Descending (Z–A)</option>
+                      </select>
                     </div>
 
                   </div>

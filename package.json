@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "fuse.js": "^7.1.0",
     "lucide-react": "^0.475.0",
     "react-loading-skeleton": "^3.5.0",
     "react-paginate": "^8.3.0"

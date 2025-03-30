@@ -1,9 +1,10 @@
 import "./Childcare.css";
-import "./Search.css"
+import "./Search.css";
 import ChildCard from "../components/childCard";
 import React, { useEffect, useState } from "react";
 import Pagination from "../components/Pagination.jsx";
 import { useSearchParams } from "react-router-dom";
+import Fuse from "fuse.js"
 
 const pageTitle = "Childcare Services";
 const pageDescription = "Find affordable childcare services in the Austin area";
@@ -111,17 +112,42 @@ function Childcare() {
 
   // Calculate pagination, filter menu logic, and search bar logic
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const filteredDaycares = daycares
-    // Searching logic. We want want to be able to search all text, so include any
-    // attributes only visible on the instance page.
-    .filter((d) =>
-      (d.name + d.program_type + d.age_range  + d.open_time + d.close_time + d.address + d.description + "Type" + "Age Range" + "Open Time" + "Close Time" + "Address")
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-    )
+
+  // Define what data the search engine should search.
+  // Note: we want want to be able to search all text, so include any attributes only visible on the instance page. 
+  const daycaresWithLabels = daycares.map((d) => ({
+    ...d,
+    _search_blob: `
+      ${d.name}
+      ${d.program_type}
+      ${d.age_range}
+      ${d.open_time}
+      ${d.close_time}
+      ${d.address}
+      ${d.description || ""}
+      Type Age Range Open Time Close Time Address
+    `
+  }));
+  
+  // Create the fuse object for the searching. 
+  const fuse = new Fuse(daycaresWithLabels, {
+    keys: ["_search_blob"], // which attributes of your data objects it should search through
+    threshold: 0.3, // fuzzy sensitivity
+    ignoreLocation: true, // make it not required for the match to be in the same order or place in the text
+    includeScore: true // return a relevance score
+  });
+
+  // perform the search and order results by score
+  const fuzzyResults = searchQuery
+    ? fuse
+        .search(searchQuery)
+        .sort((a, b) => a.score - b.score) // lower score = more relevant
+        .map(result => result.item)
+    : daycares;
+
+  const filteredDaycares = fuzzyResults
     // filter by program type
     .filter((d) => (filterType ? d.program_type === filterType : true))
-    // TODO: filter by age
 
     // filter by open time
     .filter((d) => {
@@ -145,7 +171,6 @@ function Childcare() {
       const filterRange = ageCategories[selectedAgeCategory]; // e.g., { min: 24, max: 36 }
     
       if (daycareRange.min == null || daycareRange.max == null) return false;
-
     
       // Check if the two ranges overlap
       return (

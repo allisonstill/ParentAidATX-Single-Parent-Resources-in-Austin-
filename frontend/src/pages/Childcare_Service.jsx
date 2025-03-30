@@ -17,9 +17,6 @@ const ChildcareService = () => {
     const [error, setError] = useState(null);
     const [randomBook, setRandomBook] = useState(null); // state for random book
     const [randomHousing, setRandomHousing] = useState(null);
-    
-
-
 
     // Fetch data for a single daycare using API
     useEffect(() => {
@@ -148,22 +145,6 @@ const ChildcareService = () => {
                     src={daycare.image_url} 
                     alt="Facility"
                     className="gallery-image"/>
-                    {/*<img
-                        src={childcare.images[activeImageIndex]}
-                        alt="Facility"
-                        className="gallery-image"
-                    />
-                    {childcare.images.length > 1 && (
-                        <div className="pagination-dots">
-                            {childcare.images.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setActiveImageIndex(index)}
-                                    className={`dot ${activeImageIndex === index ? 'active' : ''}`}
-                                />
-                            ))}
-                        </div>
-                    )}*/}
                 </div>
 
                 <div className="content-section">
@@ -175,10 +156,6 @@ const ChildcareService = () => {
                                 <MapPin size={16} />
                                 <p>{daycare.address}</p>
                             </div>
-                            {/*<div className="quality-rating">
-                                <RatingStars rating={childcare["quality-rating"]} />
-                                <span>{childcare["quality-rating"]}/5 Quality Rating</span>
-                            </div>*/}
                         </div>
                         <div className="price-section">
                             <p className="price-label">Time</p>

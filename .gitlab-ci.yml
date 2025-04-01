@@ -86,7 +86,7 @@ deploy_to_ec2:
         cd /home/ubuntu/cs373-spring-2025-group-17 &&
         git pull origin main &&
         source ~/.bashrc &&
-        pip install -r backend/app/requirements.txt &&
+        python3 -m pip install -r backend/app/requirements.txt &&
         sudo systemctl restart flask-api.service
       '
   rules:

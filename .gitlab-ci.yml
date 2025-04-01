@@ -88,7 +88,9 @@ deploy_to_ec2:
         source ~/.bashrc &&
         python3 -m pip install --upgrade pip --break-system-packages &&
         python3 -m pip install --break-system-packages -r backend/app/requirements.txt &&
-        sudo systemctl restart flask-api.service
+        pkill -f app.py || true
+        nohup python3 /home/ubuntu/cs373-spring-2025-group-17/backend/app/app.py > app.log 2>&1 &
+
       '
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'

@@ -75,8 +75,6 @@ run_api_tests:
 deploy_to_ec2:
   stage: deploy
   image: alpine:latest
-  only:
-    - main
   before_script:
     - apk add --no-cache openssh
   script:

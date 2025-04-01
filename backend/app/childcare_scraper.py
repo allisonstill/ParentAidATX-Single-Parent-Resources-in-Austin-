@@ -6,8 +6,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from sqlalchemy.orm import sessionmaker
-from api import app, db, Daycare  # Import stuff from API
+from api import app, db, Daycare, Book, Housing  # Import stuff from API
 import pandas as pd
+import random
 
 # Ensure ChromeDriver is installed
 chromedriver_autoinstaller.install()
@@ -160,6 +161,19 @@ def scrape_and_insert(url):
                 # Insert into PostgreSQL using SQLAlchemy ORM (Non N/A rows only)
                 fields = [name, age_range, open_time, close_time, program_type, image_url, full_link, description, address]
                 if "N/A" not in fields:
+                    # Get valid related housing IDs
+                    housing_ids = [h[0] for h in session.query(Housing.id).all()]
+
+                    # Get valid related book IDs (filtered by category)
+                    book_ids = [
+                        b[0] for b in session.query(Book.id)
+                        .filter(Book.cat.in_(["Family & Relationships", "Parenting"]))
+                        .all()
+                    ]
+
+                    related_housing_id = random.choice(housing_ids) if housing_ids else None
+                    related_book_id = random.choice(book_ids) if book_ids else None
+
                     new_daycare = Daycare(
                         name=name,
                         age_range=age_range,
@@ -169,7 +183,9 @@ def scrape_and_insert(url):
                         image_url=image_url,
                         full_link=full_link,
                         description=description,
-                        address=address
+                        address=address,
+                        related_housing_id=related_housing_id,
+                        related_book_id=related_book_id 
                     )
 
                     session.add(new_daycare)  

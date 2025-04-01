@@ -36,6 +36,8 @@ class Daycare(db.Model):
     full_link = db.Column(db.String(500), nullable=True)
     description = db.Column(db.Text, nullable=True)
     address = db.Column(db.Text, nullable=True)
+    related_housing_id = db.Column(db.Integer, nullable=True)
+    related_book_id = db.Column(db.Integer, nullable=True)
 
 class Book(db.Model):
     __tablename__ = "books"
@@ -98,6 +100,9 @@ def get_specific_daycare(id):
         if not daycare:
             return jsonify({"error": "Daycare not found"}), 404
         
+        # look up related resources
+        
+
         return jsonify({
             "id": daycare.id,
             "name": daycare.name,

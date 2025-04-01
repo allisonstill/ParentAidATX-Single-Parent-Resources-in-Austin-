@@ -41,23 +41,23 @@ class TestParentAidATX(unittest.TestCase):
         link.click()
         self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/about")
 
-    def test_nav_news(self):
+    def test_nav_books(self):
         link = self.driver.find_element(By.CSS_SELECTOR,"a[href='/books']")
         self.assertEqual(link.get_attribute("innerHTML").strip(), "Books")
         link.click()
-        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/books")
+        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/books?page=1")
 
-    def test_nav_support(self):
+    def test_nav_housing(self):
         link = self.driver.find_element(By.CSS_SELECTOR,"a[href='/housing']")
         self.assertEqual(link.get_attribute("innerHTML").strip(), "Housing")
         link.click()
         self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/housing")
 
-    def test_nav_countries(self):
+    def test_nav_childcare(self):
         link = self.driver.find_element(By.CSS_SELECTOR,"a[href='/childcare']")
         self.assertEqual(link.get_attribute("innerHTML").strip(), "Childcare")
         link.click()
-        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/childcare")
+        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/childcare?page=1")
 
     def test_nav_home(self):
         self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/")

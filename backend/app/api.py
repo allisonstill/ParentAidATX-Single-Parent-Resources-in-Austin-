@@ -25,7 +25,7 @@ db = SQLAlchemy(app)
 
 # Define Database Model
 class Daycare(db.Model):
-    __tablename__ = "daycare" # must match to tosql call
+    __tablename__ = "daycare"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False, unique=True)
     age_range = db.Column(db.String(50), nullable=True)
@@ -80,7 +80,7 @@ def get_all_daycares():
 
         for daycare in daycares:
             # Get the related book
-            related_book = Book.query.filter_by(related_childcare_id=daycare.id).first()
+            related_book = Book.query.get(daycare.related_book_id).first()
             book_data = {
                 "id": related_book.id,
                 "title": related_book.title,
@@ -95,7 +95,7 @@ def get_all_daycares():
             } if related_book else None
 
             # Get the related housing
-            related_housing = Housing.query.filter_by(related_childcare_id=daycare.id).first()
+            related_housing = Housing.query.get(daycare.related_housing_id).first()
             housing_data = {
                 "id": related_housing.id,
                 "name": related_housing.name,

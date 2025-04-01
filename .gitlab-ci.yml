@@ -95,14 +95,14 @@ deploy_to_ec2:
       when: always
 
 
-deploy_to_amplify:
-  stage: deploy
-  image: node:latest
-  dependencies:
-    - unit-test-job
-    - selenium-test-job
-  script:
-    - echo "Deploying to Amplify"
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == "main"'
-      when: always
+# deploy_to_amplify:
+#   stage: deploy
+#   image: node:latest
+#   dependencies:
+#     - unit-test-job
+#     - selenium-test-job
+#   script:
+#     - echo "Deploying to Amplify"
+#   rules:
+#     - if: '$CI_COMMIT_REF_NAME == "main"'
+#       when: always

@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 jest.mock("../src/pages/Childcare.css", () => ({}));
 jest.mock("../src/components/childCard.css", () => ({}));
+jest.mock("../src/pages/Search.css", () => ({}));
 
 // Mocking the global fetch for API calls
 global.fetch = jest.fn(() =>

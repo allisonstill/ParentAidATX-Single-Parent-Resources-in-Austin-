@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 jest.mock("../src/pages/Books.css", () => ({}));
 jest.mock("../src/components/bookCard.css", () => ({}));
+jest.mock("../src/pages/Search.css", () => ({}));
 
 // Mocking the global fetch for API calls
 global.fetch = jest.fn(() =>
@@ -24,9 +25,7 @@ describe("Books Page", () => {
 
     // Wait for the component to be updated and assert that key information is displayed
     await waitFor(() => {
-      expect(
-        screen.getByText("Books")
-      ).toBeInTheDocument();
+      expect(screen.getByText("Books")).toBeInTheDocument();
       expect(
         screen.getByText(
           /Find many books and resources about single parenting./i

@@ -15,8 +15,6 @@ const ChildcareService = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [randomBook, setRandomBook] = useState(null); // state for random book
-    const [randomHousing, setRandomHousing] = useState(null);
 
     // Fetch data for a single daycare using API
     useEffect(() => {
@@ -41,64 +39,6 @@ const ChildcareService = () => {
         fetchDaycare();
     }, [id]);
 
-    // Fetch a random book using API
-    const BOOK_CATEGORIES = ["Family & Relationships", "Parenting"]; // Categories most related to childcare
-    useEffect(() => {
-        const fetchRandomBook = async () => {
-            try {
-                const response = await fetch("https://api.parentaidatx.me/api/books");
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-    
-                const data = await response.json();
-    
-                // Filter books to only include categories "Family & Relationships" or "Parenting"
-                const filteredBooks = data.filter(book => BOOK_CATEGORIES.includes(book.cat));
-    
-                if (filteredBooks.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * filteredBooks.length);
-                    setRandomBook(filteredBooks[randomIndex]);
-                    
-                } else {
-                    setRandomBook(null); // No matching books available
-                }
-            } catch (error) {
-                console.error("Error fetching books:", error);
-                setRandomBook(null);
-            }
-        };
-    
-        fetchRandomBook();
-        
-    }, []);
-    const HOUSING_ADDRESS = ["78705"]; // Categories most related to housing near downtown
-    useEffect(() => {
-        const fetchRandomHousing = async () => {
-            try {
-                const response = await fetch("https://api.parentaidatx.me/api/housing");
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-    
-                const data = await response.json();
-
-                const filteredHousing = data.filter(housing => housing.address.includes(HOUSING_ADDRESS));
-    
-                if (filteredHousing.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * filteredHousing.length);
-                    setRandomHousing(filteredHousing[randomIndex]);
-                } else {
-                    setRandomHousing(null);
-                }
-            } catch (error) {
-                console.error("Error fetching housing:", error);
-                setRandomHousing(null);
-            }
-        };
-        fetchRandomHousing();
-    }, []);
-
     if(loading){
         return (<p className="loading-message">Loading daycares...</p>);
      }
@@ -114,19 +54,6 @@ const ChildcareService = () => {
                 <p>{label}</p>
                 <p>{value}</p>
             </div>
-        </div>
-    );
-
-    // Component for rating stars
-    const RatingStars = ({ rating }) => (
-        <div className="rating-stars">
-            {[...Array(5)].map((_, index) => (
-                <Star
-                    key={index}
-                    size={20}
-                    className={`star ${index < rating ? 'filled' : ''}`}
-                />
-            ))}
         </div>
     );
 
@@ -222,32 +149,32 @@ const ChildcareService = () => {
                     <h2 className="section-title">Related Resources</h2>
                     <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <div style={{ width: '350px' }}>
-                        {randomHousing ? (
+                        {daycare.related_housing ? (
                             <HousingCard 
-                                name={randomHousing.name}
-                                address={randomHousing.address}
-                                rating={randomHousing.rating}
-                                totalRatings={randomHousing.totalRatings}
-                                photo={randomHousing.photo}
-                                phone_number={randomHousing.phone_number}
-                                website={randomHousing.website}
-                                id={randomHousing.id}
+                                name={daycare.related_housing.name}
+                                address={daycare.related_housing.address}
+                                rating={daycare.related_housing.rating}
+                                totalRatings={daycare.related_housing.totalRatings}
+                                photo={daycare.related_housing.photo}
+                                phone_number={daycare.related_housing.phone_number}
+                                website={daycare.related_housing.website}
+                                id={daycare.related_housing.id}
                             />
                         ) : (
                             <p>Loading housing...</p>  // Optional: Show a loading message
                         )}
                     </div>
                     <div style={{ width: '350px' }}>
-                        {randomBook ? (
+                        {daycare.related_book_id ? (
                             <BookCard
-                                image={randomBook.image}
-                                title={randomBook.title}
-                                author={randomBook.author}
-                                publishDate={randomBook.publishDate}
-                                pageCount={randomBook.pageCount}
-                                listPrice={randomBook.listPrice}
-                                cat={randomBook.cat}
-                                id={randomBook.id}
+                                image={daycare.related_book.image}
+                                title={daycare.related_book.title}
+                                author={daycare.related_book.author}
+                                publishDate={daycare.related_book.publishDate}
+                                pageCount={daycare.related_book.pageCount}
+                                listPrice={daycare.related_book.listPrice}
+                                cat={daycare.related_book.cat}
+                                id={daycare.related_book.id}
                             />
                         ) : (
                             <p>Loading book...</p>  // Optional: Show a loading message

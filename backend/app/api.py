@@ -25,7 +25,7 @@ db = SQLAlchemy(app)
 
 # Define Database Model
 class Daycare(db.Model):
-    __tablename__ = "daycare" # must match to tosql call
+    __tablename__ = "daycare"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False, unique=True)
     age_range = db.Column(db.String(50), nullable=True)
@@ -36,6 +36,8 @@ class Daycare(db.Model):
     full_link = db.Column(db.String(500), nullable=True)
     description = db.Column(db.Text, nullable=True)
     address = db.Column(db.Text, nullable=True)
+    related_housing_id = db.Column(db.Integer, nullable=True)
+    related_book_id = db.Column(db.Integer, nullable=True)
 
 class Book(db.Model):
     __tablename__ = "books"
@@ -74,8 +76,41 @@ class Housing(db.Model):
 def get_all_daycares():
     with app.app_context():
         daycares = Daycare.query.all()
-        return jsonify([
-            {
+        result = []
+
+        for daycare in daycares:
+            # Get the related book
+            related_book = Book.query.get(daycare.related_book_id).first()
+            book_data = {
+                "id": related_book.id,
+                "title": related_book.title,
+                "author": related_book.author,
+                "publishDate": related_book.publishDate,
+                "pageCount": related_book.pageCount,
+                "listPrice": related_book.listPrice,
+                "description": related_book.description,
+                "cat": related_book.cat,
+                "image": related_book.image,
+                "link": related_book.link
+            } if related_book else None
+
+            # Get the related housing
+            related_housing = Housing.query.get(daycare.related_housing_id).first()
+            housing_data = {
+                "id": related_housing.id,
+                "name": related_housing.name,
+                "address": related_housing.address,
+                "rating": related_housing.rating,
+                "place_id": related_housing.place_id,
+                "totalRatings": related_housing.totalRatings,
+                "photo":  related_housing.photo,
+                "google_maps_link": related_housing.google_maps_link,
+                "phone_number": related_housing.phone_number,
+                "website": related_housing.website,
+                "opening_hours": related_housing.opening_hours,
+            } if related_housing else None
+
+            result.append({
                 "id": daycare.id,
                 "name": daycare.name,
                 "age_range": daycare.age_range,
@@ -85,9 +120,13 @@ def get_all_daycares():
                 "image_url": daycare.image_url,
                 "full_link": daycare.full_link,
                 "description": daycare.description,
-                "address": daycare.address
-            } for daycare in daycares
-        ])
+                "address": daycare.address,
+                "related_book": book_data,
+                "related_housing": housing_data
+            })
+
+        return jsonify(result)
+
 
 
 # Flask API Route to get a single daycare by id
@@ -97,7 +136,10 @@ def get_specific_daycare(id):
         daycare = Daycare.query.get(id)
         if not daycare:
             return jsonify({"error": "Daycare not found"}), 404
-        
+
+        related_book = Book.query.filter_by(related_childcare_id=daycare.id).first()
+        related_housing = Housing.query.filter_by(related_childcare_id=daycare.id).first()
+
         return jsonify({
             "id": daycare.id,
             "name": daycare.name,
@@ -108,8 +150,34 @@ def get_specific_daycare(id):
             "image_url": daycare.image_url,
             "full_link": daycare.full_link,
             "description": daycare.description,
-            "address": daycare.address
+            "address": daycare.address,
+            "related_book": {
+                "id": related_book.id,
+                "title": related_book.title,
+                "author": related_book.author,
+                "publishDate": related_book.publishDate,
+                "pageCount": related_book.pageCount,
+                "listPrice": related_book.listPrice,
+                "description": related_book.description,
+                "cat": related_book.cat,
+                "image": related_book.image,
+                "link": related_book.link
+            } if related_book else None,
+            "related_housing": {
+                "id": related_housing.id,
+                "name": related_housing.name,
+                "address": related_housing.address,
+                "rating": related_housing.rating,
+                "place_id": related_housing.place_id,
+                "totalRatings": related_housing.totalRatings,
+                "photo":  related_housing.photo,
+                "google_maps_link": related_housing.google_maps_link,
+                "phone_number": related_housing.phone_number,
+                "website": related_housing.website,
+                "opening_hours": related_housing.opening_hours,
+            } if related_housing else None
         })
+
     
 @app.route("/api/books", methods=["GET"])
 def get_all_books():

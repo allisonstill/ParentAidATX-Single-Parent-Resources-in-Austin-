@@ -297,23 +297,60 @@ def get_specific_book(id):
 def get_all_housing():
     with app.app_context():
         allHousing = Housing.query.all()
-        return jsonify([
-            {
-                "id": housing.id,
-                "name": housing.name,
-                "address": housing.address,
-                "rating": housing.rating,
-                "place_id": housing.place_id,
-                "totalRatings": housing.totalRatings,
-                "photo":  housing.photo,
-                "google_maps_link": housing.google_maps_link,
-                "phone_number": housing.phone_number,
-                "website": housing.website,
-                "opening_hours": housing.opening_hours,
-                "related_book_id": housing.related_book_id,
-                "related_childcare_id": housing.related_childcare_id
-            } for housing in allHousing
-        ])
+
+        book_ids = [h.related_book_id for h in allHousing if h.related_book_id]
+        childcare_ids = [d.related_childcare_id for d in allHousing if d.related_childcare_id]
+        
+        books = Book.query.filter(Book.id.in_(book_ids)).all()
+        childcares = Daycare.query.filter(Daycare.id.in_(childcare_ids)).all()
+
+        book_map = {b.id: b for b in books}
+        childcare_map = {d.id: d for d in childcares}
+
+        result = []
+        for house in allHousing: 
+            related_book = book_map.get(house.related_book_id)
+            related_daycare = childcare_map.get(house.related_childcare_id)
+
+            result.append({
+                "id": house.id,
+                "name": house.name,
+                "address": house.address,
+                "rating": house.rating,
+                "place_id": house.place_id,
+                "totalRatings": house.totalRatings,
+                "photo":  house.photo,
+                "google_maps_link": house.google_maps_link,
+                "phone_number": house.phone_number,
+                "website": house.website,
+                "opening_hours": house.opening_hours,
+                "related_book": {
+                    "id": related_book.id,
+                    "title": related_book.title,
+                    "author": related_book.author,
+                    "publishDate": related_book.publishDate,
+                    "pageCount": related_book.pageCount,
+                    "listPrice": related_book.listPrice,
+                    "description": related_book.description,
+                    "cat": related_book.cat,
+                    "image": related_book.image,
+                    "link": related_book.link
+                } if related_book else None,
+                "related_childcare": {
+                    "id": related_daycare.id,
+                    "name": related_daycare.name,
+                    "age_range": related_daycare.age_range,
+                    "open_time": related_daycare.open_time,
+                    "close_time": related_daycare.close_time,
+                    "program_type": related_daycare.program_type,
+                    "image_url": related_daycare.image_url,
+                    "full_link": related_daycare.full_link,
+                    "description": related_daycare.description,
+                    "address": related_daycare.address,
+                } if related_housing else None
+            })
+
+        return jsonify(result)
     
 @app.route("/api/housing/<int:id>", methods=["GET"])
 def get_specific_housing(id):
@@ -321,7 +358,10 @@ def get_specific_housing(id):
         housing = Housing.query.get(id)
         if not housing:
             return jsonify({"error": "Housing not found"}), 404
-        
+
+        related_book = Book.query.get(housing.related_book_id)
+        related_daycare = Daycare.query.get(housing.related_housing_id)
+
         return jsonify({
             "id": housing.id,
             "name": housing.name,
@@ -334,8 +374,30 @@ def get_specific_housing(id):
             "phone_number": housing.phone_number,
             "website": housing.website,
             "opening_hours": housing.opening_hours,
-            "related_book_id": housing.related_book_id,
-            "related_childcare_id": housing.related_childcare_id
+            "related_book": {
+                "id": related_book.id,
+                "title": related_book.title,
+                "author": related_book.author,
+                "publishDate": related_book.publishDate,
+                "pageCount": related_book.pageCount,
+                "listPrice": related_book.listPrice,
+                "description": related_book.description,
+                "cat": related_book.cat,
+                "image": related_book.image,
+                "link": related_book.link
+            } if related_book else None,
+            "related_childcare": {
+                "id": related_daycare.id,
+                "name": related_daycare.name,
+                "age_range": related_daycare.age_range,
+                "open_time": related_daycare.open_time,
+                "close_time": related_daycare.close_time,
+                "program_type": related_daycare.program_type,
+                "image_url": related_daycare.image_url,
+                "full_link": related_daycare.full_link,
+                "description": related_daycare.description,
+                "address": related_daycare.address,
+            } if related_housing else None
         })
 
 

@@ -4,10 +4,66 @@ import time
 import os
 import re
 from dotenv import load_dotenv
+import random
 
 # Load API key from .env file
 load_dotenv()
 GOOGLE_PLACES_API_KEY = os.getenv("VITE_GOOGLE_PLACES_API_KEY")
+
+def get_resources(type):
+    try:
+        print(f"Getting {type}")
+        response = requests.get(f"https://api.parentaidatx.me/api/{type}")
+        if response.status_code != 200:
+            print(f"ERROR getting: {type}")
+            return []
+        else :
+            data = response.json()
+            print(f"Got {len(data)} records")
+            return data
+    except Exception as e:
+        print(f"ERROR getting {type}: {e}")
+        return []
+
+def get_related_records(housing, books, childcares):
+    """
+    Finds related book_id and childcare_id for a given housing_id.
+    
+    - Related book_id: Searches for the housing_id in every book record and finds a match. If no match is found, picks a random book.
+    - Related childcare_id: Matches the zip code of the childcare center with the housing zip code. If no match is found, picks a random childcare center.
+    
+    :param housing_id: The ID of the housing record
+    :param books: A list of book records, each containing 'book_id' and 'housing_id'
+    :param childcare_centers: A list of childcare records, each containing 'childcare_id' and 'address'
+    :return: A tuple (related_book_id, related_childcare_id)
+    """
+    # Find related book_id
+    related_book_id = next((book['id'] for book in books if book['related_housing_id'] == housing.get('id')), None)
+    if related_book_id is None:
+        related_book_id = random.choice(books)['id'] if books else None
+
+    address = housing.get('address')
+    # Find related childcare_id by matching zip codes
+    def extract_zip(address):
+        if not address : 
+            return None
+        parts = address.split(',')
+        if len(parts) >= 3:  # Ensure the address has at least city, state, and zip
+            state_zip = parts[-2].strip()  # Extract the "TX 78729" part
+            zip_code = state_zip.split()[-1]  # Get the last part, which is the zip code
+            return zip_code
+        return None 
+    
+    related_childcare_id = next(
+        (daycare['id'] for daycare in childcares if extract_zip(daycare['address']) == extract_zip(address)),
+        None
+    )
+    
+    if related_childcare_id is None:
+        related_childcare_id = random.choice(childcares)['id'] if childcares else None
+    
+    return related_book_id, related_childcare_id
+
 
 def get_image(url):
     if not url:
@@ -31,6 +87,9 @@ def fetch_places():
     """ Fetches relevant places using Google Places API and saves the results to a JSON file. """
 
     print("Fetching places from Google Places API...")
+
+    book_list = get_resources("books")
+    childcare_list = get_resources("childcare")
 
     search_terms = [
         "affordable housing Austin, Texas",
@@ -124,6 +183,9 @@ def fetch_places():
             if place_data["rating"] == "No Rating" :
                 continue
             if not any(p["place_id"] == place_data["place_id"] for p in all_places) and not any(p["phone_number"] == place_data["phone_number"] for p in all_places) and not any(p["website"] == place_data["website"] for p in all_places):
+                book_id, childcare_id = get_related_records(place_data, book_list, childcare_list)
+                place_data["related_book_id"] = book_id
+                place_data["related_childcare_id"] = childcare_id
                 all_places.append(place_data)
 
         time.sleep(1.5)  # Avoid hitting API rate limits

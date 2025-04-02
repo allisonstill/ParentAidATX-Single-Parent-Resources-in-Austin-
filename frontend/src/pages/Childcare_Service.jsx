@@ -165,7 +165,7 @@ const ChildcareService = () => {
                         )}
                     </div>
                     <div style={{ width: '350px' }}>
-                        {daycare.related_book_id ? (
+                        {daycare.related_book ? (
                             <BookCard
                                 image={daycare.related_book.image}
                                 title={daycare.related_book.title}

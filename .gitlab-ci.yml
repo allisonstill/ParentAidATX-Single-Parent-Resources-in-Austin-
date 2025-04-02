@@ -76,24 +76,20 @@ deploy_to_ec2:
   stage: deploy
   image: alpine:latest
   before_script:
-    - apk add --no-cache openssh py3-pip
+    - apk add --no-cache openssh
   script:
-    - mkdir -p ~/.ssh
-    - echo "$EC2_PRIVATE_KEY" > ~/.ssh/id_ed25519
-    - chmod 600 ~/.ssh/id_ed25519
-    - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
-    - ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST '
-        cd /home/ubuntu/cs373-spring-2025-group-17 &&
-        git pull origin main &&
-        python3 -m pip install --upgrade pip --break-system-packages &&
-        python3 -m pip install --break-system-packages -r backend/app/requirements.txt &&
-        pkill -f "gunicorn -b 0.0.0.0:5000 api:app" || true &&
-        cd backend/app &&
-        nohup gunicorn -b 0.0.0.0:5000 api:app --daemon
-      '
+  - ssh -i ~/.ssh/id_ed25519 $EC2_USER@$EC2_HOST '
+      cd /home/ubuntu/cs373-spring-2025-group-17 &&
+      git pull origin main &&
+      docker build -t parentaid-backend ./backend/app &&
+      docker ps -q --filter "name=parentaid-container" | grep -q . && docker stop parentaid-container && docker rm parentaid-container || echo "No container to stop" &&
+      docker run -d --name parentaid-container -p 5000:5000 parentaid-backend
+    '
+
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: always
+
 
 # deploy_to_amplify:
 #   stage: deploy

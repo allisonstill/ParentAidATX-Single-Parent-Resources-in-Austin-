@@ -218,25 +218,25 @@ function Housing() {
               Filter By ⏷
             </button>
             {filterDropdown && (
-              <div className="filter-options">
-                {/* Removed Distance Filter */}
+            <div className="filter-options">
+              {/* Removed Distance Filter */}
                 <label>Zip Code</label>
                 <select value={filterZipCode} onChange={(e) => setFilterZipCode(e.target.value ? Number(e.target.value) : null)}>
                   <option value="">Any</option>
-                  {zipCodes.map((zipCode, index) => (
-                    <option key={index} value={zipCode}>
-                      {zipCode}
-                    </option>
-                  ))}
+                    {zipCodes.map((zipCode, index) => (
+                      <option key={index} value={zipCode}>
+                        {zipCode}
+                      </option>
+                    ))}
                 </select>
-
+                
                 <label>Ratings Range</label>
                 <select value={filterRatingsRange} onChange={(e) => setFilterRatingsRange(e.target.value ? Number(e.target.value) : null)}>
                   <option value="">Any</option>
-                  <option value="1.0">more than 1 star</option>
-                  <option value="2.0">more than 2 stars</option>
-                  <option value="3.0">more than 3 stars</option>
-                  <option value="4.0">more than 4 stars</option>
+                  <option value="1">1+ star</option>
+                  <option value="2">2+ stars</option>
+                  <option value="3">3+ stars</option>
+                  <option value="4">4+ stars</option>
                 </select>
 
                 <label>Total Ratings</label>
@@ -284,7 +284,7 @@ function Housing() {
       ) : (
         <>
           <p className="housing-page-description">
-            Showing {currentHousingData.length} of {allHousing.length} housing options
+            Showing {currentHousingData.length} of {sortedHousing.length} housing options
           </p>
 
           <div className="HousingCards-container">

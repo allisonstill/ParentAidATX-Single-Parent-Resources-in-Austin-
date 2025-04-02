@@ -77,42 +77,24 @@ class Housing(db.Model):
 def get_all_daycares():
     with app.app_context():
         daycares = Daycare.query.all()
+
+        # Collect related IDs
+        book_ids = [d.related_book_id for d in daycares if d.related_book_id]
+        housing_ids = [d.related_housing_id for d in daycares if d.related_housing_id]
+
+        # Batch fetch related resources
+        books = Book.query.filter(Book.id.in_(book_ids)).all()
+        housings = Housing.query.filter(Housing.id.in_(housing_ids)).all()
+
+        # Create lookup dicts
+        book_map = {b.id: b for b in books}
+        housing_map = {h.id: h for h in housings}
+
         result = []
-
         for daycare in daycares:
-            # Get the related book
-            related_book = Book.query.get(daycare.related_book_id)
+            related_book = book_map.get(daycare.related_book_id)
+            related_housing = housing_map.get(daycare.related_housing_id)
 
-            book_data = {
-                "id": related_book.id,
-                "title": related_book.title,
-                "author": related_book.author,
-                "publishDate": related_book.publishDate,
-                "pageCount": related_book.pageCount,
-                "listPrice": related_book.listPrice,
-                "description": related_book.description,
-                "cat": related_book.cat,
-                "image": related_book.image,
-                "link": related_book.link
-            } if related_book else None
-
-            # Get housing
-            related_housing = Housing.query.get(daycare.related_housing_id)
-            housing_data = {
-                "id": related_housing.id,
-                "name": related_housing.name,
-                "address": related_housing.address,
-                "rating": related_housing.rating,
-                "place_id": related_housing.place_id,
-                "totalRatings": related_housing.totalRatings,
-                "photo":  related_housing.photo,
-                "google_maps_link": related_housing.google_maps_link,
-                "phone_number": related_housing.phone_number,
-                "website": related_housing.website,
-                "opening_hours": related_housing.opening_hours,
-            } if related_housing else None
-
-            # put everything into api response
             result.append({
                 "id": daycare.id,
                 "name": daycare.name,
@@ -124,11 +106,35 @@ def get_all_daycares():
                 "full_link": daycare.full_link,
                 "description": daycare.description,
                 "address": daycare.address,
-                "related_book": book_data,
-                "related_housing": housing_data
+                "related_book": {
+                    "id": related_book.id,
+                    "title": related_book.title,
+                    "author": related_book.author,
+                    "publishDate": related_book.publishDate,
+                    "pageCount": related_book.pageCount,
+                    "listPrice": related_book.listPrice,
+                    "description": related_book.description,
+                    "cat": related_book.cat,
+                    "image": related_book.image,
+                    "link": related_book.link
+                } if related_book else None,
+                "related_housing": {
+                    "id": related_housing.id,
+                    "name": related_housing.name,
+                    "address": related_housing.address,
+                    "rating": related_housing.rating,
+                    "place_id": related_housing.place_id,
+                    "totalRatings": related_housing.totalRatings,
+                    "photo":  related_housing.photo,
+                    "google_maps_link": related_housing.google_maps_link,
+                    "phone_number": related_housing.phone_number,
+                    "website": related_housing.website,
+                    "opening_hours": related_housing.opening_hours,
+                } if related_housing else None
             })
 
         return jsonify(result)
+
 
 
 

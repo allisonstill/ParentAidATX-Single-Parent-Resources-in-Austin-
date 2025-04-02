@@ -87,7 +87,7 @@ deploy_to_ec2:
         git pull origin main &&
         python3 -m pip install --upgrade pip --break-system-packages &&
         python3 -m pip install --break-system-packages -r backend/app/requirements.txt &&
-        pkill -f gunicorn || true &&
+        pkill -f "gunicorn -b 0.0.0.0:5000 api:app" || true &&
         cd backend/app &&
         nohup gunicorn -b 0.0.0.0:5000 api:app --daemon
       '

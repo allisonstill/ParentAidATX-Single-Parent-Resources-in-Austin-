@@ -73,6 +73,22 @@ Other potential sources:
 | Amna Ali      | 20 hours      | 31 hours    |
 | Ethan Yu      | 25 hours      | 32 hours    |
 
+### Phase 3:
+
+- Git SHA:
+
+- Phase Leader(s):
+
+- Phase Leader Responsibilities: Team Coordination, set meeting times, lead development on frontend and backend, ensure tasks are completed
+
+| Team Member   | Estimate Time | Actual Time |
+| ------------- | ------------- | ----------- |
+| Andrew Harvey |  hours       |  hours    |
+| Rubi Rojas    |  hours      |  hours    |
+| Allison Still |  hours      |  hours    |
+| Amna Ali      |  hours      |  hours    |
+| Ethan Yu      |  hours      |  hours    |
+
 ## Models
 
 ### 1. Books

@@ -7,6 +7,7 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask import request
+from sqlalchemy import func
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -80,7 +81,8 @@ def get_all_daycares():
 
         for daycare in daycares:
             # Get the related book
-            related_book = Book.query.get(daycare.related_book_id).first()
+            related_book = Book.query.get(daycare.related_book_id)
+
             book_data = {
                 "id": related_book.id,
                 "title": related_book.title,
@@ -94,8 +96,8 @@ def get_all_daycares():
                 "link": related_book.link
             } if related_book else None
 
-            # Get the related housing
-            related_housing = Housing.query.get(daycare.related_housing_id).first()
+            # Get housing
+            related_housing = Housing.query.get(daycare.related_housing_id)
             housing_data = {
                 "id": related_housing.id,
                 "name": related_housing.name,
@@ -110,6 +112,7 @@ def get_all_daycares():
                 "opening_hours": related_housing.opening_hours,
             } if related_housing else None
 
+            # put everything into api response
             result.append({
                 "id": daycare.id,
                 "name": daycare.name,
@@ -137,8 +140,8 @@ def get_specific_daycare(id):
         if not daycare:
             return jsonify({"error": "Daycare not found"}), 404
 
-        related_book = Book.query.filter_by(related_childcare_id=daycare.id).first()
-        related_housing = Housing.query.filter_by(related_childcare_id=daycare.id).first()
+        related_book = Book.query.get(daycare.related_book_id)
+        related_housing = Housing.query.get(daycare.related_housing_id)
 
         return jsonify({
             "id": daycare.id,

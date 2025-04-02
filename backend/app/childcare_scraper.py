@@ -9,6 +9,8 @@ from sqlalchemy.orm import sessionmaker
 from api import app, db, Daycare, Book, Housing  # Import stuff from API
 import pandas as pd
 import random
+from sqlalchemy.sql import func
+
 
 # Ensure ChromeDriver is installed
 chromedriver_autoinstaller.install()
@@ -161,19 +163,7 @@ def scrape_and_insert(url):
                 # Insert into PostgreSQL using SQLAlchemy ORM (Non N/A rows only)
                 fields = [name, age_range, open_time, close_time, program_type, image_url, full_link, description, address]
                 if "N/A" not in fields:
-                    # Get valid related housing IDs
-                    housing_ids = [h[0] for h in session.query(Housing.id).all()]
-
-                    # Get valid related book IDs (filtered by category)
-                    book_ids = [
-                        b[0] for b in session.query(Book.id)
-                        .filter(Book.cat.in_(["Family & Relationships", "Parenting"]))
-                        .all()
-                    ]
-
-                    related_housing_id = random.choice(housing_ids) if housing_ids else None
-                    related_book_id = random.choice(book_ids) if book_ids else None
-
+                    # After creating the new daycare row (but before commit), we add it to the session and flush it to get its ID
                     new_daycare = Daycare(
                         name=name,
                         age_range=age_range,
@@ -183,14 +173,39 @@ def scrape_and_insert(url):
                         image_url=image_url,
                         full_link=full_link,
                         description=description,
-                        address=address,
-                        related_housing_id=related_housing_id,
-                        related_book_id=related_book_id 
+                        address=address
                     )
 
-                    session.add(new_daycare)  
-                    session.commit()  # Force save
-                    print(f"✅ Inserted: {name}")
+                    session.add(new_daycare)
+                    session.flush()  # This assigns an ID to new_daycare without committing yet
+
+                    # === Related Book Logic ===
+                    # Try to find a book that already references this daycare's ID
+                    existing_related_book = session.query(Book.id).filter_by(related_childcare_id=new_daycare.id).first()
+
+                    # If not found, choose a random book in the correct category
+                    if existing_related_book:
+                        related_book_id = existing_related_book[0]
+                    else:
+                        fallback_book = (
+                            session.query(Book.id)
+                            .filter(Book.cat.in_(["Parenting", "Family & Relationships"]))
+                            .order_by(func.random())
+                            .first()
+                        )
+                        related_book_id = fallback_book[0] if fallback_book else None
+
+                    # === Related Housing Logic ===
+                    random_housing = session.query(Housing.id).order_by(func.random()).first()
+                    related_housing_id = random_housing[0] if random_housing else None
+
+                    # Set the related IDs
+                    new_daycare.related_book_id = related_book_id
+                    new_daycare.related_housing_id = related_housing_id
+
+                    session.commit()  # Final save with all relations
+                    print(f"✅ Inserted: {name} (related_book_id={related_book_id}, related_housing_id={related_housing_id})")
+
             except Exception as e:
                 session.rollback()  # Rollback in case of an error
                 print(f"🚨 Insert failed: {e}")

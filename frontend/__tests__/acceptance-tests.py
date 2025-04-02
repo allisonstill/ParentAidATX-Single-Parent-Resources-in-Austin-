@@ -45,7 +45,7 @@ class TestParentAidATX(unittest.TestCase):
         link = self.driver.find_element(By.CSS_SELECTOR,"a[href='/books']")
         self.assertEqual(link.get_attribute("innerHTML").strip(), "Books")
         link.click()
-        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/books?page=1")
+        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/books")
 
     def test_nav_housing(self):
         link = self.driver.find_element(By.CSS_SELECTOR,"a[href='/housing']")
@@ -57,7 +57,7 @@ class TestParentAidATX(unittest.TestCase):
         link = self.driver.find_element(By.CSS_SELECTOR,"a[href='/childcare']")
         self.assertEqual(link.get_attribute("innerHTML").strip(), "Childcare")
         link.click()
-        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/childcare?page=1")
+        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/childcare")
 
     def test_nav_home(self):
         self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/")
@@ -88,7 +88,7 @@ class TestParentAidATX(unittest.TestCase):
         print(f"✅ About Page Test Passed - {len(members)} team members found.")
 
     def test_books_instance(self):
-        self.driver.get("https://www.parentaidatx.me/books")
+        self.driver.get("https://www.parentaidatx.me/books?page=1")
         books = WebDriverWait(self.driver, 5).until(
             EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".BookCard"))
         )
@@ -134,6 +134,49 @@ class TestParentAidATX(unittest.TestCase):
             "Failed to navigate to housing details page."
         )
         print(f"✅ Housing Page Test Passed - {len(housing_cards)} housing cards found.")
+
+    # ... [rest of your imports and class above remains unchanged]
+
+    def test_search_books(self):
+        self.driver.get("https://www.parentaidatx.me/books")
+
+        # Wait for search box and type query
+        search_box = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "input.search-box"))
+        )
+        search_box.send_keys("Healthy")
+
+        # Wait for filtered book cards
+        book_cards = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".BookCard"))
+        )
+        self.assertTrue(len(book_cards) >= 1, "Book search did not return expected results.")
+        title = book_cards[0].find_element(By.CLASS_NAME, "BookCard-title").text
+        self.assertIn("Healthy", title, "Book title does not match search query.")
+
+        print(f"✅ Book Search Test Passed - Found {len(book_cards)} result(s).")
+
+    def test_search_childcare(self):
+        self.driver.get("https://www.parentaidatx.me/childcare")
+
+        # Wait for search box and type query
+        search_box = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "input.search-box"))
+        )
+        search_box.send_keys("Happy Tots")
+
+        # Wait for filtered childcare cards
+        child_cards = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".ChildCard"))
+        )
+        self.assertTrue(len(child_cards) >= 1, "Childcare search did not return expected results.")
+        name = child_cards[0].find_element(By.CLASS_NAME, "ChildCard-title").text
+        self.assertIn("Happy", name, "Childcare name does not match search query.")
+
+        print(f"✅ Childcare Search Test Passed - Found {len(child_cards)} result(s).")
+
+# ... [tearDownClass remains unchanged]
+
 
 
 

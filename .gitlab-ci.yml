@@ -85,17 +85,15 @@ deploy_to_ec2:
     - ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST '
         cd /home/ubuntu/cs373-spring-2025-group-17 &&
         git pull origin main &&
-        source ~/.bashrc &&
         python3 -m pip install --upgrade pip --break-system-packages &&
         python3 -m pip install --break-system-packages -r backend/app/requirements.txt &&
-        pkill -f api.py || true
-        nohup python3 /home/ubuntu/cs373-spring-2025-group-17/backend/app/api.py > api.log 2>&1 &
-
+        pkill -f gunicorn || true &&
+        cd backend/app &&
+        nohup gunicorn -b 0.0.0.0:5000 api:app --daemon
       '
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: always
-
 
 # deploy_to_amplify:
 #   stage: deploy

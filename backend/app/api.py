@@ -136,8 +136,6 @@ def get_all_daycares():
         return jsonify(result)
 
 
-
-
 # Flask API Route to get a single daycare by id
 @app.route("/api/childcare/<int:id>", methods=["GET"])
 def get_specific_daycare(id):

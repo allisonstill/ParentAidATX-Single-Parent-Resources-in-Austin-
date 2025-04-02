@@ -10,8 +10,8 @@ const Individual_Book = () => {
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [relatedHousing, setRelatedHousing] = useState(null);
-    const [relatedChildcare, setRelatedChildcare] = useState(null);
+    //const [relatedHousing, setRelatedHousing] = useState(null);
+    //const [relatedChildcare, setRelatedChildcare] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
@@ -30,39 +30,13 @@ const Individual_Book = () => {
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching book");
+                setError("ERROR -- can't load book.");
                 setLoading(false);
             }
         };
         
         fetchBook();
     }, [id]);
-
-    useEffect(() => {
-        const fetchRelatedResources = async () => {
-            try {
-                const childcareResponse = await fetch("https://api.parentaidatx.me/api/childcare");
-                if (!childcareResponse.ok) {
-                    throw new Error("Error!!")
-                }
-                const childcareData = await childcareResponse.json()
-
-                const housingResponse = await fetch("https://api.parentaidatx.me/api/housing");
-                if (!housingResponse.ok) {
-                    throw new Error("Error!!")
-                }
-                const housingData = await housingResponse.json()
-
-                const randomHousing = housingData[Math.floor(Math.random() * housingData.length)];
-                const randomChildcare = childcareData[Math.floor(Math.random() * childcareData.length)];
-
-                setRelatedHousing(randomHousing);
-                setRelatedChildcare(randomChildcare);
-            } catch (error) {
-                throw new Error("Error!")
-            }
-        };
-        fetchRelatedResources();
-    }, []);
 
     const FeatureCard = ({ icon: Icon, label, value }) => (
         <div className="feature-card">
@@ -128,23 +102,22 @@ const Individual_Book = () => {
                             <span>{book.author}</span>
                         </div>
 
-                        
 
                         <div className="book-badges">
                             <span className="badge"> <BookMarked size={16} /> Paperback</span>
                             <span className="badge"> <Calendar size={16} /> {book.publishDate}</span>
                             <span className="badge"><Tag size={16} /> {book.cat || "Parenting"}</span>
                         </div>
-                        <p className="description-section">
+                        <div className="description-section">
                             <p className="description-body">
                                 {isExpanded ? book.description : book.description.slice(0, 200) + "..."}
                             </p>
-                            {book.description.length > 200 && (
+                            {book.description && book.description.length > 200 && (
                                 <button className="see-more-button" onClick={() => setIsExpanded(!isExpanded)} >
                                     {isExpanded ? "See Less" : "See More"}
                                 </button>
                             )}
-                        </p>
+                        </div>
                         
                     </div>
                 </div>
@@ -179,38 +152,36 @@ const Individual_Book = () => {
                     <div className="related-resources-section">
                         <h2 className="section-title">Related Resources</h2>
                         <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            {relatedHousing && (
+                            {book.related_housing && (
                                 <div style={{ width: '350px' }}>
                                     <HousingCard 
-                                        photo={relatedHousing.photo}
-                                        phone_number={relatedHousing.phone_number}
-                                        name={relatedHousing.name}
-                                        cost={relatedHousing.cost}
-                                        rating={relatedHousing.rating}
-                                        //HousingStyle={relatedHousing.housingStyle}
-                                        address={relatedHousing.address}
-                                        website={relatedHousing.website}
-                                        id={relatedHousing.id}                           
+                                        photo={book.related_housing.photo}
+                                        phone_number={book.related_housing.phone_number}
+                                        name={book.related_housing.name}
+                                        rating={book.related_housing.rating}
+                                        address={book.related_housing.address}
+                                        website={book.related_housing.website}
+                                        id={book.related_housing.id}        
+                                        totalRatings={book.related_housing.totalRatings}                   
                                     />
                                 </div>
                             )}
-                            {relatedChildcare && (
+                            {book.related_childcare && (
                                 <div style={{ width: '350px' }}>
                                     <ChildCard
-                                        image={relatedChildcare.image_url}
-                                        name={relatedChildcare.name}
-                                        type={relatedChildcare.program_type}
-                                        age_range={relatedChildcare.age_range}
-                                        open_time={relatedChildcare.open_time}
-                                        close_time={relatedChildcare.close_time}
-                                        address={relatedChildcare.address}
-                                        id={relatedChildcare.id}                           
+                                        image={book.related_childcare.image_url}
+                                        name={book.related_childcare.name}
+                                        type={book.related_childcare.program_type}
+                                        age_range={book.related_childcare.age_range}
+                                        open_time={book.related_childcare.open_time}
+                                        close_time={book.related_childcare.close_time}
+                                        address={book.related_childcare.address}
+                                        id={book.related_childcare.id}                           
                                     />
                                 </div>
                             )}
                         </div>
                     </div>
-                
             </div>
         </div>
     );

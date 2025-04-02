@@ -190,8 +190,22 @@ def get_specific_daycare(id):
 def get_all_books():
     with app.app_context():
         books = Book.query.all()
-        return jsonify([
-            {
+
+        housing_ids = [b.related_housing_id for b in books if b.related_housing_id]
+        childcare_ids = [b.related_childcare_id for b in books if b.related_chidcare_id]
+
+        housings = Housing.query.filter(Housing.id.in_(housing_ids)).all()
+        childcares = Daycare.query.filter(Daycare.id.in_(childcare_ids)).all()
+
+        housing_map = {h.id: h for h in housings}
+        childcare_map = {c.id: c for c in childcares}
+
+        result = []
+        for book in books:
+            related_housing = housing_map.get(book.related_housing_id)
+            related_childcare = childcare_map.get(book.related_childcare_id)
+
+            result.append({
                 "id": book.id,
                 "title": book.title,
                 "author": book.author,
@@ -202,10 +216,33 @@ def get_all_books():
                 "cat": book.cat,
                 "image": book.image,
                 "link": book.link,
-                "related_housing_id": book.related_housing_id,
-                "related_childcare_id": book.related_childcare_id
-            } for book in books
-        ])
+                "related_housing": {
+                    "id": related_housing.id,
+                    "name": related_housing.name,
+                    "address": related_housing.address,
+                    "rating": related_housing.rating,
+                    "place_id": related_housing.place_id,
+                    "totalRatings": related_housing.totalRatings,
+                    "photo": related_housing.photo,
+                    "google_maps_link": related_housing.google_maps_link,
+                    "phone_number": related_housing.phone_number,
+                    "website": related_housing.website,
+                    "opening_hours": related_housing.opening_hours,
+                } if related_housing else None,
+                "related_childcare": {
+                    "id": related_childcare.id,
+                    "name": related_childcare.name,
+                    "age_range": related_childcare.age_range,
+                    "open_time": related_childcare.open_time,
+                    "close_time": related_childcare.close_time,
+                    "program_type": related_childcare.program_type,
+                    "image_url": related_childcare.image_url,
+                    "full_link": related_childcare.full_link,
+                    "description": related_childcare.description,
+                    "address": related_childcare.address,
+                } if related_childcare else None
+            })
+        return jsonify(result)
     
 @app.route("/api/books/<int:id>", methods=["GET"])
 def get_specific_book(id):
@@ -213,6 +250,10 @@ def get_specific_book(id):
         book = Book.query.get(id)
         if not book:
             return jsonify({"error": "Book not found"}), 404
+        
+        related_housing = Housing.query.get(book.related_housing_id) if book.related_housing_id else None
+        related_childcare = Daycare.query.get(book.related_childcare_id) if book.related_childcare_id else None
+
         
         return jsonify({
             "id": book.id,
@@ -225,8 +266,31 @@ def get_specific_book(id):
             "cat": book.cat,
             "image": book.image,
             "link": book.link,
-            "related_housing_id": book.related_housing_id,
-            "related_childcare_id": book.related_childcare_id
+            "related_housing": {
+                "id": related_housing.id,
+                "name": related_housing.name,
+                "address": related_housing.address,
+                "rating": related_housing.rating,
+                "place_id": related_housing.place_id,
+                "totalRatings": related_housing.totalRatings,
+                "photo": related_housing.photo,
+                "google_maps_link": related_housing.google_maps_link,
+                "phone_number": related_housing.phone_number,
+                "website": related_housing.website,
+                "opening_hours": related_housing.opening_hours,
+            } if related_housing else None,
+            "related_childcare": {
+                "id": related_childcare.id,
+                "name": related_childcare.name,
+                "age_range": related_childcare.age_range,
+                "open_time": related_childcare.open_time,
+                "close_time": related_childcare.close_time,
+                "program_type": related_childcare.program_type,
+                "image_url": related_childcare.image_url,
+                "full_link": related_childcare.full_link,
+                "description": related_childcare.description,
+                "address": related_childcare.address,
+            } if related_childcare else None
         })
 
 @app.route("/api/housing", methods=["GET"])

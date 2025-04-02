@@ -285,17 +285,9 @@ function Books() {
             return 0;
         }
         if (firstVal > secondVal) {
-          if (sortWay === "asc") {
-            return -1;
-          } else {
-            return 1;
-          }
-        } else {
-          if (sortWay === "asc") {
-            return 1;
-          } else {
-            return -1;
-          }
+          return sortWay === "asc" ? 1 : -1;
+        } else if (firstVal < secondVal) {
+          return sortWay === "asc" ? -1 : 1;
         }
         return 0;
       });
@@ -348,7 +340,7 @@ function Books() {
               <div className="filter-options">
                 <label htmlFor="category-select">Category</label>
                 <select
-                  id="category-select" // 🔧 Add this
+                  id="category-select"
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
                 >
@@ -374,14 +366,14 @@ function Books() {
                 >
                   <input
                     type="text"
-                    placeHolder="Min Pages"
+                    placeholder="Min Pages"
                     value={minPage}
                     onChange={(e) => handleNumbers(e, setMinPage)}
                   />
                   <span>to</span>
                   <input
                     type="text"
-                    placeHolder="Max Pages"
+                    placeholder="Max Pages"
                     value={maxPage}
                     onChange={(e) => handleNumbers(e, setMaxPage)}
                   />
@@ -393,14 +385,14 @@ function Books() {
                 >
                   <input
                     type="text"
-                    placeHolder="Min Price"
+                    placeholder="Min Price"
                     value={minPrice}
                     onChange={(e) => handleNumbers(e, setMinPrice)}
                   />
                   <span>to</span>
                   <input
                     type="text"
-                    placeHolder="Max Price"
+                    placeholder="Max Price"
                     value={maxPrice}
                     onChange={(e) => handleNumbers(e, setMaxPrice)}
                   />
@@ -412,14 +404,14 @@ function Books() {
                 >
                   <input
                     type="text"
-                    placeHolder="Min Year"
+                    placeholder="Min Year"
                     value={minYear}
                     onChange={(e) => handleNumbers(e, setMinYear)}
                   />
                   <span>to</span>
                   <input
                     type="text"
-                    placeHolder="Max Year"
+                    placeholder="Max Year"
                     value={maxYear}
                     onChange={(e) => handleNumbers(e, setMaxYear)}
                   />
@@ -461,7 +453,7 @@ function Books() {
           <input
             type="text"
             className="search-box"
-            placeHolder="Search"
+            placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

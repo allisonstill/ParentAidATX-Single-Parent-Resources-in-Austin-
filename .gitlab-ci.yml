@@ -3,15 +3,15 @@ stages:
   - test
   - deploy
 
-# install_and_build:
-#   stage: build
-#   image: node:latest
-#   script:
-#     - cd ./frontend && npm install
-#     - npm run build
-#   rules:
-#     - if: '$CI_COMMIT_REF_NAME == "main"'
-#       when: always
+install_and_build:
+  stage: build
+  image: node:latest
+  script:
+    - cd ./frontend && npm install
+    - npm run build
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      when: always
 
 # unit-test-job:
 #   stage: test
@@ -72,27 +72,27 @@ stages:
 #     - if: '$CI_COMMIT_REF_NAME == "main"'
 #       when: always
 
-deploy_to_ec2:
-  stage: deploy
-  image: alpine:latest
-  before_script:
-    - apk add --no-cache openssh
-  script:
-    - mkdir -p ~/.ssh
-    - echo "$EC2_PRIVATE_KEY" > ~/.ssh/id_ed25519
-    - chmod 600 ~/.ssh/id_ed25519
-    - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
-    - ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST '
-        cd /home/ubuntu/cs373-spring-2025-group-17 &&
-        git pull origin main &&
-        docker stop parentaid-container || true &&
-        docker rm parentaid-container || true &&
-        docker build -t parentaid-backend ./backend/app &&
-        docker run -d --name parentaid-container -p 5000:5000 parentaid-backend
-      '
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-      when: always
+# deploy_to_ec2:
+#   stage: deploy
+#   image: alpine:latest
+#   before_script:
+#     - apk add --no-cache openssh
+#   script:
+#     - mkdir -p ~/.ssh
+#     - echo "$EC2_PRIVATE_KEY" > ~/.ssh/id_ed25519
+#     - chmod 600 ~/.ssh/id_ed25519
+#     - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
+#     - ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST '
+#         cd /home/ubuntu/cs373-spring-2025-group-17 &&
+#         git pull origin main &&
+#         docker stop parentaid-container || true &&
+#         docker rm parentaid-container || true &&
+#         docker build -t parentaid-backend ./backend/app &&
+#         docker run -d --name parentaid-container -p 5000:5000 parentaid-backend
+#       '
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "main"'
+#       when: always
 
 
 

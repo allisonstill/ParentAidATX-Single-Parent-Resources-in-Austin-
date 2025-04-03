@@ -6,6 +6,10 @@ import { MemoryRouter } from "react-router-dom";
 // Mock CSS imports to prevent Jest errors
 jest.mock("../src/pages/Housing.css", () => ({}));
 jest.mock("../src/components/housingCard.css", () => ({}));
+jest.mock("../src/pages/Search.css", () => ({}));
+jest.mock("../src/utils/getDrivingDistance", () => ({
+  getDrivingDistance: jest.fn(() => Promise.resolve(5)), // fake value in miles
+}));
 
 // Mock the BookCard component to check its rendering
 jest.mock("../src/components/housingCard", () => (props) => {

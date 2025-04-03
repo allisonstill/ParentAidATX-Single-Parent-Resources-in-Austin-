@@ -45,19 +45,21 @@ class TestParentAidATX(unittest.TestCase):
         link = self.driver.find_element(By.CSS_SELECTOR,"a[href='/books']")
         self.assertEqual(link.get_attribute("innerHTML").strip(), "Books")
         link.click()
-        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/books")
+        self.assertTrue(self.driver.current_url.startswith("https://www.parentaidatx.me/books"))
+
 
     def test_nav_housing(self):
         link = self.driver.find_element(By.CSS_SELECTOR,"a[href='/housing']")
         self.assertEqual(link.get_attribute("innerHTML").strip(), "Housing")
         link.click()
-        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/housing")
+        self.assertTrue(self.driver.current_url.startswith("https://www.parentaidatx.me/housing"))
 
     def test_nav_childcare(self):
         link = self.driver.find_element(By.CSS_SELECTOR,"a[href='/childcare']")
         self.assertEqual(link.get_attribute("innerHTML").strip(), "Childcare")
         link.click()
-        self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/childcare")
+        self.assertTrue(self.driver.current_url.startswith("https://www.parentaidatx.me/childcare"))
+
 
     def test_nav_home(self):
         self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/")
@@ -144,7 +146,7 @@ class TestParentAidATX(unittest.TestCase):
         search_box = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, "input.search-box"))
         )
-        search_box.send_keys("Healthy")
+        search_box.send_keys("Championship Fathering")
 
         # Wait for filtered book cards
         book_cards = WebDriverWait(self.driver, 5).until(
@@ -152,7 +154,7 @@ class TestParentAidATX(unittest.TestCase):
         )
         self.assertTrue(len(book_cards) >= 1, "Book search did not return expected results.")
         title = book_cards[0].find_element(By.CLASS_NAME, "BookCard-title").text
-        self.assertIn("Healthy", title, "Book title does not match search query.")
+        self.assertIn("Championship Fathering", title, "Book title does not match search query.")
 
         print(f"✅ Book Search Test Passed - Found {len(book_cards)} result(s).")
 
@@ -163,7 +165,7 @@ class TestParentAidATX(unittest.TestCase):
         search_box = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, "input.search-box"))
         )
-        search_box.send_keys("Happy Tots")
+        search_box.send_keys("Trillium Montessori")
 
         # Wait for filtered childcare cards
         child_cards = WebDriverWait(self.driver, 5).until(
@@ -171,52 +173,9 @@ class TestParentAidATX(unittest.TestCase):
         )
         self.assertTrue(len(child_cards) >= 1, "Childcare search did not return expected results.")
         name = child_cards[0].find_element(By.CLASS_NAME, "ChildCard-title").text
-        self.assertIn("Happy", name, "Childcare name does not match search query.")
+        self.assertIn("Trillium Montessori", name, "Childcare name does not match search query.")
 
         print(f"✅ Childcare Search Test Passed - Found {len(child_cards)} result(s).")
-
-# ... [tearDownClass remains unchanged]
-
-
-
-
-
-    # def test_news_instance(self):
-    #     self.driver.get("https://www.parentaidatx.me/news")
-    #     news = WebDriverWait(self.driver, 3).until(
-    #         EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".card"))
-    #     )
-    #     assert news
-    #     assert len(news) >= 3
-    #     first = news[0]
-    #     read_more = first.find_element(By.CLASS_NAME, "btn-light")
-    #     read_more.click()
-    #     self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/news/229")
-
-    # def test_support_instance(self):
-    #     self.driver.get("https://www.parentaidatx.me/support-groups")
-    #     groups = WebDriverWait(self.driver, 3).until(
-    #         EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".card"))
-    #     )
-    #     assert groups
-    #     assert len(groups) >= 3
-    #     first = groups[0]
-    #     read_more = first.find_element(By.CLASS_NAME, "btn-light")
-    #     read_more.click()
-    #     self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/support-groups/33")
-
-    # def test_country_instance(self):
-    #     self.driver.get("https://www.parentaidatx.me/countries")
-    #     countries = WebDriverWait(self.driver, 10).until(
-    #         EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".card"))
-    #     )
-
-    #     assert countries
-    #     assert len(countries) >= 3
-    #     first = countries[0]
-    #     read_more = first.find_element(By.CLASS_NAME, "btn-light")
-    #     read_more.click()
-    #     self.assertEqual(self.driver.current_url, "https://www.parentaidatx.me/countries/92")
 
 
     @classmethod

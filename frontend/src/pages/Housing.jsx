@@ -5,35 +5,40 @@ import React, { useState, useEffect } from "react";
 import Pagination from "../components/Pagination.jsx";
 import { useSearchParams } from "react-router-dom";
 import Fuse from "fuse.js";
+import { getDrivingDistance } from "../utils/getDrivingDistance";
 
 const pageTitle = "Housing";
 const pageDescription = "Find affordable housing in your area";
 const AUSTIN_CENTRAL_ADDRESS = "300 W Cesar Chavez St, Austin, TX 78701";
 
-const getDrivingDistance = async (destination) => {
-  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(AUSTIN_CENTRAL_ADDRESS)}&destinations=${encodeURIComponent(destination)}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`;
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    if (data.rows[0].elements[0].status === "OK") {
-      let distanceText = data.rows[0].elements[0].distance.text; // e.g., "10 km" or "6.2 mi"
+// const getDrivingDistance = async (destination) => {
+//   const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(
+//     AUSTIN_CENTRAL_ADDRESS
+//   )}&destinations=${encodeURIComponent(destination)}&key=${
+//     import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+//   }`;
+//   try {
+//     const response = await fetch(url);
+//     const data = await response.json();
+//     if (data.rows[0].elements[0].status === "OK") {
+//       let distanceText = data.rows[0].elements[0].distance.text; // e.g., "10 km" or "6.2 mi"
 
-      // Extract the numeric value
-      let distanceValue = parseFloat(distanceText.replace(/[^0-9.]/g, "")); // Removes non-numeric characters
+//       // Extract the numeric value
+//       let distanceValue = parseFloat(distanceText.replace(/[^0-9.]/g, "")); // Removes non-numeric characters
 
-      // Convert km to miles if necessary
-      if (distanceText.includes("km")) {
-        distanceValue *= 0.621371; // 1 km ≈ 0.621371 miles
-      }
+//       // Convert km to miles if necessary
+//       if (distanceText.includes("km")) {
+//         distanceValue *= 0.621371; // 1 km ≈ 0.621371 miles
+//       }
 
-      return distanceValue; // Returns a number in miles
-    }
-    return null;
-  } catch (error) {
-    console.error("Error fetching distance:", error);
-    return null;
-  }
-};
+//       return distanceValue; // Returns a number in miles
+//     }
+//     return null;
+//   } catch (error) {
+//     console.error("Error fetching distance:", error);
+//     return null;
+//   }
+// };
 
 const parseZipCode = (addressStr) => {
   const zipMatch = addressStr.match(/TX (\d{5})/);
@@ -69,7 +74,14 @@ function Housing() {
       }
       return newParams;
     });
-  }, [searchQuery, sortBy, sortWay, filterZipCode, filterRatingsRange, filterTotalRatings]);
+  }, [
+    searchQuery,
+    sortBy,
+    sortWay,
+    filterZipCode,
+    filterRatingsRange,
+    filterTotalRatings,
+  ]);
 
   // Fetch housing data
   useEffect(() => {
@@ -129,18 +141,21 @@ function Housing() {
         ${housing.opening_hours}
         ${housing.zipCode}
         Address Phone Number Website Rating Total Ratings
-      `
+      `,
     }));
 
     const fuse = new Fuse(housingWithSearchBlob, {
       keys: ["_search_blob"],
       threshold: 0.3,
       ignoreLocation: true,
-      includeScore: true
+      includeScore: true,
     });
 
     const fuzzyResults = searchQuery
-      ? fuse.search(searchQuery).sort((a, b) => a.score - b.score).map(res => res.item)
+      ? fuse
+          .search(searchQuery)
+          .sort((a, b) => a.score - b.score)
+          .map((res) => res.item)
       : housingWithSearchBlob;
 
     // Apply filtering
@@ -172,23 +187,23 @@ function Housing() {
         let firstVal;
         let secondVal;
         switch (sortBy) {
-          case 'name':
-            firstVal = (first.name || '').toLowerCase();
-            secondVal = (second.name || '').toLowerCase();
+          case "name":
+            firstVal = (first.name || "").toLowerCase();
+            secondVal = (second.name || "").toLowerCase();
             break;
-          case 'ratings':
+          case "ratings":
             firstVal = first.rating;
             secondVal = second.rating;
             break;
-          case 'totalRatings':
+          case "totalRatings":
             firstVal = first.totalRatings;
             secondVal = second.totalRatings;
             break;
           default:
             return 0;
         }
-        if (firstVal > secondVal) return sortWay === 'asc' ? 1 : -1;
-        if (firstVal < secondVal) return sortWay === 'asc' ? -1 : 1;
+        if (firstVal > secondVal) return sortWay === "asc" ? 1 : -1;
+        if (firstVal < secondVal) return sortWay === "asc" ? -1 : 1;
         return 0;
       });
     }
@@ -214,24 +229,43 @@ function Housing() {
       <div className="filters-search-container">
         <div className="filters-search-wrapper">
           <div className="filter-dropdown">
-            <button className="filter-button" onClick={() => setFilterDropdown(!filterDropdown)}>
+            <button
+              className="filter-button"
+              onClick={() => setFilterDropdown(!filterDropdown)}
+            >
               Filter By ⏷
             </button>
             {filterDropdown && (
-            <div className="filter-options">
-              {/* Removed Distance Filter */}
-                <label>Zip Code</label>
-                <select value={filterZipCode} onChange={(e) => setFilterZipCode(e.target.value ? Number(e.target.value) : null)}>
+              <div className="filter-options">
+                {/* Removed Distance Filter */}
+                <label htmlFor="zip-code">Zip Code</label>
+                <select
+                  id="zip-code"
+                  value={filterZipCode}
+                  onChange={(e) =>
+                    setFilterZipCode(
+                      e.target.value ? Number(e.target.value) : null
+                    )
+                  }
+                >
                   <option value="">Any</option>
-                    {zipCodes.map((zipCode, index) => (
-                      <option key={index} value={zipCode}>
-                        {zipCode}
-                      </option>
-                    ))}
+                  {zipCodes.map((zipCode, index) => (
+                    <option key={index} value={zipCode}>
+                      {zipCode}
+                    </option>
+                  ))}
                 </select>
-                
-                <label>Ratings Range</label>
-                <select value={filterRatingsRange} onChange={(e) => setFilterRatingsRange(e.target.value ? Number(e.target.value) : null)}>
+
+                <label htmlFor="ratings-range">Ratings Range</label>
+                <select
+                  id="ratings-range"
+                  value={filterRatingsRange}
+                  onChange={(e) =>
+                    setFilterRatingsRange(
+                      e.target.value ? Number(e.target.value) : null
+                    )
+                  }
+                >
                   <option value="">Any</option>
                   <option value="1">1+ star</option>
                   <option value="2">2+ stars</option>
@@ -239,8 +273,16 @@ function Housing() {
                   <option value="4">4+ stars</option>
                 </select>
 
-                <label>Total Ratings</label>
-                <select value={filterTotalRatings} onChange={(e) => setFilterTotalRatings(e.target.value ? Number(e.target.value) : null)}>
+                <label htmlFor="total-ratings">Total Ratings</label>
+                <select
+                  id="total-ratings"
+                  value={filterTotalRatings}
+                  onChange={(e) =>
+                    setFilterTotalRatings(
+                      e.target.value ? Number(e.target.value) : null
+                    )
+                  }
+                >
                   <option value="">Any</option>
                   <option value="1">1 or more ratings</option>
                   <option value="50">50 or more ratings</option>
@@ -248,22 +290,35 @@ function Housing() {
                   <option value="200">200 or more ratings</option>
                 </select>
 
-                {/* Sorting! */}
-                <label>Sort By</label>
-                <div style={{ display: 'flex', gap: '5px' }}>
-                  <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                <label htmlFor="sort-by">Sort By</label>
+                <div style={{ display: "flex", gap: "5px" }}>
+                  <select
+                    id="sort-by"
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                  >
                     <option value="">No Sort</option>
                     <option value="name">Name</option>
                     <option value="ratings">Ratings</option>
                     <option value="totalRatings">Total Ratings</option>
                   </select>
-                  <select value={sortWay} onChange={(e) => setSortWay(e.target.value)}>
+
+                  <select
+                    id="sort-direction"
+                    value={sortWay}
+                    onChange={(e) => setSortWay(e.target.value)}
+                  >
                     <option value="asc">Ascending (A–Z)</option>
                     <option value="desc">Descending (Z–A)</option>
                   </select>
                 </div>
 
-                <button className="filter-done-button" onClick={() => setFilterDropdown(false)}>Done</button>
+                <button
+                  className="filter-done-button"
+                  onClick={() => setFilterDropdown(false)}
+                >
+                  Done
+                </button>
               </div>
             )}
           </div>
@@ -272,7 +327,9 @@ function Housing() {
             className="search-box"
             placeholder="Search..."
             value={searchQuery}
-            onChange={function (e) { setSearchQuery(e.target.value) }}
+            onChange={function (e) {
+              setSearchQuery(e.target.value);
+            }}
           />
         </div>
       </div>
@@ -284,7 +341,8 @@ function Housing() {
       ) : (
         <>
           <p className="housing-page-description">
-            Showing {currentHousingData.length} of {sortedHousing.length} housing options
+            Showing {currentHousingData.length} of {sortedHousing.length}{" "}
+            housing options
           </p>
 
           <div className="HousingCards-container">

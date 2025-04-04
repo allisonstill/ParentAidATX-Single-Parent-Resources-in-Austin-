@@ -70,7 +70,7 @@ describe("Books Page", () => {
     });
 
     // Simulate search
-    const searchInput = screen.getByPlaceholderText("Search");
+    const searchInput = screen.getByPlaceholderText("Search...");
     fireEvent.change(searchInput, { target: { value: "Healthy" } });
 
     // Wait for filtered result

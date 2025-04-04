@@ -192,7 +192,7 @@ def get_all_books():
         books = Book.query.all()
 
         housing_ids = [b.related_housing_id for b in books if b.related_housing_id]
-        childcare_ids = [b.related_childcare_id for b in books if b.related_chidcare_id]
+        childcare_ids = [b.related_childcare_id for b in books if b.related_childcare_id]
 
         housings = Housing.query.filter(Housing.id.in_(housing_ids)).all()
         childcares = Daycare.query.filter(Daycare.id.in_(childcare_ids)).all()
@@ -347,7 +347,7 @@ def get_all_housing():
                     "full_link": related_daycare.full_link,
                     "description": related_daycare.description,
                     "address": related_daycare.address,
-                } if related_housing else None
+                } if related_daycare else None
             })
 
         return jsonify(result)
@@ -397,7 +397,7 @@ def get_specific_housing(id):
                 "full_link": related_daycare.full_link,
                 "description": related_daycare.description,
                 "address": related_daycare.address,
-            } if related_housing else None
+            } if related_daycare else None
         })
 
 

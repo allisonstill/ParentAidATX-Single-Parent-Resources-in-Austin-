@@ -9,7 +9,7 @@ jest.mock("../src/pages/Search.css", () => ({}));
 jest.mock("../src/components/childCard.css", () => ({}));
 
 // Mock ChildCard component for simplified rendering
-jest.mock("../src/components/ChildCard", () => (props) => {
+jest.mock("../src/components/childCard.jsx", () => (props) => {
   return (
     <div data-testid="childcard">
       <h3>{props.name}</h3>

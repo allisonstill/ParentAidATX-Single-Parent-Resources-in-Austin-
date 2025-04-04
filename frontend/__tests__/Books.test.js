@@ -9,7 +9,7 @@ jest.mock("../src/pages/Search.css", () => ({}));
 jest.mock("../src/components/bookCard.css", () => ({}));
 
 // Mock BookCard
-jest.mock("../src/components/BookCard", () => (props) => {
+jest.mock("../src/components/bookCard.jsx", () => (props) => {
   return (
     <div data-testid="book-card">
       <h3>{props.title}</h3>

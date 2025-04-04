@@ -13,7 +13,7 @@ jest.mock("../src/utils/getDrivingDistance", () => ({
 }));
 
 // ✅ Mock HousingCard component
-jest.mock("../src/components/HousingCard", () => (props) => {
+jest.mock("../src/components/housingCard.jsx", () => (props) => {
   return (
     <div data-testid="housing-card">
       <h3>{props.name}</h3>

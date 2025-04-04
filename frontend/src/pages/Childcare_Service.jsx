@@ -4,9 +4,6 @@ import './Childcare_Service.css';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import HousingCard from '../components/housingCard'
 import BookCard from '../components/bookCard';
-// for pretty loading page
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 const ChildcareService = () => {
     const { id } = useParams();
@@ -40,7 +37,12 @@ const ChildcareService = () => {
     }, [id]);
 
     if(loading){
-        return (<p className="loading-message">Loading daycares...</p>);
+        return (
+            <div className="childcare-container">
+                <div className="childcare-card">
+                    <p className="loading-message">Loading daycare...</p>
+                </div>
+            </div>);
      }
      if(error){
          return (<p className="error-message">{error}</p>)

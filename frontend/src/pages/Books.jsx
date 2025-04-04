@@ -453,7 +453,7 @@ function Books() {
           <input
             type="text"
             className="search-box"
-            placeholder="Search"
+            placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

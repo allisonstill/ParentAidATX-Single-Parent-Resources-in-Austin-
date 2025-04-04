@@ -357,6 +357,7 @@ function Housing() {
                   website={currCard.website}
                   rating={currCard.rating}
                   totalRatings={currCard.totalRatings}
+                  searchQuery={searchQuery}
                 />
               </div>
             ))}

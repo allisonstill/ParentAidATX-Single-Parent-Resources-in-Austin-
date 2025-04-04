@@ -289,7 +289,7 @@ function Childcare() {
       {/* END PHASE THREE TODO */}
       
       {loading ? (
-        <p>Loading childcare...</p>
+        <p className="loading-message">Loading childcare...</p>
       ) : (
         <p className="child-page-description">
           Showing {displayedDaycares.length} of {filteredDaycares.length} daycares

@@ -360,7 +360,7 @@ def get_specific_housing(id):
             return jsonify({"error": "Housing not found"}), 404
 
         related_book = Book.query.get(housing.related_book_id)
-        related_daycare = Daycare.query.get(housing.related_daycare_id)
+        related_daycare = Daycare.query.get(housing.related_childcare_id)
 
         return jsonify({
             "id": housing.id,

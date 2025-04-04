@@ -13,64 +13,64 @@ install_and_build:
     - if: '$CI_COMMIT_REF_NAME == "main"'
       when: always
 
-# unit-test-job:
-#   stage: test
-#   image: node:latest
-#   script:
-#     - echo "Running Jest tests..."
-#     - cd frontend # Navigate to the front-end directory
-#     - npm install # Install dependencies
-#     - npm test # Run Jest tests
-#     - echo "Jest tests complete."
+unit-test-job:
+  stage: test
+  image: node:latest
+  script:
+    - echo "Running Jest tests..."
+    - cd frontend # Navigate to the front-end directory
+    - npm install # Install dependencies
+    - npm test # Run Jest tests
+    - echo "Jest tests complete."
 
-# selenium-test-job:
-#   stage: test
-#   image: python:3.8
-#   services:
-#     - name: selenium/standalone-chrome:latest
-#       alias: selenium
-#   script:
-#     - echo "Running Selenium tests..."
-#     - pip install selenium webdriver-manager
-#     - python -m unittest discover -s frontend/__tests__ -p "acceptance-tests.py" -v
-#     - echo "Selenium tests complete."
+selenium-test-job:
+  stage: test
+  image: python:3.8
+  services:
+    - name: selenium/standalone-chrome:latest
+      alias: selenium
+  script:
+    - echo "Running Selenium tests..."
+    - pip install selenium webdriver-manager
+    - python -m unittest discover -s frontend/__tests__ -p "acceptance-tests.py" -v
+    - echo "Selenium tests complete."
 
-# postman_tests:
-#   stage: test
-#   image: postman/newman:latest
-#   dependencies:
-#     - install_and_build
-#   script:
-#     - newman run backend/app/postman_tests/parentaidatx_postman_collection.json --reporters cli,junit --reporter-junit-export results.xml
-#   artifacts:
-#     when: always
-#     paths:
-#       - results.xml
-#     reports:
-#       junit: results.xml
-#   rules:
-#     - if: '$CI_COMMIT_REF_NAME == "main"'
-#       when: always
+postman_tests:
+  stage: test
+  image: postman/newman:latest
+  dependencies:
+    - install_and_build
+  script:
+    - newman run backend/app/postman_tests/parentaidatx_postman_collection.json --reporters cli,junit --reporter-junit-export results.xml
+  artifacts:
+    when: always
+    paths:
+      - results.xml
+    reports:
+      junit: results.xml
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      when: always
 
-# run_api_tests:
-#   stage: test
-#   image: python:3.10
-#   dependencies:
-#     - install_and_build
-#   before_script:
-#     - pip install -r backend/app/requirements.txt
-#     - export FLASK_TESTING=1  # Ensures tests don’t modify the real database
-#   script:
-#     - pytest backend/app/unit_tests/ --junitxml=results.xml
-#   artifacts:
-#     when: always
-#     paths:
-#       - results.xml
-#     reports:
-#       junit: results.xml
-#   rules:
-#     - if: '$CI_COMMIT_REF_NAME == "main"'
-#       when: always
+run_api_tests:
+  stage: test
+  image: python:3.10
+  dependencies:
+    - install_and_build
+  before_script:
+    - pip install -r backend/app/requirements.txt
+    - export FLASK_TESTING=1  # Ensures tests don’t modify the real database
+  script:
+    - pytest backend/app/unit_tests/ --junitxml=results.xml
+  artifacts:
+    when: always
+    paths:
+      - results.xml
+    reports:
+      junit: results.xml
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      when: always
 
 # deploy_to_ec2:
 #   stage: deploy
@@ -95,15 +95,14 @@ install_and_build:
 #       when: always
 
 
-
-# deploy_to_amplify:
-#   stage: deploy
-#   image: node:latest
-#   dependencies:
-#     - unit-test-job
-#     - selenium-test-job
-#   script:
-#     - echo "Deploying to Amplify"
-#   rules:
-#     - if: '$CI_COMMIT_REF_NAME == "main"'
-#       when: always
+deploy_to_amplify:
+  stage: deploy
+  image: node:latest
+  dependencies:
+    - unit-test-job
+    - selenium-test-job
+  script:
+    - echo "Deploying to Amplify"
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      when: always

@@ -83,7 +83,7 @@ Other potential sources:
 
 | Team Member   | Estimate Time | Actual Time |
 | ------------- | ------------- | ----------- |
-| Andrew Harvey |  hours       |  hours    |
+| Andrew Harvey | 15 hours      | 20 hours  |
 | Rubi Rojas    |  hours      |  hours    |
 | Allison Still |  hours      |  hours    |
 | Amna Ali      |  hours      |  hours    |

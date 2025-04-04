@@ -38,7 +38,7 @@ def get_related_records(housing, books, childcares):
     :return: A tuple (related_book_id, related_childcare_id)
     """
     # Find related book_id
-    related_book_id = next((book['id'] for book in books if book['related_housing_id'] == housing.get('id')), None)
+    related_book_id = next((book['id'] for book in books if book.get('related_housing') == housing.get('id')), None)
     if related_book_id is None:
         related_book_id = random.choice(books)['id'] if books else None
 

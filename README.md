@@ -85,7 +85,7 @@ Other potential sources:
 | ------------- | ------------- | ----------- |
 | Andrew Harvey | 15 hours      | 20 hours    |
 | Rubi Rojas    | hours         | hours       |
-| Allison Still | hours         | hours       |
+| Allison Still | 10 hours      | 20 hours    |
 | Amna Ali      | 10 hours      | 20 hours    |
 | Ethan Yu      | 12 hours      | 20 hours    |
 

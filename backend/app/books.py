@@ -261,7 +261,7 @@ def relate_records(books, housing_data, childcares):
     childcare_scores.sort(key = lambda x: x[1], reverse=True)
 
     related_housing_id = housing_scores[0][0] if housing_scores else 1
-    related_childcare_id = childcare_scores[0][0] if housing_scores else 1
+    related_childcare_id = childcare_scores[0][0] if childcare_scores else 1
 
     print(f"Book: {books.get('title')}")
     print(f" Matching Housing: {related_housing_id} (score: {housing_scores[0][1] if housing_scores else 'N/A'})")

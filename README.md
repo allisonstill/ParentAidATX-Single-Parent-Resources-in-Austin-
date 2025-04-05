@@ -75,9 +75,9 @@ Other potential sources:
 
 ### Phase 3:
 
-- Git SHA:
+- Git SHA: fa0701529e289f8c68609518f87bdd3873295025
 
-- Phase Leader(s):
+- Phase Leader(s): Allison Still
 
 - Phase Leader Responsibilities: Team Coordination, set meeting times, lead development on frontend and backend, ensure tasks are completed
 

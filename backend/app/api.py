@@ -11,7 +11,7 @@ from sqlalchemy import func
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": ["https://www.parentaidatx.me", "https://parentaidatx.me", "http://localhost:*"]}})
+CORS(app, resources={r"/api/*": {"origins": ["https://www.parentaidatx.me", "https://parentaidatx.me", "https://www.dinevest.me/", "https://dinevest.me/", "http://localhost:*"]}})
 
 # Database Configuration
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:QlxiIYKeqZPqCDORvAcjgWoswvsqbrkO@gondola.proxy.rlwy.net:46024/railway")

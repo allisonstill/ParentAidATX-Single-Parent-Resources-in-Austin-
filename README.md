@@ -75,19 +75,19 @@ Other potential sources:
 
 ### Phase 3:
 
-- Git SHA:
+- Git SHA: fa0701529e289f8c68609518f87bdd3873295025
 
-- Phase Leader(s):
+- Phase Leader(s): Allison Still
 
 - Phase Leader Responsibilities: Team Coordination, set meeting times, lead development on frontend and backend, ensure tasks are completed
 
 | Team Member   | Estimate Time | Actual Time |
 | ------------- | ------------- | ----------- |
-| Andrew Harvey |  hours       |  hours    |
-| Rubi Rojas    |  hours      |  hours    |
-| Allison Still |  hours      |  hours    |
-| Amna Ali      |  hours      |  hours    |
-| Ethan Yu      |  hours      |  hours    |
+| Andrew Harvey | 15 hours      | 20 hours    |
+| Rubi Rojas    | 11 hours      | 20 hours       |
+| Allison Still | 10 hours      | 20 hours    |
+| Amna Ali      | 10 hours      | 20 hours    |
+| Ethan Yu      | 12 hours      | 20 hours    |
 
 ## Models
 

@@ -24,12 +24,12 @@ function Visualizations() {
                 const childcareResponse = await fetch("https://api.parentaidatx.me/api/childcare");
                 if (!childcareResponse.ok) console.log("ERROR in retrieving childcare for visualizations.");
                 const childcareData = await childcareResponse.json();
-                setBooks (childcareData);
+                setChildcare (childcareData);
 
                 const housingResponse = await fetch("https://api.parentaidatx.me/api/housing");
                 if (!housingResponse.ok) console.log("ERROR in retrieving housing for visualizations.");
                 const housingData = await housingResponse.json();
-                setBooks (housingData);
+                setHousing (housingData);
             } catch (error) {
                 console.log("Error in getting data for visualizations.")
             } finally {

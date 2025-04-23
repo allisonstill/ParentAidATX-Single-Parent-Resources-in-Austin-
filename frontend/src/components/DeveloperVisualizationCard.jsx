@@ -75,7 +75,6 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       .style("font-weight", "bold")
       .style("fill", "#333");
 
-    // Set up pie generator
     const pie = d3.pie()
       .value(d => d.count)
       .sort(null);
@@ -88,7 +87,6 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       const midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
       const isRight = Math.cos(midAngle) > 0;
         
-      // Calculate position with adjusted distance based on side
       const labelRadius = radius * (isRight ? 1.12 : 1.15);
       const x = Math.sin(midAngle) * labelRadius;
       const y = -Math.cos(midAngle) * labelRadius;
@@ -104,14 +102,12 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       .innerRadius(radius * 0.35)
       .outerRadius(radius * 1.05);
 
-    // Create groups for pie slices
     const arcs = svg.selectAll(".arc")
       .data(pie(pieData))
       .enter()
       .append("g")
       .attr("class", "arc");
       
-    // Create gradients for each slice
     const defs = svg.append("defs");
 
     pieData.forEach((d, i) => {
@@ -156,7 +152,6 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       .transition()
       .duration(1000)
     
-    // Add percentage labels inside the donut
     arcs.append('text')
       .attr('transform', d => `translate(${arc.centroid(d)})`)
       .attr('text-anchor', 'middle')
@@ -175,7 +170,6 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       .duration(500)
       .style('opacity', 1);
     
-    // Add connecting lines and labels
     arcs.append('polyline')
       .attr('points', d => {
         const pos = labelArc.centroid(d);
@@ -187,7 +181,6 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       .style('stroke-width', 1)
       .style('opacity', 0.6);
     
-    // Add external labels
     arcs.append('text')
       .attr('transform', d => {
         const [x, y] = getOptimalLabelPosition(d);
@@ -221,7 +214,181 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
 
   //CLINICS
   const createClinicsChart = (clinics) => {
+    const distanceRanges = [
+      { min: 0, max: 1, label: "0-1" },
+      { min: 1, max: 2, label: "1-2" },
+      { min: 2, max: 3, label: "2-3" },
+      { min: 3, max: 5, label: "3-5" },
+      { min: 5, max: 7, label: "5-7" },
+      { min: 7, max: 10, label: "7-10" },
+      { min: 10, max: 15, label: "10-15" },
+      { min: 15, max: Infinity, label: "15+" }
+    ];
+
+    const chartData = distanceRanges.map(range => {
+      const clinicsInRange = clinics.filter(
+        clinic => clinic.distance >= range.min && 
+                 clinic.distance < range.max && 
+                 clinic.rating !== null && 
+                 clinic.rating !== undefined
+      );
+      
+      if (clinicsInRange.length === 0) {
+        return {
+          range: range.label,
+          avgRating: 0,
+          count: 0
+        };
+      }
+      
+      const avgRating = clinicsInRange.reduce((sum, clinic) => sum + clinic.rating, 0) / clinicsInRange.length;
+      
+      return {
+        range: range.label,
+        avgRating: parseFloat(avgRating.toFixed(2)),
+        count: clinicsInRange.length
+      };
+    }).filter(d => d.count > 0);
+
+    const margin = { top: 50, right: 60, bottom: 70, left: 60 };
+    const width = chartRef.current.clientWidth - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
+
+    const svg = d3.select(chartRef.current)
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // X axis (distance ranges)
+    const x = d3.scaleBand()
+      .domain(chartData.map(d => d.range))
+      .range([0, width])
+      .padding(1);
+
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      .attr("font-size", "12px")
+      .style("text-anchor", "middle");
+
+    // X axis label
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", height + margin.bottom - 10)
+      .text("Distance Range (miles)")
+      .style("font-size", "14px")
+      .style("fill", "#666");
+      
+    const y = d3.scaleLinear()
+      .domain([0, 5])
+      .range([height, 0]);
+
+    svg.append("g")
+      .call(d3.axisLeft(y))
+      .selectAll("text")
+      .attr("font-size", "12px");
+
+    // Y axis label
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -margin.left + 15)
+      .attr("x", -height / 2)
+      .text("Average Rating (stars)")
+      .style("font-size", "14px")
+      .style("fill", "#666");
+
+    svg.selectAll("y-grid")
+      .data(y.ticks(5))
+      .enter()
+      .append("line")
+      .attr("class", "grid-line")
+      .attr("x1", 0)
+      .attr("x2", width)
+      .attr("y1", d => y(d))
+      .attr("y2", d => y(d))
+      .style("stroke", "#e5e5e5")
+      .style("stroke-dasharray", "3,3")
+      .style("stroke-width", 1);
     
+    const line = d3.line()
+      .x(d => x(d.range) + x.bandwidth()/2)
+      .y(d => y(d.avgRating))
+      .curve(d3.curveMonotoneX);
+    
+    const path = svg.append("path")
+      .datum(chartData)
+      .attr("fill", "none")
+      .attr("stroke", "#ff7e21")
+      .attr("stroke-width", 3)
+      .attr("stroke-linecap", "round")
+      .attr("stroke-linejoin", "round")
+      .attr("d", line);
+    
+    const pathLength = path.node().getTotalLength();
+    
+    path
+      .attr("stroke-dasharray", pathLength + " " + pathLength)
+      .attr("stroke-dashoffset", pathLength)
+      .transition()
+      .duration(1500)
+      .ease(d3.easeLinear)
+      .attr("stroke-dashoffset", 0);
+    
+    svg.selectAll(".dot")
+      .data(chartData)
+      .enter()
+      .append("circle")
+      .attr("class", "dot")
+      .attr("cx", d => x(d.range) + x.bandwidth()/2)
+      .attr("cy", d => y(d.avgRating))
+      .attr("r", 0)
+      .attr("fill", "#ff7e21") 
+      .attr("stroke", "white")
+      .attr("stroke-width", 2)
+      .on("mouseover", function(event, d) {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("r", 8)
+          .attr("fill", "#ffc178");
+      })
+      .on("mouseout", function() {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("r", 6)
+          .attr("fill", "#ff7e21"); 
+      })
+      .attr("r", 6);
+
+    svg.selectAll(".value-label")
+      .data(chartData)
+      .enter()
+      .append("text")
+      .attr("class", "value-label")
+      .attr("x", d => x(d.range) + x.bandwidth()/2)
+      .attr("y", d => y(d.avgRating) - 15)
+      .attr("text-anchor", "middle")
+      .text(d => `${d.avgRating} (${d.count})`)
+      .style("font-size", "12px")
+      .style("font-weight", "bold")
+      .style("fill", "#444")
+      .style("opacity", 1);
+    
+    svg.append("text")
+      .attr("class", "chart-title")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", -30)
+      .text("Clinic Ratings by Distance")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .style("fill", "#333");
   }
 
   //DISORDERS
@@ -233,7 +400,6 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       }
     });
 
-    // Format data for chart
     const chartData = Object.entries(categoryGroups)
       .map(([category, count]) => ({ category, count }))
       .sort((a, b) => b.count - a.count); // Sort by count (descending)
@@ -294,7 +460,7 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       .style("font-size", "14px")
       .style("fill", "#666");
 
-    // Create gradient for bars
+    // Gradient for bars in bar graph
     const gradient = svg.append("defs")
       .append("linearGradient")
       .attr("id", "bar-gradient")
@@ -305,11 +471,11 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       
     gradient.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", "#ff7e21"); // Steel blue
+      .attr("stop-color", "#ff7e21"); 
       
     gradient.append("stop")
       .attr("offset", "100%")
-      .attr("stop-color", "#ffc178"); // Lighter blue
+      .attr("stop-color", "#ffc178"); 
 
     // Add bars
     svg.selectAll("mybar")
@@ -348,7 +514,6 @@ const DeveloperVisualizationCard = ({ title, description, dataType, data }) => {
       .delay((d, i) => 300 + i * 100)
       .style("opacity", 1);
     
-    // Add chart title
     svg.append("text")
       .attr("class", "chart-title")
       .attr("text-anchor", "middle")

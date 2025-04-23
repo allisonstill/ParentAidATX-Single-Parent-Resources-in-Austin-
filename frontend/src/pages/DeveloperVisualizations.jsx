@@ -61,8 +61,8 @@ function DeveloperVisualizations() {
                     />
 
                     <DeveloperVisualizationCard
-                        title = "Title 2"
-                        description = "Description 2"
+                        title = "Clinic Ratings vs. Distance"
+                        description = "A line chart comparing the average rating of clinics at a certain distance away from UT."
                         dataType = "clinics"
                         data = {clinics}
                     />

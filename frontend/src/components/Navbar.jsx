@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
   const location = useLocation();
+  const [showVisDropdown, setShowVisDropdown] = useState(false);
+  
+  const handleVisMenuToggle = () => {
+    setShowVisDropdown(!showVisDropdown);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark navbar-custom w-100">
       <div className="container-fluid">
@@ -39,8 +45,6 @@ function Navbar() {
                 }`}
                 to="/books"
               >
-                {" "}
-                {/* "Link to" reaplces the traditional "href" attribute. When clicked, changes url to ../books */}
                 Books
               </Link>
             </li>
@@ -64,6 +68,47 @@ function Navbar() {
                 Childcare
               </Link>
             </li>
+            
+            {/* Visualizations Dropdown */}
+            <li className="nav-item dropdown">
+              <a
+                className={`nav-link dropdown-toggle ${
+                  location.pathname.includes("/visualization") ? "active" : ""
+                }`}
+                href="#"
+                id="visualizationsDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded={showVisDropdown}
+                onClick={handleVisMenuToggle}
+              >
+                Visualizations
+              </a>
+              <ul 
+                className={`dropdown-menu ${showVisDropdown ? 'show' : ''}`} 
+                aria-labelledby="visualizationsDropdown"
+              >
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    to="/visualizations"
+                    onClick={() => setShowVisDropdown(false)}
+                  >
+                    ParentAidATX Data
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    to="/developer-visualizations"
+                    onClick={() => setShowVisDropdown(false)}
+                  >
+                    Developer Data
+                  </Link>
+                </li>
+              </ul>
+            </li>
+            
             <li className="nav-item">
               <Link
                 className={`nav-link ${

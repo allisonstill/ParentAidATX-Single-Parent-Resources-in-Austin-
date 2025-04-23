@@ -12,6 +12,8 @@ import Housing from "./pages/Housing.jsx";
 import IndividualBook from "./pages/IndividualBook.jsx";
 import ChildcareService from "./pages/Childcare_Service.jsx";
 import HousingComplex from "./pages/HousingComplex.jsx";
+import Visualizations from './pages/Visualizations.jsx'
+import DeveloperVisualizations from "./pages/DeveloperVisualizations.jsx"
 //import "./components/Navbar.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 //import InstanceCard from "./components/Card";
@@ -35,6 +37,8 @@ function App() {
           <Route path="/books/:id" element={<IndividualBook />} />
           <Route path="/childcare/:id" element={<ChildcareService />} />
           <Route path="/housing/:id" element={<HousingComplex />} />
+          <Route path="/visualizations" element={<Visualizations />} />
+          <Route path="/developer-visualizations" element={<DeveloperVisualizations />} />
         </Routes>
       </div>
     </>

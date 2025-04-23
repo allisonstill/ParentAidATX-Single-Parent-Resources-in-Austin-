@@ -68,8 +68,8 @@ function DeveloperVisualizations() {
                     />
 
                     <DeveloperVisualizationCard
-                        title = "Title 3"
-                        description = "Description 3"
+                        title = "Disorders by Category"
+                        description = "A distribution of mental health disorders across sevearl categories, giving some indication as to what symptoms are commonly related to different disorders."
                         dataType = "disorders"
                         data = {disorders}
                     />

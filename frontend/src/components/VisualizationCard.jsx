@@ -172,12 +172,242 @@ const VisualizationCard = ({ title, description, dataType, data }) => {
 
   //CHILDCARE
 
-  const createChildcareChart = (books) => {
+  const createChildcareChart = (childcares) => {
+    const parseTime = (timeStr) => {
+      if (!timeStr) return null;
+
+      const time = timeStr.toLowerCase();
+      let [hours, minutes] = time.split(":").map(part => parseInt(part));
+      const isPm = time.includes("pm") && hours < 12;
+
+      if (isPm) hours += 12;
+      if (time.includes("am") && hours === 12) hours = 0;
+
+      return hours + (minutes / 60);
+    };
+
+    const hourRanges = [
+      { key: "Less than 8 hours", min: 0, max: 8, count: 0, color: "#FFD580" },
+      { key: "8-9 hours", min: 8, max: 9, count: 0, color: "#FFBF00" },
+      { key: "9-10 hours", min: 9, max: 10, count: 0, color: "#FFA500" },
+      { key: "10-11 hours", min: 10, max: 11, count: 0, color: "#FF8C00" },
+      { key: "11-12 hours", min: 11, max: 12, count: 0, color: "#FF7F50" },
+      { key: "More than 12 hours", min: 12, max: 24, count: 0, color: "#FF6347" }
+    ];
     
+    const hourData = childcares
+      .filter(service => service.open_time && service.close_time)
+      .map ( service => {
+        const openTime = parseTime(service.open_time);
+        const closeTime = parseTime(service.close_time);
+        if (openTime == null || closeTime == null) {
+          return null;
+        }
+
+        let hoursOpen = closeTime - openTime;
+
+        // For overnight -- are there any that we have in these?
+        if (hoursOpen < 0) {
+          hoursOpen += 24; 
+        }
+
+        return {
+          name: service.name,
+          hoursOpen: Math.round(hoursOpen * 10) / 10,
+          openTime,
+          closeTime,
+          type: service.program_type || "Unknown"
+        };
+      })
+      .filter(d => d !== null);
+
+
+      hourData.forEach(service => {
+        const range = hourRanges.find(r => service.hoursOpen >= r.min && service.hoursOpen < r.max);
+        if (range) {
+          range.count++;
+        }
+      });
+
+      const pieData = hourRanges.filter(r => r.count > 0);
+
+      const width = chartRef.current.clientWidth;
+      const height = 400;
+      const radius = Math.min(width, height) / 2.5 - 40;
+
+      const svg = d3.select(chartRef.current)
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${width / 2},${height / 2 + 20})`);
+    
+      svg.append("text")
+        .attr("class", "chart-title")
+        .attr("text-anchor", "middle")
+        .attr("x", 0)
+        .attr("y", -height/2 + 20)
+        .text("Childcare Services by Daily Operating Hours")
+        .style("font-size", "16px")
+        .style("font-weight", "bold")
+        .style("fill", "#333");
+
+      const pie = d3.pie()
+        .value (d => d.count)
+        .sort(null);
+
+      const arc = d3.arc()
+        .innerRadius(radius * 0.4)
+        .outerRadius(radius);
+
+      const labelArc = d3.arc()
+        .innerRadius(radius * 1.1)
+        .outerRadius(radius * 1.1);
+
+      const hoverArc = d3.arc()
+      .innerRadius(radius * 0.35)
+      .outerRadius(radius * 1.05);
+
+      const arcs = svg.selectAll(".arc")
+        .data(pie(pieData))
+        .enter()
+        .append("g")
+        .attr("class", "arc");
+      
+      const defs = svg.append("defs")
+
+      pieData.forEach((d, i) => {
+        const gradientId = `slice-gradient-${i}`;
+        
+        const gradient = defs.append("linearGradient")
+          .attr("id", gradientId)
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "100%");
+          
+        gradient.append("stop")
+          .attr("offset", "0%")
+          .attr("stop-color", d3.rgb(d.color).brighter(0.2));
+          
+        gradient.append("stop")
+          .attr("offset", "100%")
+          .attr("stop-color", d3.rgb(d.color).darker(0.2));
+      });
+
+      arcs.append('path')
+      .attr('d', arc)
+      .attr('fill', (d, i) => `url(#slice-gradient-${i})`)
+      .attr("stroke", "white")
+      .style("stroke-width", "2px")
+      .style("transition", "all 0.3s")
+      .on("mouseover", function(event, d) {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("d", hoverArc)
+          .style("opacity", 1);
+      })
+      .on("mouseout", function() {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("d", arc)
+          .style("opacity", 0.9);
+      })
+      .transition()
+      .duration(1000)
+      .attrTween("d", function(d) {
+        const interpolate = d3.interpolate(
+          { startAngle: d.startAngle, endAngle: d.startAngle },
+          { startAngle: d.startAngle, endAngle: d.endAngle }
+        );
+        return function(t) {
+          return arc(interpolate(t));
+        };
+      });
+    
+    // Add percentage labels inside the donut
+    arcs.append('text')
+      .attr('transform', d => `translate(${arc.centroid(d)})`)
+      .attr('text-anchor', 'middle')
+      .attr('dy', '0.35em')
+      .style('font-size', '13px')
+      .style('font-weight', 'bold')
+      .style('fill', 'white')
+      .style('pointer-events', 'none')
+      .style('opacity', 0)
+      .text(d => {
+        const percentage = Math.round((d.data.count / hourData.length) * 100);
+        return percentage >= 5 ? `${percentage}%` : '';
+      })
+      .transition()
+      .delay(1000)
+      .duration(500)
+      .style('opacity', 1);
+    
+    // Add outside connecting lines and labels for better readability
+    arcs.append('polyline')
+      .attr('points', d => {
+        const pos = labelArc.centroid(d);
+        const midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+        const x = Math.sin(midAngle) * (radius + 20);
+        const y = -Math.cos(midAngle) * (radius + 20);
+        const percentage = Math.round((d.data.count / hourData.length) * 100);
+        return percentage >= 5 ? [arc.centroid(d), labelArc.centroid(d), [x, y]] : [];
+      })
+      .style('fill', 'none')
+      .style('stroke', '#666')
+      .style('stroke-width', 1)
+      .style('opacity', 0)
+      .transition()
+      .delay(1200)
+      .duration(500)
+      .style('opacity', 0.6);
+    
+    arcs.append('text')
+      .attr('transform', d => {
+        const midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+        const x = Math.sin(midAngle) * (radius + 30);
+        const y = -Math.cos(midAngle) * (radius + 30);
+        return `translate(${x}, ${y})`;
+      })
+      .attr('text-anchor', d => {
+        const midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+        return midAngle < Math.PI ? 'start' : 'end';
+      })
+      .attr('dy', '0.35em')
+      .style('font-size', '12px')
+      .style('fill', '#555')
+      .text(d => {
+        const percentage = Math.round((d.data.count / hourData.length) * 100);
+        return percentage >= 5 ? d.data.key : '';
+      })
+      .style('opacity', 0)
+      .transition()
+      .delay(1200)
+      .duration(500)
+      .style('opacity', 1);
+    
+    // Add service text showing total number
+    svg.append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '-0.5em')
+      .style('font-size', '22px')
+      .style('font-weight', 'bold')
+      .style('fill', '#333')
+      .text(hourData.length);
+      
+    svg.append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '1em')
+      .style('font-size', '14px')
+      .style('fill', '#666')
+      .text('Services');
+
   }
 
   //HOUSING
-
   const createHousingChart = (books) => {
     
   }

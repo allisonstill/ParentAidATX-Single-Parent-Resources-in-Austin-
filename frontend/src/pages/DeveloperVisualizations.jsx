@@ -54,8 +54,8 @@ function DeveloperVisualizations() {
             ) : (
                 <div className="visualizations-container">
                     <DeveloperVisualizationCard
-                        title = "Title 1"
-                        description = "Description 1"
+                        title = "Therapists by Interaction Type"
+                        description = "A pie chart distribution of the different 'interaction types' of therapists available: Online, In-Person, or Both."
                         dataType = "therapists"
                         data = {therapists}
                     />

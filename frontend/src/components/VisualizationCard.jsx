@@ -231,22 +231,24 @@ const VisualizationCard = ({ title, description, dataType, data }) => {
 
       const pieData = hourRanges.filter(r => r.count > 0);
 
-      const width = chartRef.current.clientWidth;
-      const height = 400;
-      const radius = Math.min(width, height) / 2.5 - 40;
+      const containerWidth = chartRef.current.clientWidth;
+      const containerHeight = Math.min(400, containerWidth * 0.8);
+      
+      const chartSize = Math.min(containerWidth, containerHeight);
+      const radius = chartSize / 2.2 - 20;
 
       const svg = d3.select(chartRef.current)
         .append("svg")
-        .attr("width", width)
-        .attr("height", height)
+        .attr("width", containerWidth)
+        .attr("height", containerHeight)
         .append("g")
-        .attr("transform", `translate(${width / 2},${height / 2 + 20})`);
+        .attr("transform", `translate(${containerWidth / 2},${containerHeight / 2 + 20})`);
     
       svg.append("text")
         .attr("class", "chart-title")
         .attr("text-anchor", "middle")
         .attr("x", 0)
-        .attr("y", -height/2 + 20)
+        .attr("y", -containerHeight/2)
         .text("Childcare Services by Daily Operating Hours")
         .style("font-size", "16px")
         .style("font-weight", "bold")
@@ -317,15 +319,6 @@ const VisualizationCard = ({ title, description, dataType, data }) => {
       })
       .transition()
       .duration(1000)
-      .attrTween("d", function(d) {
-        const interpolate = d3.interpolate(
-          { startAngle: d.startAngle, endAngle: d.startAngle },
-          { startAngle: d.startAngle, endAngle: d.endAngle }
-        );
-        return function(t) {
-          return arc(interpolate(t));
-        };
-      });
     
     // Add percentage labels inside the donut
     arcs.append('text')
@@ -349,7 +342,6 @@ const VisualizationCard = ({ title, description, dataType, data }) => {
     // Add outside connecting lines and labels for better readability
     arcs.append('polyline')
       .attr('points', d => {
-        const pos = labelArc.centroid(d);
         const midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         const x = Math.sin(midAngle) * (radius + 20);
         const y = -Math.cos(midAngle) * (radius + 20);
@@ -359,10 +351,6 @@ const VisualizationCard = ({ title, description, dataType, data }) => {
       .style('fill', 'none')
       .style('stroke', '#666')
       .style('stroke-width', 1)
-      .style('opacity', 0)
-      .transition()
-      .delay(1200)
-      .duration(500)
       .style('opacity', 0.6);
     
     arcs.append('text')
@@ -383,10 +371,6 @@ const VisualizationCard = ({ title, description, dataType, data }) => {
         const percentage = Math.round((d.data.count / hourData.length) * 100);
         return percentage >= 5 ? d.data.key : '';
       })
-      .style('opacity', 0)
-      .transition()
-      .delay(1200)
-      .duration(500)
       .style('opacity', 1);
     
     // Add service text showing total number

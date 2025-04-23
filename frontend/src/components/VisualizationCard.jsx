@@ -408,12 +408,166 @@ const VisualizationCard = ({ title, description, dataType, data }) => {
   }
 
   //HOUSING
-  const createHousingChart = (books) => {
+  const createHousingChart = (housing) => {
+    const ratingGroups = {};
+    housing.forEach(housingOption => {
+      if (!housingOption.rating) return;
+      const thisRating = Math.round(parseFloat(housingOption.rating) * 2) / 2;
+      ratingGroups[thisRating] = (ratingGroups[thisRating] || 0) + 1;
+    });
+
+    const chartData = Object.entries(ratingGroups)
+      .map(([rating, count]) => ({
+        rating: parseFloat(rating),
+        count
+      }))
+      .sort((a, b) => a.rating - b.rating);
+
+    const margin = { top: 50, right: 60, bottom: 70, left: 60 };
+    const width = chartRef.current.clientWidth - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
+
+    const svg = d3.select(chartRef.current)
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear()
+      .domain([0,5]) //possible ratings
+      .range([0, width]);
+
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(chartData, d => d.count) * 1.1])
+      .range([height, 0]);
+
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", height + margin.bottom - 10)
+      .text("Rating (Stars)")
+      .style("font-size", "14px")
+      .style("fill", "#666");
+      
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -margin.left + 15)
+      .attr("x", -height / 2)
+      .text("Number of Housing Options")
+      .style("font-size", "14px")
+      .style("fill", "#666");
+
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x).tickValues([0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]).tickFormat(d3.format(".1f")))
+      .selectAll("text")
+      .attr("font-size", "12px")
+      .style("text-anchor", "middle");
     
-  }
+    svg.append("g")
+      .call(d3.axisLeft(y))
+      .selectAll("text")
+      .attr("font-size", "12px");
 
- 
+    svg.selectAll("y-grid")
+      .data(y.ticks(5))
+      .enter()
+      .append("line")
+      .attr("class", "grid-line")
+      .attr("x1", 0)
+      .attr("x2", width)
+      .attr("y1", d => y(d))
+      .attr("y2", d => y(d))
+      .style("stroke", "#e5e5e5")
+      .style("stroke-dasharray", "3,3")
+      .style("stroke-width", 1);
+    
+    const line = d3.line()
+      .x(d => x(d.rating))
+      .y(d => y(d.count))
+      .curve(d3.curveMonotoneX);
+    
+    const path = svg.append("path")
+      .datum(chartData)
+      .attr("fill", "none")
+      .attr("stroke", "#ff7e21")
+      .attr("stroke-width", 3)
+      .attr("stroke-linecap", "round")
+      .attr("stroke-linejoin", "round")
+      .attr("d", line);
+    
+    const pathLength = path.node().getTotalLength();
+    
+    path
+      .attr("stroke-dasharray", pathLength + " " + pathLength)
+      .attr("stroke-dashoffset", pathLength)
+      .transition()
+      .duration(1500)
+      .ease(d3.easeLinear)
+      .attr("stroke-dashoffset", 0);
+    
+    svg.selectAll(".dot")
+      .data(chartData)
+      .enter()
+      .append("circle")
+      .attr("class", "dot")
+      .attr("cx", d => x(d.rating))
+      .attr("cy", d => y(d.count))
+      .attr("r", 0)
+      .attr("fill", "#ff7e21")
+      .attr("stroke", "white")
+      .attr("stroke-width", 2)
+      .on("mouseover", function(event, d) {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("r", 8)
+          .attr("fill", "#ff5e00");
+      })
+      .on("mouseout", function() {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("r", 6)
+          .attr("fill", "#ff7e21");
+      })
+      .transition()
+      .duration(1500)
+      .delay((d, i) => 1500 + i * 100)
+      .attr("r", 6);
 
+    svg.selectAll(".value-label")
+      .data(chartData)
+      .enter()
+      .append("text")
+      .attr("class", "value-label")
+      .attr("x", d => x(d.rating))
+      .attr("y", d => y(d.count) - 15)
+      .attr("text-anchor", "middle")
+      .text(d => d.count)
+      .style("font-size", "12px")
+      .style("font-weight", "bold")
+      .style("fill", "#444")
+      .style("opacity", 0)
+      .transition()
+      .duration(800)
+      .delay((d, i) => 1800 + i * 100)
+      .style("opacity", 1);
+    
+    // Chart title
+    svg.append("text")
+      .attr("class", "chart-title")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", -30)
+      .text("Housing Options by Star Rating")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .style("fill", "#333");
+      
+  };
 
   
   return (

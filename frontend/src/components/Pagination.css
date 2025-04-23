@@ -1,0 +1,107 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pagination a {
+    color: #fca46c !important;
+    text-decoration: none;
+  }
+  
+  .pagination span {
+    color: #fca46c;
+  }
+  
+  .page-item {
+    margin: 0;
+    transition: all 0.3s ease;
+    color: #fca46c;
+  }
+  
+  .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0.5rem 0.75rem;
+    color: #fca46c;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+  }
+  
+  .page-link:hover {
+    background-color: #fce7a7;
+    color: #e67e22;
+    border-color: #fce7a7;
+  }
+  
+  .page-item.active .page-link {
+    background-color: #fce7a7;
+    color: white;
+    border-color: #fce7a7;
+    font-weight: 600;
+  }
+  
+  .page-item.disabled .page-link {
+    color: #ffd3b0;
+    background-color: #f8fafc;
+    cursor: not-allowed;
+  }
+  
+  .page-item:first-child .page-link {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+  
+  .page-item:last-child .page-link {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  
+  h4.page-item {
+    font-family: 'Inter', sans-serif;
+    color: #fcb454;
+    font-size: 0.95rem;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+  
+  .page-item a.page-link,
+  .page-item span.page-link {
+    color: #fca46c;
+  }
+  
+  .page-item:first-child .page-link:hover,
+  .page-item:last-child .page-link:hover {
+    background-color: #fce7a7;
+    color: #e67e22;
+  }
+  
+  @media (max-width: 576px) {
+    .pagination {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .page-link {
+      min-width: 35px;
+      height: 35px;
+      padding: 0.4rem;
+      font-size: 0.9rem;
+    }
+    
+    h4.page-item {
+      font-size: 0.85rem;
+    }
+  }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapPin, Building, Link, ArrowLeft, Landmark, Star} from 'lucide-react';
+import { MapPin, Building, Link, ArrowLeft, Landmark, Star, Phone } from 'lucide-react';
 import './HousingComplex.css';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import BookCard from '../components/bookCard';
@@ -103,6 +103,15 @@ const HousingComplex = () => {
             </div>
         </div>
     );
+    const FeatureCard1 = ({ icon: Icon, label, value }) => (
+        <div className="feature-card1">
+            <Icon className="feature-icon" size={20} />
+            <div className="feature-content">
+                <p>{label}</p>
+                <p>{value}</p>
+            </div>
+        </div>
+    );
     if (loading) {
         return (
             <div className="housingComplex-container">
@@ -165,8 +174,6 @@ const HousingComplex = () => {
         }
         return tempString;
 
-        return hoursString;
-
     }
 
     return (
@@ -178,11 +185,11 @@ const HousingComplex = () => {
                             See All Housing
                     </RouterLink>
                 </div>
-                <div className="image-gallery">
+                <div className="image-container">
                     <img
                         src={housing.photo}
-                        alt={housing.name} 
-                        className="gallery-image"
+                        alt={housing.name}
+                        className="single-image"
                     />
                 </div>
 
@@ -192,7 +199,7 @@ const HousingComplex = () => {
                         <div>
                             <h1 className="housingComplex-title">{housing.name}</h1>
                             <div className="address">
-                                <MapPin size={16} />
+                                <MapPin size={20} />
                                 <p>{housing.address}</p>
                             </div>
                             <div className="rating">
@@ -214,10 +221,15 @@ const HousingComplex = () => {
                     </div>
 
                     <div className="features-grid">
-                        <FeatureCard 
+                        <FeatureCard1
                             icon={Building}
                             label="Property Type"
                             value="Apartments"
+                        />
+                        <FeatureCard1
+                            icon={Phone}
+                            label="Phone Number"
+                            value={housing.phone_number}
                         />
                         <FeatureCard 
                             icon={Landmark}
@@ -238,8 +250,8 @@ const HousingComplex = () => {
                     </div>
                 </div>
                 <div className="related-resources-section">
-                    <h2 className="section-title">Related Resources</h2>
-                    <div className="cards-container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <h2 className="section-title" style={{marginLeft: '1.5rem'}}>Related Resources</h2>
+                    <div className="cards-container" style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <div style={{ width: '350px' }}>
                         {randomChildCare ? (
                             <ChildCard 

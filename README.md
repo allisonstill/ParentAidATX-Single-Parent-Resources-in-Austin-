@@ -91,7 +91,7 @@ Other potential sources:
 
 ### Phase 4:
 
-- Git SHA: 
+- Git SHA:
 
 - Phase Leader(s):
 
@@ -99,11 +99,11 @@ Other potential sources:
 
 | Team Member   | Estimate Time | Actual Time |
 | ------------- | ------------- | ----------- |
-| Andrew Harvey |  4 hours      |  4 hours    |
-| Rubi Rojas    |    hours      |    hours    |
-| Allison Still |  6 hours      |  6 hours    |
-| Amna Ali      |    hours      |    hours    |
-| Ethan Yu      |    hours      |    hours    |
+| Andrew Harvey | 4 hours       | 4 hours     |
+| Rubi Rojas    | hours         | hours       |
+| Allison Still | 6 hours       | 6 hours     |
+| Amna Ali      | hours         | hours       |
+| Ethan Yu      | 5 hours       | 5 hours     |
 
 ## Models
 

@@ -91,9 +91,9 @@ Other potential sources:
 
 ### Phase 4:
 
-- Git SHA:
+- Git SHA: 
 
-- Phase Leader(s):
+- Phase Leader(s): Rubi Rojas
 
 - Phase Leader Responsibilities: Team Coordination, set meeting times, lead development on frontend and backend, ensure tasks are completed
 

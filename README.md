@@ -84,10 +84,26 @@ Other potential sources:
 | Team Member   | Estimate Time | Actual Time |
 | ------------- | ------------- | ----------- |
 | Andrew Harvey | 15 hours      | 20 hours    |
-| Rubi Rojas    | 11 hours      | 20 hours       |
+| Rubi Rojas    | 11 hours      | 20 hours    |
 | Allison Still | 10 hours      | 20 hours    |
 | Amna Ali      | 10 hours      | 20 hours    |
 | Ethan Yu      | 12 hours      | 20 hours    |
+
+### Phase 4:
+
+- Git SHA: 
+
+- Phase Leader(s):
+
+- Phase Leader Responsibilities: Team Coordination, set meeting times, lead development on frontend and backend, ensure tasks are completed
+
+| Team Member   | Estimate Time | Actual Time |
+| ------------- | ------------- | ----------- |
+| Andrew Harvey |    hours      |    hours    |
+| Rubi Rojas    |    hours      |    hours    |
+| Allison Still |  6 hours      |  6 hours    |
+| Amna Ali      |    hours      |    hours    |
+| Ethan Yu      |    hours      |    hours    |
 
 ## Models
 

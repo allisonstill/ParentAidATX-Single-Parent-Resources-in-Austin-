@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import "./Pagination.css"
 
 const Pagination = ({ totalPages, currentPage, onPageChange, totalItems, url }) => {
     const itemsPerPage = 3; // Ensure 3 items per page

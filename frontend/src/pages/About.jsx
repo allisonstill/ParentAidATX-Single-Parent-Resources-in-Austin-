@@ -81,7 +81,78 @@ function About() {
         making it easier for single parents to access support resources. With so much to juggle, navigating hundreds of
         housing options and childcare services can be overwhelming and time-consuming for single parents.
         We aim to simplify this process by consolidating the most useful resources into a single, accessible website.</p>
+        <div className="self-critique-section mt-5 p-4 border-top">
+        <h2 className="mb-4">Critique & Reflection</h2>
+        <h4>Self Critique</h4>
+        <div className="space-y-4">
+            <div>
+              <strong>What did they do well?</strong><br />
+              answer
+            </div>
+
+            <div>
+              <strong>How effective was their RESTful API?</strong><br />
+              answer
+            </div>
+
+            <div>
+              <strong>How well did they implement your user stories?</strong><br />
+              answer
+            </div>
+
+            <div>
+              <strong>What did we learn from their website?</strong><br />
+              answer
+            </div>
+
+            <div>
+              <strong>What can they do better?</strong><br />
+              answer
+            </div>
+
+            <div>
+              <strong>What puzzles us about their website?</strong><br />
+              answer
+            </div>
+          </div>
+
+        <h4 className="d-flex align-items-center gap-3 justify-content-start">UTherapy Critique
+        </h4>
+        <div className="space-y-4">
+          <div>
+            <strong>What did they do well?</strong><br />
+            The team did an excellent job implementing a wide range of filtering and sorting options, which made navigating the website efficient and user-friendly. Keeping the search bar consistently at the top of every page was a thoughtful and practical design choice. Additionally, the visual theme was well-aligned with the topic and enhanced the overall user experience. Their attention to design details demonstrated a clear commitment to creating a polished and professional product.
+          </div>
+
+          <div>
+            <strong>How effective was their RESTful API?</strong><br />
+            Their RESTful API was highly effective—clear, easy to navigate, and functionally sound. We experienced no technical difficulties while accessing data, and the structure made it intuitive to interact with.
+          </div>
+
+          <div>
+            <strong>How well did they implement your user stories?</strong><br />
+            They were proactive and responsive in implementing the user stories. Throughout the semester, they consistently contributed suggestions and maintained strong communication with us whenever questions or concerns arose. Their collaborative approach was much appreciated.
+          </div>
+
+          <div>
+            <strong>What did we learn from their website?</strong><br />
+            As fellow students, we gained valuable insight into the variety of mental health resources available. Additionally, the site reinforced the importance of thoughtful web design in engaging users and delivering information effectively.
+          </div>
+
+          <div>
+            <strong>What can they do better?</strong><br />
+            While the overall experience was impressive, we recommend limiting the number of related instances displayed on each instance page. In some cases, the pages felt overly long. Adjusting the size of the related instance cards could also improve visual balance and usability.
+          </div>
+
+          <div>
+            <strong>What puzzles us about their website?</strong><br />
+            We were curious about the rationale behind including so many related instances for certain clinics. It wasn’t always clear why those connections were emphasized, which made some sections feel cluttered or overwhelming.
+          </div>
+        </div>
+
+      </div>
     </div>
+      
   );
 }
 

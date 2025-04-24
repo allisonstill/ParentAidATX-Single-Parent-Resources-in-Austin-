@@ -102,7 +102,7 @@ Other potential sources:
 | Andrew Harvey | 4 hours       | 4 hours     |
 | Rubi Rojas    | hours         | hours       |
 | Allison Still | 6 hours       | 6 hours     |
-| Amna Ali      | hours         | hours       |
+| Amna Ali      | 5 hours       | 4 hours     |
 | Ethan Yu      | 5 hours       | 5 hours     |
 
 ## Models

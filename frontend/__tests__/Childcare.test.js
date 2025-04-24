@@ -7,6 +7,7 @@ import "@testing-library/jest-dom";
 jest.mock("../src/pages/Childcare.css", () => ({}));
 jest.mock("../src/pages/Search.css", () => ({}));
 jest.mock("../src/components/childCard.css", () => ({}));
+jest.mock("../src/components/Pagination.css", () => ({}));
 
 // Mock ChildCard component for simplified rendering
 jest.mock("../src/components/childCard.jsx", () => (props) => {

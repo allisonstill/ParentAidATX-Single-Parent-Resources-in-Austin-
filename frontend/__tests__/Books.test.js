@@ -7,6 +7,7 @@ import "@testing-library/jest-dom";
 jest.mock("../src/pages/Books.css", () => ({}));
 jest.mock("../src/pages/Search.css", () => ({}));
 jest.mock("../src/components/bookCard.css", () => ({}));
+jest.mock("../src/components/Pagination.css", () => ({}));
 
 // Mock BookCard
 jest.mock("../src/components/bookCard.jsx", () => (props) => {
